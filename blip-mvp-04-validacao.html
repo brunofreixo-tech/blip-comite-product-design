@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Blip — Protótipo MVP-04</title>
+
+  <!-- Favicon: mascote Blip em SVG inline (32x32) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='18' rx='10' ry='11' fill='%23F97316'/%3E%3Cellipse cx='12' cy='19' rx='3.5' ry='4' fill='%23FED7AA'/%3E%3Cellipse cx='20' cy='19' rx='3.5' ry='4' fill='%23FED7AA'/%3E%3Cellipse cx='16' cy='22' rx='6' ry='4.5' fill='%23FED7AA'/%3E%3Cellipse cx='10' cy='8' rx='3.5' ry='4.5' fill='%23F97316'/%3E%3Cellipse cx='22' cy='8' rx='3.5' ry='4.5' fill='%23F97316'/%3E%3Cellipse cx='16' cy='13' rx='9' ry='9.5' fill='%23F97316'/%3E%3Cellipse cx='12.5' cy='12' rx='2.8' ry='3.2' fill='white'/%3E%3Cellipse cx='19.5' cy='12' rx='2.8' ry='3.2' fill='white'/%3E%3Ccircle cx='13.2' cy='12.5' r='1.6' fill='%231A1040'/%3E%3Ccircle cx='20.2' cy='12.5' r='1.6' fill='%231A1040'/%3E%3Ccircle cx='13.8' cy='11.9' r='.6' fill='white'/%3E%3Ccircle cx='20.8' cy='11.9' r='.6' fill='white'/%3E%3Cellipse cx='11.5' cy='14.5' rx='2' ry='1.2' fill='%23f97316' opacity='.5'/%3E%3Cellipse cx='20.5' cy='14.5' rx='2' ry='1.2' fill='%23f97316' opacity='.5'/%3E%3Cpath d='M13.5 17 Q16 19 18.5 17' stroke='%231A1040' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { fredoka: ['Fredoka', 'sans-serif'] },
+          colors: {
+            blip: {
+              orange:  '#F97316',
+              night:   '#1A1040',
+              peach:   '#FED7AA',
+              gold:    '#FBBF24',
+              mint:    '#10B981',
+              violet:  '#A78BFA',
+              offwhite:'#F8F7FF',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* ── Variáveis CSS Blip Brandbook v3 ──────────────────── */
+    :root {
+      --blip-orange:  #F97316;
+      --blip-green:   #10B981;
+      --blip-yellow:  #FBBF24;
+      --blip-purple:  #A78BFA;
+      --blip-deep:    #1A1040;
+      --blip-white:   #F8F7FF;
+      /* complementares do brandbook */
+      --blip-peach:   #FED7AA;
+      --blip-night:   #1A1040;
+    }
+
+    /* ── Reset & base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Fredoka', sans-serif;
+      background: var(--blip-deep);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px 16px 40px;
+    }
+
+    /* ── Shell do dispositivo ──────────────────────────── */
+    .device-shell {
+      width: 390px;
+      min-height: 844px;
+      background: var(--blip-white);
+      border-radius: 48px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5), inset 0 0 0 2px rgba(255,255,255,0.15);
+      position: relative;
+    }
+    .screen { display: none; width: 100%; min-height: 844px; flex-direction: column; }
+    .screen.active { display: flex; }
+
+    /* ── Nav de telas (fora do device) ─────────────────── */
+    .screen-nav {
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 20px; max-width: 500px;
+    }
+    .screen-nav button {
+      background: rgba(255,255,255,0.12); color: #fff;
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
+      padding: 6px 14px; font-family: 'Fredoka', sans-serif;
+      font-size: 13px; cursor: pointer; transition: all .2s;
+    }
+    .screen-nav button:hover, .screen-nav button.active {
+      background: var(--blip-orange); border-color: var(--blip-orange);
+    }
+    .label-proto {
+      color: rgba(255,255,255,.5); font-size: 11px;
+      text-align: center; margin-bottom: 8px;
+      font-family: 'Fredoka', sans-serif; letter-spacing: .5px;
+    }
+
+    /* ── Header Blip ───────────────────────────────────── */
+    .blip-header-parent {
+      height: 56px;
+      background: linear-gradient(135deg, var(--blip-orange) 0%, #ea580c 100%);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; flex-shrink: 0;
+    }
+    .blip-header-child {
+      height: 72px;
+      background: linear-gradient(135deg, var(--blip-orange) 0%, #ea580c 100%);
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 16px; flex-shrink: 0;
+    }
+
+    /* ── Logo Blip — mascote mini SVG + wordmark Fredoka Bold ── */
+    .blip-logo {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .blip-logo .wordmark {
+      color: #fff;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+      line-height: 1;
+      /* O ponto laranja de assinatura do brandbook */
+      position: relative;
+    }
+    .blip-logo .wordmark::after {
+      content: '';
+      display: inline-block;
+      width: 5px; height: 5px;
+      background: #fff;
+      border-radius: 50%;
+      margin-left: 2px;
+      vertical-align: super;
+      opacity: .9;
+    }
+    .header-greeting { color: rgba(255,255,255,.85); font-size: 13px; }
+
+    /* ── Body scroll ────────────────────────────────────── */
+    .screen-body {
+      flex: 1; overflow-y: auto; padding: 16px;
+      background: var(--blip-white);
+    }
+    .screen-body.dark { background: var(--blip-deep); }
+
+    /* ── Cards ──────────────────────────────────────────── */
+    .card {
+      background: #fff; border-radius: 16px;
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      margin-bottom: 12px; overflow: hidden;
+    }
+    .card-body { padding: 16px; }
+
+    /* ── Botões ─────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 12px; padding: 10px 18px;
+      font-family: 'Fredoka', sans-serif; font-size: 15px; font-weight: 600;
+      cursor: pointer; border: none; transition: all .2s; text-decoration: none;
+    }
+    .btn-primary { background: var(--blip-orange); color: #fff; }
+    .btn-primary:hover { background: #ea580c; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: var(--blip-orange);
+      border: 1.5px solid var(--blip-orange);
+    }
+    .btn-outline:hover { background: var(--blip-peach); }
+    .btn-sm { padding: 6px 12px; font-size: 13px; border-radius: 8px; }
+    .btn-ghost { background: transparent; color: #6b7280; border: 1px solid #e5e7eb; }
+    .btn-ghost:hover { background: #f3f4f6; }
+    .btn-mint { background: var(--blip-green); color: #fff; }
+    .btn-violet { background: var(--blip-purple); color: #fff; }
+
+    /* ── Barra de progresso ──────────────────────────────── */
+    .progress-bar-wrap {
+      background: rgba(0,0,0,.08); border-radius: 999px; overflow: hidden; height: 10px;
+    }
+    .progress-bar-fill {
+      height: 100%; border-radius: 999px; transition: width .6s ease;
+    }
+
+    /* ── Badge ───────────────────────────────────────────── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+    }
+    .badge-orange { background: var(--blip-peach); color: #ea580c; }
+    .badge-mint { background: #D1FAE5; color: #065f46; }
+    .badge-gold { background: #FEF3C7; color: #92400e; }
+    .badge-violet { background: #EDE9FE; color: #5b21b6; }
+
+    /* ── Task Card ───────────────────────────────────────── */
+    .task-card {
+      background: #fff; border-radius: 16px; padding: 14px 14px 12px;
+      border: 1.5px solid #e5e7eb; margin-bottom: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      transition: box-shadow .2s;
+    }
+    .task-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+    .task-card.pequenino {
+      border-radius: 20px; border-color: var(--blip-peach);
+      background: linear-gradient(135deg, #fff 60%, #fff9f0 100%);
+    }
+    .task-card.aventureiro {
+      border-radius: 16px; border-color: #DDD6FE;
+      background: linear-gradient(135deg, #fff 60%, #f5f3ff 100%);
+    }
+
+    /* Mood buttons */
+    .mood-btn {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 2px; padding: 8px 10px; border-radius: 12px;
+      background: #f3f4f6; border: 2px solid transparent;
+      cursor: pointer; transition: all .2s; font-family: 'Fredoka', sans-serif;
+    }
+    .mood-btn:hover { background: var(--blip-peach); border-color: var(--blip-orange); }
+    .mood-btn.selected-happy { background: #D1FAE5; border-color: var(--blip-green); }
+    .mood-btn.selected-medium { background: #FEF3C7; border-color: var(--blip-yellow); }
+    .mood-btn.selected-sad { background: #FFE4E6; border-color: #f43f5e; }
+    .mood-btn .emoji-lg { font-size: 28px; }
+    .mood-btn .emoji-sm { font-size: 20px; }
+    .mood-btn .pts { font-size: 11px; color: #6b7280; font-weight: 500; }
+
+    /* ── Piccolo mood card ──────────────────────────────── */
+    .mood-card-pequenino {
+      background: linear-gradient(135deg, #FFF3E8 0%, #FFF 100%);
+      border-radius: 24px; padding: 20px 16px;
+      border: 2px solid var(--blip-peach); margin-bottom: 12px;
+      animation: slideUp .3s ease;
+    }
+    .mood-card-aventureiro {
+      background: #fff; border-radius: 16px; padding: 14px;
+      border: 1.5px solid #DDD6FE; margin-bottom: 10px;
+      animation: slideUp .25s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Selector emocional ─────────────────────────────── */
+    .feeling-selector { display: flex; gap: 10px; justify-content: center; margin: 12px 0; }
+    .feeling-btn {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 12px 14px; border-radius: 16px; border: 2.5px solid transparent;
+      background: #f9fafb; cursor: pointer; transition: all .25s;
+      font-family: 'Fredoka', sans-serif; flex: 1;
+    }
+    .feeling-btn .emoji { transition: transform .2s; }
+    .feeling-btn:hover .emoji { transform: scale(1.15); }
+
+    .feeling-btn.size-lg .emoji { font-size: 44px; }
+    .feeling-btn.size-lg .label { font-size: 14px; font-weight: 600; color: #374151; }
+
+    .feeling-btn.size-sm .emoji { font-size: 28px; }
+    .feeling-btn.size-sm .label { font-size: 12px; font-weight: 500; color: #6b7280; }
+
+    .feeling-btn.active-bem    { background: #D1FAE5; border-color: var(--blip-green); }
+    .feeling-btn.active-medio  { background: #FEF3C7; border-color: var(--blip-yellow); }
+    .feeling-btn.active-nao    { background: #FFE4E6; border-color: #f43f5e; }
+    .feeling-btn:not(.active-bem):not(.active-medio):not(.active-nao):hover {
+      background: var(--blip-peach); border-color: var(--blip-orange);
+    }
+
+    /* ── Toggle perfil ──────────────────────────────────── */
+    .toggle-group {
+      display: flex; background: #e5e7eb; border-radius: 10px; padding: 3px; gap: 2px;
+      margin-bottom: 16px;
+    }
+    .toggle-btn {
+      flex: 1; padding: 7px; border-radius: 7px; font-size: 13px; font-weight: 600;
+      font-family: 'Fredoka', sans-serif; cursor: pointer; border: none;
+      background: transparent; color: #6b7280; transition: all .2s;
+    }
+    .toggle-btn.active { background: var(--blip-orange); color: #fff; box-shadow: 0 2px 8px rgba(249,115,22,.3); }
+
+    /* ── Celebration overlay ────────────────────────────── */
+    .celebration-overlay {
+      position: absolute; inset: 0; display: none;
+      flex-direction: column; align-items: center; justify-content: center;
+      background: rgba(26,16,64,.7); backdrop-filter: blur(4px);
+      z-index: 50; border-radius: 48px;
+    }
+    .celebration-overlay.active { display: flex; }
+    .celebration-card {
+      background: linear-gradient(135deg, var(--blip-orange) 0%, var(--blip-yellow) 100%);
+      border-radius: 28px; padding: 32px 28px; text-align: center;
+      box-shadow: 0 20px 60px rgba(249,115,22,.4);
+      animation: bounceIn .4s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes bounceIn {
+      from { opacity: 0; transform: scale(.6); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ── Mascote — animações ────────────────────────────── */
+    @keyframes mascotBounce {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50%       { transform: translateY(-10px) rotate(3deg); }
+    }
+    @keyframes mascotCelebrate {
+      0%, 100% { transform: translateY(0) scale(1) rotate(-5deg); }
+      30%       { transform: translateY(-14px) scale(1.08) rotate(5deg); }
+      60%       { transform: translateY(-6px) scale(1.04) rotate(-3deg); }
+    }
+    .mascot-idle      { animation: mascotBounce 3s ease infinite; }
+    .mascot-celebrate { animation: mascotCelebrate 1s ease infinite; }
+    .mascot-curious   { animation: mascotBounce 2.5s ease infinite; }
+
+    /* ── Confete ────────────────────────────────────────── */
+    .confetti-piece {
+      position: absolute; width: 8px; height: 8px; border-radius: 2px;
+      animation: confettiFall 2.5s ease-in forwards;
+      top: -10px;
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(900px) rotate(720deg); opacity: 0; }
+    }
+
+    /* ── Review panel ───────────────────────────────────── */
+    .review-panel {
+      border: 2px solid var(--blip-orange); border-radius: 16px;
+      background: linear-gradient(135deg, #FFF7ED 0%, #fff 100%);
+      overflow: hidden; margin-bottom: 12px;
+    }
+    .review-header {
+      background: linear-gradient(135deg, var(--blip-orange) 0%, #ea580c 100%);
+      padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .review-task-item {
+      padding: 14px 16px; border-bottom: 1px solid #f3f4f6;
+    }
+    .review-task-item:last-child { border-bottom: none; }
+    .feeling-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+    }
+    .feeling-chip.bem   { background: #D1FAE5; color: #065f46; }
+    .feeling-chip.medio { background: #FEF3C7; color: #92400e; }
+    .feeling-chip.nao   { background: #FFE4E6; color: #be123c; }
+
+    /* ── Weekly score card ──────────────────────────────── */
+    .score-card {
+      background: linear-gradient(135deg, #FFF7ED 0%, #fff 100%);
+      border: 1.5px solid var(--blip-peach); border-radius: 16px; padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    /* ── Accordion day ──────────────────────────────────── */
+    .day-section { margin-bottom: 8px; }
+    .day-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border-radius: 12px; background: #fff;
+      border: 1.5px solid #e5e7eb; cursor: pointer; transition: all .2s;
+    }
+    .day-header:hover { border-color: var(--blip-orange); background: #FFF7ED; }
+    .day-header.open  { border-color: var(--blip-orange); background: #FFF7ED; border-radius: 12px 12px 0 0; }
+    .day-tasks {
+      display: none; background: #fff;
+      border: 1.5px solid var(--blip-orange); border-top: none;
+      border-radius: 0 0 12px 12px; padding: 10px;
+    }
+    .day-tasks.open { display: block; }
+
+    /* ── Section title ──────────────────────────────────── */
+    .section-title {
+      font-size: 13px; font-weight: 600; color: #9ca3af;
+      text-transform: uppercase; letter-spacing: .8px;
+      margin: 12px 0 8px;
+    }
+
+    /* ── Child profile card ──────────────────────────────── */
+    .child-profile-card {
+      border-radius: 20px; padding: 14px 16px;
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 12px;
+    }
+    .child-profile-card.pequenino {
+      background: linear-gradient(135deg, #FFF3E8 0%, #FFF 100%);
+      border: 2px solid var(--blip-peach);
+    }
+    .child-profile-card.aventureiro {
+      background: linear-gradient(135deg, #EDE9FE 0%, #FFF 100%);
+      border: 2px solid var(--blip-purple);
+    }
+
+    /* ── Mascote bubble (fala) ──────────────────────────── */
+    .mascot-bubble {
+      background: #fff; border-radius: 16px; padding: 12px 14px;
+      border: 1.5px solid var(--blip-peach); position: relative; margin-bottom: 12px;
+    }
+    .mascot-bubble::before {
+      content: ''; position: absolute; top: -8px; left: 24px;
+      width: 0; height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid var(--blip-peach);
+    }
+    .mascot-bubble::after {
+      content: ''; position: absolute; top: -6px; left: 25px;
+      width: 0; height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 7px solid #fff;
+    }
+
+    /* ── Animação de entrada do selector emocional ──────── */
+    .emotional-selector-enter {
+      animation: selectorEnter .35s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes selectorEnter {
+      from { opacity: 0; transform: scale(.85) translateY(10px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* ── Skip button ────────────────────────────────────── */
+    .skip-btn {
+      background: none; border: none; color: #9ca3af; font-family: 'Fredoka', sans-serif;
+      font-size: 13px; cursor: pointer; padding: 4px 8px; border-radius: 6px;
+    }
+    .skip-btn:hover { color: #6b7280; background: #f3f4f6; }
+
+    /* ── Divider ────────────────────────────────────────── */
+    .divider { height: 1px; background: #f3f4f6; margin: 10px 0; }
+
+    /* ── Stars ──────────────────────────────────────────── */
+    .stars { display: flex; gap: 2px; }
+    .star { color: var(--blip-yellow); font-size: 11px; }
+
+    /* ── Parent grid ────────────────────────────────────── */
+    .child-col-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px; background: linear-gradient(135deg, var(--blip-orange) 0%, #ea580c 100%);
+      border-radius: 14px 14px 0 0;
+    }
+    .child-col-body { padding: 14px; }
+
+    /* ── Scrollbar thin ─────────────────────────────────── */
+    .screen-body::-webkit-scrollbar { width: 4px; }
+    .screen-body::-webkit-scrollbar-track { background: transparent; }
+    .screen-body::-webkit-scrollbar-thumb { background: var(--blip-peach); border-radius: 4px; }
+
+    /* ── Chip de sentimento inline na review ─────────────── */
+    .review-feeling-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; background: #f9fafb; border-radius: 10px;
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     PROTOTIPO — Blip MVP v0.4 — Validação com Bruno
+     Gerado por @agent-ux-missao-da-semana em 2026-04-01
+     Mascote SVG baseado no BrandBook v3 — substituir pelo
+     asset oficial vetorial após due diligence jurídica
+     ═══════════════════════════════════════════════════════ -->
+
+<!-- ── SVG do mascote Blip — 3 estados ──────────────────────
+     Construído a partir da anatomia descrita no BrandBook v3:
+     - Cabeça grande (~55% da altura total)
+     - Corpo oval orgânico com barriga pêssego (#FED7AA)
+     - Orelhas arredondadas, posicionadas lateralmente
+     - Olhos grandes e expressivos (elemento dominante)
+     - Bochechas pêssego caloroso
+     - Boca dentro da cabeça
+     - Braços curvos e suaves
+     NOTA JURÍDICA: substituir pelo SVG oficial após due
+     diligence com advogado de PI (pernas vs Stitch/Disney,
+     nome Blip vs Blippi/Moonbug).
+     ─────────────────────────────────────────────────────── -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+
+    <!-- ── ESTADO 1: Neutro/Feliz (uso padrão) ───────────── -->
+    <symbol id="mascote-feliz" viewBox="0 0 120 160">
+      <!-- Pernas -->
+      <ellipse cx="43" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="77" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="43" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="77" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+
+      <!-- Corpo oval -->
+      <ellipse cx="60" cy="122" rx="36" ry="38" fill="#F97316"/>
+      <!-- Barriga pêssego -->
+      <ellipse cx="60" cy="128" rx="22" ry="24" fill="#FED7AA"/>
+
+      <!-- Braços relaxados -->
+      <ellipse cx="20" cy="110" rx="11" ry="8" fill="#F97316" transform="rotate(-30 20 110)"/>
+      <ellipse cx="100" cy="110" rx="11" ry="8" fill="#F97316" transform="rotate(30 100 110)"/>
+
+      <!-- Orelhas laterais na cabeça -->
+      <ellipse cx="22" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="98" cy="64" rx="13" ry="16" fill="#F97316"/>
+
+      <!-- Cabeça grande (~55% altura total) -->
+      <ellipse cx="60" cy="74" rx="44" ry="46" fill="#F97316"/>
+
+      <!-- Olhos brancos — grandes e expressivos -->
+      <ellipse cx="43" cy="68" rx="14" ry="16" fill="white"/>
+      <ellipse cx="77" cy="68" rx="14" ry="16" fill="white"/>
+
+      <!-- Pupilas -->
+      <circle cx="45" cy="70" r="8" fill="#1A1040"/>
+      <circle cx="79" cy="70" r="8" fill="#1A1040"/>
+
+      <!-- Brilhos dos olhos -->
+      <circle cx="48" cy="66" r="3" fill="white"/>
+      <circle cx="82" cy="66" r="3" fill="white"/>
+
+      <!-- Bochechas pêssego -->
+      <ellipse cx="30" cy="82" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+      <ellipse cx="90" cy="82" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+
+      <!-- Boca sorrindo (dentro da cabeça) -->
+      <path d="M48 90 Q60 100 72 90" stroke="#1A1040" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- ── ESTADO 2: Celebrando (tela 5) ─────────────────── -->
+    <symbol id="mascote-celebrando" viewBox="0 0 120 160">
+      <!-- Pernas -->
+      <ellipse cx="43" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="77" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="43" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="77" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+
+      <!-- Corpo oval -->
+      <ellipse cx="60" cy="120" rx="36" ry="38" fill="#F97316"/>
+      <!-- Barriga pêssego -->
+      <ellipse cx="60" cy="126" rx="22" ry="24" fill="#FED7AA"/>
+
+      <!-- Braços ERGUIDOS na celebração — brandbook: "erguidos na celebração" -->
+      <ellipse cx="16" cy="88" rx="11" ry="8" fill="#F97316" transform="rotate(-70 16 88)"/>
+      <ellipse cx="104" cy="88" rx="11" ry="8" fill="#F97316" transform="rotate(70 104 88)"/>
+
+      <!-- Orelhas laterais -->
+      <ellipse cx="22" cy="60" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="98" cy="60" rx="13" ry="16" fill="#F97316"/>
+
+      <!-- Cabeça grande -->
+      <ellipse cx="60" cy="70" rx="44" ry="46" fill="#F97316"/>
+
+      <!-- Olhos fechados em arco (alegria máxima) -->
+      <path d="M30 66 Q43 56 56 66" stroke="#1A1040" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M64 66 Q77 56 90 66" stroke="#1A1040" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+      <!-- Bochechas mais coradas na celebração -->
+      <ellipse cx="28" cy="78" rx="12" ry="8" fill="#FED7AA" opacity="0.9"/>
+      <ellipse cx="92" cy="78" rx="12" ry="8" fill="#FED7AA" opacity="0.9"/>
+
+      <!-- Boca bem aberta / sorriso largo -->
+      <path d="M42 88 Q60 104 78 88" stroke="#1A1040" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+      <!-- Estrelinhas ao redor -->
+      <text x="8" y="30" font-size="14" fill="#FBBF24">✦</text>
+      <text x="98" y="28" font-size="14" fill="#FBBF24">✦</text>
+      <text x="4" y="60" font-size="10" fill="#10B981">✦</text>
+      <text x="106" y="58" font-size="10" fill="#10B981">✦</text>
+    </symbol>
+
+    <!-- ── ESTADO 3: Curioso/Perguntando (tela 3 — autoavaliação) ── -->
+    <symbol id="mascote-curioso" viewBox="0 0 120 160">
+      <!-- Pernas -->
+      <ellipse cx="43" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="77" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="43" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="77" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+
+      <!-- Corpo oval ligeiramente inclinado -->
+      <ellipse cx="60" cy="122" rx="36" ry="38" fill="#F97316" transform="rotate(3 60 122)"/>
+      <!-- Barriga pêssego -->
+      <ellipse cx="60" cy="128" rx="22" ry="24" fill="#FED7AA"/>
+
+      <!-- Braços — um levantado (curiosidade) -->
+      <ellipse cx="22" cy="102" rx="11" ry="8" fill="#F97316" transform="rotate(-20 22 102)"/>
+      <ellipse cx="102" cy="92" rx="11" ry="8" fill="#F97316" transform="rotate(-50 102 92)"/>
+
+      <!-- Orelhas laterais -->
+      <ellipse cx="22" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="98" cy="64" rx="13" ry="16" fill="#F97316"/>
+
+      <!-- Cabeça grande, leve inclinação -->
+      <ellipse cx="60" cy="74" rx="44" ry="46" fill="#F97316" transform="rotate(5 60 74)"/>
+
+      <!-- Olho esquerdo maior (curiosidade — um olho levemente maior) -->
+      <ellipse cx="42" cy="68" rx="16" ry="17" fill="white"/>
+      <ellipse cx="77" cy="70" rx="13" ry="14" fill="white"/>
+
+      <!-- Pupilas -->
+      <circle cx="44" cy="70" r="9" fill="#1A1040"/>
+      <circle cx="79" cy="72" r="7.5" fill="#1A1040"/>
+
+      <!-- Brilhos -->
+      <circle cx="48" cy="65" r="3.5" fill="white"/>
+      <circle cx="83" cy="68" r="2.8" fill="white"/>
+
+      <!-- Sobrancelha inclinada esquerda (curiosidade) -->
+      <path d="M28 52 Q42 46 54 52" stroke="#1A1040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+      <!-- Bochechas -->
+      <ellipse cx="30" cy="82" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+      <ellipse cx="90" cy="83" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+
+      <!-- Boca ligeiramente aberta / interrogativa -->
+      <path d="M48 90 Q60 97 72 91" stroke="#1A1040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+      <!-- Ponto de interrogação flutuando -->
+      <text x="95" y="45" font-size="20" fill="#FBBF24" font-weight="bold">?</text>
+    </symbol>
+
+
+    <!-- ── ESTADO 4: Ok/Neutro (autoavaliação sentimento médio) ── -->
+    <symbol id="mascote-ok" viewBox="0 0 120 160">
+      <!-- Pernas -->
+      <ellipse cx="43" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="77" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="43" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="77" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <!-- Corpo oval -->
+      <ellipse cx="60" cy="122" rx="36" ry="38" fill="#F97316"/>
+      <ellipse cx="60" cy="128" rx="22" ry="24" fill="#FED7AA"/>
+      <!-- Braços caídos levemente -->
+      <ellipse cx="20" cy="115" rx="11" ry="8" fill="#F97316" transform="rotate(-15 20 115)"/>
+      <ellipse cx="100" cy="115" rx="11" ry="8" fill="#F97316" transform="rotate(15 100 115)"/>
+      <!-- Orelhas -->
+      <ellipse cx="22" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="98" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <!-- Cabeça -->
+      <ellipse cx="60" cy="74" rx="44" ry="46" fill="#F97316"/>
+      <!-- Olhos — abertos, normais -->
+      <ellipse cx="43" cy="68" rx="13" ry="14" fill="white"/>
+      <ellipse cx="77" cy="68" rx="13" ry="14" fill="white"/>
+      <circle cx="45" cy="70" r="7" fill="#1A1040"/>
+      <circle cx="79" cy="70" r="7" fill="#1A1040"/>
+      <circle cx="48" cy="66" r="2.8" fill="white"/>
+      <circle cx="82" cy="66" r="2.8" fill="white"/>
+      <!-- Bochechas leves -->
+      <ellipse cx="30" cy="82" rx="10" ry="7" fill="#FED7AA" opacity="0.5"/>
+      <ellipse cx="90" cy="82" rx="10" ry="7" fill="#FED7AA" opacity="0.5"/>
+      <!-- Boca reta (neutro) -->
+      <path d="M50 92 L70 92" stroke="#1A1040" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- ── ESTADO 5: Triste/Difícil (autoavaliação sentimento negativo) ── -->
+    <symbol id="mascote-triste" viewBox="0 0 120 160">
+      <!-- Pernas -->
+      <ellipse cx="43" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="77" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="43" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="77" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <!-- Corpo oval -->
+      <ellipse cx="60" cy="122" rx="36" ry="38" fill="#F97316"/>
+      <ellipse cx="60" cy="128" rx="22" ry="24" fill="#FED7AA"/>
+      <!-- Braços caídos -->
+      <ellipse cx="18" cy="118" rx="11" ry="8" fill="#F97316" transform="rotate(10 18 118)"/>
+      <ellipse cx="102" cy="118" rx="11" ry="8" fill="#F97316" transform="rotate(-10 102 118)"/>
+      <!-- Orelhas -->
+      <ellipse cx="22" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="98" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <!-- Cabeça ligeiramente abaixada -->
+      <ellipse cx="60" cy="76" rx="44" ry="46" fill="#F97316"/>
+      <!-- Olhos — levemente fechados / cabisbaixo -->
+      <ellipse cx="43" cy="70" rx="13" ry="12" fill="white"/>
+      <ellipse cx="77" cy="70" rx="13" ry="12" fill="white"/>
+      <circle cx="45" cy="72" r="7" fill="#1A1040"/>
+      <circle cx="79" cy="72" r="7" fill="#1A1040"/>
+      <circle cx="48" cy="69" r="2.5" fill="white"/>
+      <circle cx="82" cy="69" r="2.5" fill="white"/>
+      <!-- Sobrancelhas tristes — levantadas no centro -->
+      <path d="M30 58 Q43 52 54 58" stroke="#1A1040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M66 58 Q77 52 90 58" stroke="#1A1040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- Bochechas mais marcadas -->
+      <ellipse cx="28" cy="84" rx="11" ry="7" fill="#FED7AA" opacity="0.8"/>
+      <ellipse cx="92" cy="84" rx="11" ry="7" fill="#FED7AA" opacity="0.8"/>
+      <!-- Boca curvada para baixo -->
+      <path d="M48 96 Q60 88 72 96" stroke="#1A1040" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <!-- Lágrima -->
+      <ellipse cx="44" cy="82" rx="3" ry="5" fill="#93C5FD" opacity="0.9"/>
+      <path d="M44 87 Q42 92 44 94" stroke="#93C5FD" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </symbol>
+
+  </defs>
+</svg>
+
+<p class="label-proto">PROTOTIPO DE VALIDACAO — Blip MVP v0.4 — 2026-04-01 · Não usar em produção</p>
+
+<!-- Navegação entre telas -->
+<div class="screen-nav">
+  <button onclick="goTo('t1')" id="nav-t1" class="active">1 · Dashboard Pai</button>
+  <button onclick="goTo('t2')" id="nav-t2">2 · ChildHome</button>
+  <button onclick="goTo('t3')" id="nav-t3">3 · Autoavaliação</button>
+  <button onclick="goTo('t4')" id="nav-t4">4 · Revisão Pai</button>
+  <button onclick="goTo('t5')" id="nav-t5">5 · Celebração</button>
+</div>
+
+<!-- Device shell -->
+<div class="device-shell" id="device">
+
+  <!-- ════════════════════════════════════════════════════
+       TELA 1 — Dashboard do Pai (Index)
+       ════════════════════════════════════════════════════ -->
+  <div class="screen active" id="t1">
+    <!-- Header Pai -->
+    <div class="blip-header-parent">
+      <!-- Logo Blip: mascote mini SVG + wordmark Fredoka Bold branco sobre laranja -->
+      <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+      <div class="blip-logo">
+        <svg width="32" height="32" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+          <use href="#mascote-feliz"/>
+        </svg>
+        <span class="wordmark">Blip</span>
+      </div>
+      <span class="header-greeting">Olá, Carlos!</span>
+    </div>
+
+    <div class="screen-body">
+      <!-- Barra de ações -->
+      <div style="display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;">
+        <button class="btn btn-outline btn-sm">↔ Trocar Perfil</button>
+        <button class="btn btn-ghost btn-sm">📋 Histórico</button>
+        <button class="btn btn-ghost btn-sm">⚙️ Config</button>
+      </div>
+
+      <!-- Painel de revisão pendente — tom de voz brandbook: afirmativo, sem punição -->
+      <div class="review-panel">
+        <div class="review-header">
+          <div>
+            <p style="font-size:11px; color:rgba(255,255,255,.8); text-transform:uppercase; letter-spacing:.6px;">Responsável</p>
+            <p style="color:#fff; font-size:16px; font-weight:700;">Luna e Pedro mandaram novidades!</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="background:rgba(255,255,255,.25); color:#fff; padding:3px 10px; border-radius:999px; font-size:13px; font-weight:700;">2</span>
+            <button class="btn btn-sm" style="background:#fff; color:#F97316; font-size:12px;" onclick="goTo('t4')">Ver agora</button>
+          </div>
+        </div>
+        <div style="padding:10px 16px 12px;">
+          <p style="font-size:13px; color:#6b7280;">Cada missão revisada conta muito para eles. Leva menos de 1 minuto!</p>
+        </div>
+      </div>
+
+      <!-- Filhos grid -->
+      <div class="section-title">Crianças desta semana</div>
+
+      <!-- Luna -->
+      <div class="card">
+        <div class="child-col-header">
+          <span style="font-size:32px;">🦊</span>
+          <div style="flex:1;">
+            <p style="color:#fff; font-weight:700; font-size:16px;">Luna</p>
+            <p style="color:rgba(255,255,255,.8); font-size:12px;">8 anos · Explorador</p>
+          </div>
+          <div class="badge badge-gold">68 pts</div>
+        </div>
+        <div class="child-col-body">
+          <div style="margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-size:13px; font-weight:600; color:#374151;">Semana</span>
+              <span style="font-size:13px; font-weight:700; color:#F97316;">68 / 100 pts</span>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" style="width:68%; background:linear-gradient(90deg,#F97316,#FBBF24);"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:4px;">
+              <span style="font-size:11px; color:#9ca3af;">Meta: 80%</span>
+              <span style="font-size:11px; color:#10B981; font-weight:600;">Chegando lá! 12 pts</span>
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-size:13px; font-weight:600; color:#374151;">Mês</span>
+              <span style="font-size:13px; font-weight:700; color:#A78BFA;">240 / 400 pts</span>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" style="width:60%; background:linear-gradient(90deg,#A78BFA,#818cf8);"></div>
+            </div>
+          </div>
+          <div style="background:#FFF7ED; border-radius:10px; padding:8px 12px; border:1px solid #FED7AA;">
+            <span style="font-size:12px; color:#9a3412;">🎁 Prêmio: Ida ao cinema · Meta: 80%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pedro -->
+      <div class="card">
+        <div class="child-col-header" style="background:linear-gradient(135deg,#A78BFA 0%,#7c3aed 100%);">
+          <span style="font-size:32px;">🦁</span>
+          <div style="flex:1;">
+            <p style="color:#fff; font-weight:700; font-size:16px;">Pedro</p>
+            <p style="color:rgba(255,255,255,.8); font-size:12px;">11 anos · Aventureiro</p>
+          </div>
+          <div class="badge badge-violet">52 pts</div>
+        </div>
+        <div class="child-col-body">
+          <div style="margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-size:13px; font-weight:600; color:#374151;">Semana</span>
+              <span style="font-size:13px; font-weight:700; color:#A78BFA;">52 / 100 pts</span>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" style="width:52%; background:linear-gradient(90deg,#A78BFA,#818cf8);"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:4px;">
+              <span style="font-size:11px; color:#9ca3af;">Meta: 80%</span>
+              <span style="font-size:11px; color:#f59e0b; font-weight:600;">Vamos juntos! 28 pts</span>
+            </div>
+          </div>
+          <div style="background:#F5F3FF; border-radius:10px; padding:8px 12px; border:1px solid #DDD6FE;">
+            <span style="font-size:12px; color:#5b21b6;">🎮 Prêmio: Jogo novo · Meta: 80%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /t1 -->
+
+
+  <!-- ════════════════════════════════════════════════════
+       TELA 2 — ChildHome (visão da criança)
+       ════════════════════════════════════════════════════ -->
+  <div class="screen" id="t2">
+    <div style="padding:12px 16px 0; background:#F8F7FF;">
+      <div class="toggle-group">
+        <button class="toggle-btn active" onclick="togglePerfil('pequenino', this)">Pequenino (4-6)</button>
+        <button class="toggle-btn" onclick="togglePerfil('aventureiro', this)">Aventureiro (10-12)</button>
+      </div>
+    </div>
+
+    <!-- ---- Conteúdo Pequenino ---- -->
+    <div id="child-pequenino" style="display:flex; flex-direction:column; flex:1;">
+      <div class="blip-header-child">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,.25); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:28px; border:2px solid rgba(255,255,255,.5); flex-shrink:0;">
+          🐰
+        </div>
+        <div style="flex:1; min-width:0;">
+          <p style="color:#fff; font-weight:700; font-size:17px; line-height:1.2;">Oi, Luna!</p>
+          <p style="color:rgba(255,255,255,.8); font-size:12px;">⭐ 68 pontos hoje</p>
+        </div>
+        <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+        <svg width="36" height="36" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-idle" style="opacity:.95; flex-shrink:0;">
+          <use href="#mascote-feliz"/>
+        </svg>
+      </div>
+      <div class="screen-body">
+        <!-- Mascote boas-vindas — estado feliz/neutro -->
+        <div style="display:flex; gap:10px; align-items:flex-end; margin-bottom:14px;">
+          <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+          <svg width="72" height="96" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-idle" style="flex-shrink:0;">
+            <use href="#mascote-feliz"/>
+          </svg>
+          <div class="mascot-bubble" style="flex:1;">
+            <p style="font-size:16px; font-weight:700; color:#1A1040;">Luna completou 4 missões esta semana!</p>
+            <p style="font-size:14px; color:#6b7280; margin-top:4px;">O Blip está orgulhoso de você. Mais <strong style="color:#F97316;">3 missões</strong> te aguardam hoje!</p>
+          </div>
+        </div>
+
+        <!-- Card perfil + pontuação (Pequenino) -->
+        <div class="child-profile-card pequenino">
+          <span style="font-size:48px;">🐰</span>
+          <div style="flex:1;">
+            <p style="font-size:22px; font-weight:700; color:#1A1040;">Luna</p>
+            <p style="font-size:13px; color:#9a3412;">Ana · 6 anos</p>
+          </div>
+        </div>
+
+        <!-- Progresso mensal com mascote na barra -->
+        <div class="score-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+            <div>
+              <p style="font-size:13px; color:#9ca3af; font-weight:500;">Prêmio do mês</p>
+              <p style="font-size:16px; font-weight:700; color:#1A1040;">🎬 Ida ao cinema</p>
+            </div>
+            <div style="text-align:right;">
+              <p style="font-size:22px; font-weight:700; color:#F97316;">240</p>
+              <p style="font-size:12px; color:#9ca3af;">de 400 pts</p>
+            </div>
+          </div>
+          <div class="progress-bar-wrap" style="height:14px;">
+            <div class="progress-bar-fill" style="width:60%; background:linear-gradient(90deg,#F97316,#FBBF24); position:relative;">
+              <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+              <svg width="26" height="34" viewBox="0 0 120 160" style="position:absolute; right:-13px; top:-16px;" xmlns="http://www.w3.org/2000/svg">
+                <use href="#mascote-feliz"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Score semanal — Pequenino -->
+        <div class="card card-body" style="border-color:#FED7AA; background:linear-gradient(135deg,#FFF3E8 0%,#fff 100%);">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <span style="font-size:22px;">⭐</span>
+            <p style="font-size:17px; font-weight:700; color:#1A1040;">Esta semana</p>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:32px; font-weight:700; color:#F97316;">68</span>
+            <span style="font-size:15px; color:#9ca3af;">/ 100 pts</span>
+          </div>
+          <div class="progress-bar-wrap" style="height:12px;">
+            <div class="progress-bar-fill" style="width:68%; background:linear-gradient(90deg,#F97316,#FBBF24);"></div>
+          </div>
+          <div style="text-align:center; margin-top:10px;">
+            <span style="background:#FED7AA; color:#9a3412; padding:4px 14px; border-radius:999px; font-size:13px; font-weight:600;">🎁 Semanada: R$ 5,00</span>
+          </div>
+        </div>
+
+        <div class="section-title">Missões de hoje</div>
+
+        <!-- Tarefa 1 — concluída -->
+        <div class="task-card pequenino" style="border-color:#D1FAE5;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:40px;">🛏️</span>
+            <div style="flex:1;">
+              <p style="font-size:17px; font-weight:700; color:#1A1040;">Arrumar a cama</p>
+              <span class="badge badge-mint" style="margin-top:4px;">✓ Missão completa!</span>
+            </div>
+            <span style="font-size:36px;">😀</span>
+          </div>
+        </div>
+
+        <!-- Tarefa 2 — pendente -->
+        <div class="task-card pequenino" style="cursor:pointer;" onclick="goTo('t3')">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:40px;">📚</span>
+            <div style="flex:1;">
+              <p style="font-size:17px; font-weight:700; color:#1A1040;">Dever de casa</p>
+              <span style="font-size:12px; color:#9ca3af;">10 pts · Hoje</span>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <div class="mood-btn" style="padding:10px;"><span class="emoji-lg">😊</span></div>
+              <div class="mood-btn" style="padding:10px;"><span class="emoji-lg">😐</span></div>
+              <div class="mood-btn" style="padding:10px;"><span class="emoji-lg">😢</span></div>
+            </div>
+          </div>
+          <p style="font-size:11px; color:#F97316; text-align:center; margin-top:8px; font-weight:600;">👆 Toque para responder</p>
+        </div>
+
+        <!-- Tarefa 3 -->
+        <div class="task-card pequenino">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:40px;">🚿</span>
+            <div style="flex:1;">
+              <p style="font-size:17px; font-weight:700; color:#1A1040;">Tomar banho</p>
+              <span style="font-size:12px; color:#9ca3af;">10 pts · Hoje</span>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <div class="mood-btn" style="padding:10px;"><span class="emoji-lg">😊</span></div>
+              <div class="mood-btn" style="padding:10px;"><span class="emoji-lg">😐</span></div>
+              <div class="mood-btn" style="padding:10px;"><span class="emoji-lg">😢</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /child-pequenino -->
+
+    <!-- ---- Conteúdo Aventureiro ---- -->
+    <div id="child-aventureiro" style="display:none; flex-direction:column; flex:1;">
+      <div class="blip-header-child" style="background:linear-gradient(135deg,#7c3aed 0%,#A78BFA 100%);">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,.2); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:28px; border:2px solid rgba(255,255,255,.4); flex-shrink:0;">
+          🦁
+        </div>
+        <div style="flex:1; min-width:0;">
+          <p style="color:#fff; font-weight:700; font-size:17px; line-height:1.2;">Pedro</p>
+          <p style="color:rgba(255,255,255,.8); font-size:12px;">52 pts esta semana</p>
+        </div>
+        <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+        <svg width="28" height="36" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-idle" style="opacity:.8; flex-shrink:0;">
+          <use href="#mascote-feliz"/>
+        </svg>
+      </div>
+
+      <div class="screen-body" style="background:#F5F3FF;">
+        <!-- Boas-vindas aventureiro — tom brandbook: positivo, sem linguagem punitiva -->
+        <div style="background:linear-gradient(135deg,#EDE9FE 0%,#fff 100%); border:1.5px solid #A78BFA; border-radius:16px; padding:14px; margin-bottom:14px; display:flex; gap:12px; align-items:center;">
+          <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+          <svg width="52" height="68" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-idle" style="flex-shrink:0;">
+            <use href="#mascote-feliz"/>
+          </svg>
+          <div>
+            <p style="font-size:15px; font-weight:700; color:#1A1040;">Vamos juntos avançar de nível!</p>
+            <p style="font-size:13px; color:#6b7280; margin-top:2px;">Pedro tem 3 missões hoje. Complete todas para ganhar bônus!</p>
+          </div>
+        </div>
+
+        <!-- Score aventureiro -->
+        <div style="background:linear-gradient(135deg,#EDE9FE 0%,#fff 100%); border:1.5px solid #A78BFA; border-radius:16px; padding:14px; margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <p style="font-size:15px; font-weight:700; color:#1A1040;">Semana atual</p>
+            <span class="badge badge-violet">Nível 3</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:4px; margin-bottom:8px;">
+            <span style="font-size:28px; font-weight:700; color:#A78BFA;">52</span>
+            <span style="font-size:14px; color:#9ca3af;">/ 100 XP</span>
+            <span style="margin-left:auto; font-size:12px; color:#f59e0b; font-weight:600;">⚡ 28 XP para a meta</span>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" style="width:52%; background:linear-gradient(90deg,#A78BFA,#7c3aed);"></div>
+          </div>
+          <div style="margin-top:10px; display:flex; gap:8px;">
+            <span class="badge badge-violet">🎮 Prêmio: Jogo novo</span>
+            <span class="badge badge-gold">Meta: 80%</span>
+          </div>
+        </div>
+
+        <div class="section-title" style="color:#7c3aed;">Missões de hoje</div>
+
+        <div class="task-card aventureiro">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:30px;">🛏️</span>
+            <div style="flex:1;">
+              <p style="font-size:15px; font-weight:700; color:#1A1040;">Arrumar o quarto</p>
+              <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
+                <span class="badge badge-mint" style="font-size:11px;">✓ Missão completa!</span>
+                <div class="stars"><span class="star">★</span><span class="star">★</span></div>
+              </div>
+            </div>
+            <span style="font-size:22px;">😀</span>
+          </div>
+        </div>
+
+        <div class="task-card aventureiro" style="cursor:pointer;" onclick="goTo('t3')">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:30px;">📚</span>
+            <div style="flex:1;">
+              <p style="font-size:15px; font-weight:700; color:#1A1040;">Dever de casa</p>
+              <span style="font-size:12px; color:#9ca3af;">+10 XP · até 20h</span>
+            </div>
+            <div style="display:flex; gap:5px;">
+              <div class="mood-btn"><span class="emoji-sm">😊</span><span class="pts">10</span></div>
+              <div class="mood-btn"><span class="emoji-sm">😐</span><span class="pts">5</span></div>
+              <div class="mood-btn"><span class="emoji-sm">😢</span><span class="pts">2</span></div>
+            </div>
+          </div>
+          <p style="font-size:11px; color:#A78BFA; text-align:right; margin-top:6px; font-weight:600;">Toque para responder →</p>
+        </div>
+
+        <div class="task-card aventureiro">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:30px;">🚿</span>
+            <div style="flex:1;">
+              <p style="font-size:15px; font-weight:700; color:#1A1040;">Tomar banho</p>
+              <span style="font-size:12px; color:#9ca3af;">+10 XP · hoje</span>
+            </div>
+            <div style="display:flex; gap:5px;">
+              <div class="mood-btn"><span class="emoji-sm">😊</span><span class="pts">10</span></div>
+              <div class="mood-btn"><span class="emoji-sm">😐</span><span class="pts">5</span></div>
+              <div class="mood-btn"><span class="emoji-sm">😢</span><span class="pts">2</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /child-aventureiro -->
+  </div><!-- /t2 -->
+
+
+  <!-- ════════════════════════════════════════════════════
+       TELA 3 — Autoavaliação emocional pós-tarefa
+       Mascote no estado CURIOSO/PERGUNTANDO
+       ════════════════════════════════════════════════════ -->
+  <div class="screen" id="t3">
+    <div style="padding:12px 16px 0; background:#F8F7FF;">
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="t3-tog-peq" onclick="toggleAuto('pequenino', this)">Pequenino</button>
+        <button class="toggle-btn" id="t3-tog-exp" onclick="toggleAuto('explorador', this)">Explorador</button>
+        <button class="toggle-btn" id="t3-tog-aven" onclick="toggleAuto('aventureiro', this)">Aventureiro</button>
+      </div>
+    </div>
+
+    <!-- ---- Autoavaliação Pequenino ---- -->
+    <div id="auto-pequenino" style="display:flex; flex-direction:column; flex:1;">
+      <div class="blip-header-child">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,.25); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:28px; border:2px solid rgba(255,255,255,.5); flex-shrink:0;">🐰</div>
+        <div style="flex:1;"><p style="color:#fff; font-weight:700; font-size:17px;">Oi, Luna!</p></div>
+      </div>
+      <div class="screen-body">
+        <!-- Card da tarefa concluída -->
+        <div class="task-card pequenino" style="border-color:#10B981; background:linear-gradient(135deg,#ECFDF5 0%,#fff 100%); margin-bottom:16px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:40px;">📚</span>
+            <div style="flex:1;">
+              <p style="font-size:17px; font-weight:700; color:#1A1040;">Dever de casa</p>
+              <span class="badge badge-mint">✓ Missão completa!</span>
+            </div>
+            <span style="font-size:28px; color:#10B981; font-weight:700;">+10 pts</span>
+          </div>
+        </div>
+
+        <!-- Selector emocional — Pequenino com mascote CURIOSO -->
+        <div class="mood-card-pequenino emotional-selector-enter" id="selector-pequenino">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+            <!-- Estado curioso: mascote com expressão interrogativa para perguntar sobre a tarefa -->
+            <svg width="56" height="74" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-curious" style="flex-shrink:0;">
+              <use href="#mascote-curioso"/>
+            </svg>
+            <div>
+              <p style="font-size:18px; font-weight:700; color:#1A1040;">Como foi, Luna?</p>
+              <p style="font-size:14px; color:#9a3412; margin-top:2px;">Conta pra mim!</p>
+            </div>
+          </div>
+
+          <!-- Pequenino: sem texto, apenas rostos do Blip em 3 expressões, botões 80x80px -->
+          <div style="display:flex; gap:14px; justify-content:center; margin:16px 0;">
+            <button
+              id="peq-bem"
+              onclick="selectFeeling('peq', 'bem')"
+              title="Feliz"
+              style="width:84px; height:84px; border-radius:24px; border:3px solid transparent; background:#f3f4f6; cursor:pointer; padding:8px; transition:all .25s; display:flex; align-items:center; justify-content:center; flex-shrink:0;"
+              onmouseover="this.style.background='#D1FAE5'; this.style.transform='scale(1.08)'"
+              onmouseout="if(!this.classList.contains('peq-selected-bem')){this.style.background='#f3f4f6'; this.style.transform='scale(1)'}"
+            >
+              <svg viewBox="0 0 120 160" style="width:60px; height:60px;" xmlns="http://www.w3.org/2000/svg">
+                <use href="#mascote-celebrando"/>
+              </svg>
+            </button>
+            <button
+              id="peq-medio"
+              onclick="selectFeeling('peq', 'medio')"
+              title="Ok"
+              style="width:84px; height:84px; border-radius:24px; border:3px solid transparent; background:#f3f4f6; cursor:pointer; padding:8px; transition:all .25s; display:flex; align-items:center; justify-content:center; flex-shrink:0;"
+              onmouseover="this.style.background='#FEF3C7'; this.style.transform='scale(1.08)'"
+              onmouseout="if(!this.classList.contains('peq-selected-medio')){this.style.background='#f3f4f6'; this.style.transform='scale(1)'}"
+            >
+              <svg viewBox="0 0 120 160" style="width:60px; height:60px;" xmlns="http://www.w3.org/2000/svg">
+                <use href="#mascote-ok"/>
+              </svg>
+            </button>
+            <button
+              id="peq-nao"
+              onclick="selectFeeling('peq', 'nao')"
+              title="Triste"
+              style="width:84px; height:84px; border-radius:24px; border:3px solid transparent; background:#f3f4f6; cursor:pointer; padding:8px; transition:all .25s; display:flex; align-items:center; justify-content:center; flex-shrink:0;"
+              onmouseover="this.style.background='#FFE4E6'; this.style.transform='scale(1.08)'"
+              onmouseout="if(!this.classList.contains('peq-selected-nao')){this.style.background='#f3f4f6'; this.style.transform='scale(1)'}"
+            >
+              <svg viewBox="0 0 120 160" style="width:60px; height:60px;" xmlns="http://www.w3.org/2000/svg">
+                <use href="#mascote-triste"/>
+              </svg>
+            </button>
+          </div>
+
+          <div id="peq-confirm" style="display:none; text-align:center; margin-top:10px;">
+            <button class="btn btn-primary" style="width:100%; font-size:17px; padding:14px;" onclick="confirmFeeling('peq')">
+              Enviar! 🚀
+            </button>
+          </div>
+
+          <div style="text-align:center; margin-top:10px;">
+            <button class="skip-btn" onclick="goTo('t1')">Pular por agora</button>
+          </div>
+        </div>
+
+        <!-- Estado após confirmar — mascote celebrando -->
+        <div id="peq-confirmed" style="display:none; text-align:center; padding:20px;">
+          <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+          <!-- Estado celebrando: braços erguidos conforme brandbook -->
+          <svg width="88" height="116" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-celebrate" style="display:block; margin:0 auto;">
+            <use href="#mascote-celebrando"/>
+          </svg>
+          <p style="font-size:20px; font-weight:700; color:#1A1040; margin-top:8px;">Missão completa!</p>
+          <p style="font-size:15px; color:#6b7280; margin-top:4px;">O Blip está orgulhoso de você!</p>
+          <button class="btn btn-primary" style="margin-top:16px;" onclick="goTo('t1')">Voltar ao início</button>
+        </div>
+      </div>
+    </div><!-- /auto-pequenino -->
+
+
+    <!-- ---- Autoavaliação Explorador (7-9 anos) ---- -->
+    <!-- DECISAO UX 2026-04-01: duas dimensoes, nenhuma obrigatoria, confirmar sempre visivel -->
+    <div id="auto-explorador" style="display:none; flex-direction:column; flex:1;">
+      <div class="blip-header-child" style="background:linear-gradient(135deg,#059669 0%,#10B981 100%);">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,.25); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:28px; border:2px solid rgba(255,255,255,.5); flex-shrink:0;">🦊</div>
+        <div style="flex:1;"><p style="color:#fff; font-weight:700; font-size:17px;">Oi, Luna!</p></div>
+      </div>
+      <div class="screen-body" style="background:#F0FDF4;">
+        <div class="task-card" style="border-color:#10B981; background:linear-gradient(135deg,#ECFDF5 0%,#fff 100%); margin-bottom:14px; border-radius:18px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:36px;">📚</span>
+            <div style="flex:1;">
+              <p style="font-size:17px; font-weight:700; color:#1A1040;">Dever de casa</p>
+              <span class="badge badge-mint">✓ Missão enviada!</span>
+            </div>
+            <span style="font-size:18px; font-weight:700; color:#10B981;">+10 pts</span>
+          </div>
+        </div>
+
+        <!-- Selector explorador: 2 dimensoes, emojis 48px, confirmar sempre visivel -->
+        <div style="background:#fff; border-radius:18px; padding:16px 14px; border:2px solid #6EE7B7; margin-bottom:10px; animation:slideUp .3s ease;" id="selector-explorador">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <svg width="40" height="52" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-curious" style="flex-shrink:0;">
+                <use href="#mascote-curioso"/>
+              </svg>
+              <div>
+                <p style="font-size:16px; font-weight:700; color:#1A1040;">Conta pra mim!</p>
+                <p style="font-size:12px; color:#059669;">Pode pular se quiser</p>
+              </div>
+            </div>
+            <!-- Pular visivel e claro no Explorador -->
+            <button class="skip-btn" style="color:#059669; font-size:13px; font-weight:600;" onclick="goTo('t1')">Pular por agora</button>
+          </div>
+
+          <!-- DIMENSAO 1 — Sentimento (emojis 48px — maior que aventureiro 28px) -->
+          <div style="background:linear-gradient(135deg,#FFF7ED 0%,#FFFBEB 100%); border:1.5px solid #FED7AA; border-radius:14px; padding:12px 10px; margin-bottom:10px;">
+            <p style="font-size:12px; font-weight:700; color:#9a3412; text-transform:uppercase; letter-spacing:.6px; margin-bottom:10px;">Como você está agora?</p>
+            <div style="display:flex; gap:8px; justify-content:center;">
+              <button class="feeling-btn" id="exp-bem" onclick="selectFeeling('exp', 'bem')" style="background:#fff3e0; flex:1; padding:12px 8px;">
+                <span class="emoji" style="font-size:48px;">😄</span>
+                <span style="font-size:13px; font-weight:600; color:#374151; margin-top:4px; display:block;">Feliz</span>
+              </button>
+              <button class="feeling-btn" id="exp-medio" onclick="selectFeeling('exp', 'medio')" style="background:#fff3e0; flex:1; padding:12px 8px;">
+                <span class="emoji" style="font-size:48px;">😐</span>
+                <span style="font-size:13px; font-weight:600; color:#374151; margin-top:4px; display:block;">Ok</span>
+              </button>
+              <button class="feeling-btn" id="exp-nao" onclick="selectFeeling('exp', 'nao')" style="background:#fff3e0; flex:1; padding:12px 8px;">
+                <span class="emoji" style="font-size:48px;">😢</span>
+                <span style="font-size:13px; font-weight:600; color:#374151; margin-top:4px; display:block;">Triste</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- DIMENSAO 2 — Dificuldade (emojis 48px) -->
+          <div style="background:linear-gradient(135deg,#EFF6FF 0%,#F0FDF4 100%); border:1.5px solid #BFDBFE; border-radius:14px; padding:12px 10px; margin-bottom:14px;">
+            <p style="font-size:12px; font-weight:700; color:#1e40af; text-transform:uppercase; letter-spacing:.6px; margin-bottom:10px;">Como foi a tarefa?</p>
+            <div style="display:flex; gap:8px; justify-content:center;">
+              <button class="feeling-btn" id="exp-dif-facil" onclick="selectDiff('exp', 'facil')" style="background:#eff6ff; flex:1; padding:12px 8px;">
+                <span class="emoji" style="font-size:48px;">⭐</span>
+                <span style="font-size:13px; font-weight:600; color:#374151; margin-top:4px; display:block;">Fácil</span>
+              </button>
+              <button class="feeling-btn" id="exp-dif-normal" onclick="selectDiff('exp', 'normal')" style="background:#eff6ff; flex:1; padding:12px 8px;">
+                <span class="emoji" style="font-size:48px;">🌟</span>
+                <span style="font-size:13px; font-weight:600; color:#374151; margin-top:4px; display:block;">Normal</span>
+              </button>
+              <button class="feeling-btn" id="exp-dif-dificil" onclick="selectDiff('exp', 'dificil')" style="background:#eff6ff; flex:1; padding:12px 8px;">
+                <span class="emoji" style="font-size:48px;">🔥</span>
+                <span style="font-size:13px; font-weight:600; color:#374151; margin-top:4px; display:block;">Difícil</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- CP-1 [Duckworth v2]: framing futuro — aparece ao selecionar Dificil -->
+          <div id="exp-framing-futuro" style="display:none; background:linear-gradient(135deg,#FFF7ED 0%,#FFFBEB 100%); border:1.5px solid #FBBF24; border-radius:12px; padding:10px 12px; margin-bottom:10px; animation:slideUp .3s ease;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:22px;">&#x1F4A1;</span>
+              <p style="font-size:13px; color:#92400e; line-height:1.5; font-weight:500;">Da próxima vez você pode pedir ajuda — isso é coragem de verdade!</p>
+            </div>
+          </div>
+          <!-- /CP-1 -->
+          <!-- CONFIRMAR: sempre visivel — nao espera selecao -->
+          <button class="btn btn-mint" id="exp-confirm" style="width:100%; font-size:16px; padding:13px;" onclick="confirmFeeling('exp')">
+            Confirmar
+          </button>
+
+          <!-- Legenda de opcionalidade -->
+          <p style="font-size:12px; color:#6b7280; text-align:center; margin-top:10px; line-height:1.5;">
+            Responder é opcional — suas respostas ajudam o Blip a te conhecer melhor 🐾
+          </p>
+        </div>
+
+        <div id="exp-confirmed" style="display:none; background:#fff; border-radius:14px; padding:16px; text-align:center;">
+          <svg width="72" height="96" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-celebrate" style="display:block; margin:0 auto;">
+            <use href="#mascote-celebrando"/>
+          </svg>
+          <span style="font-size:16px; font-weight:700; color:#10B981; display:block; margin-top:8px;">Missão registrada!</span>
+          <p style="font-size:13px; color:#6b7280; margin-top:4px;">Aguardando revisão do responsável.</p>
+          <!-- CP-2 [Montessori+Dweck]: Estrela de Coragem — sistema paralelo, separado dos pontos de tarefa -->
+          <div style="background:linear-gradient(135deg,#FFFBEB 0%,#FEF3C7 100%); border:1.5px solid #FBBF24; border-radius:12px; padding:10px 14px; margin-top:12px; display:flex; align-items:center; justify-content:center; gap:8px;">
+            <span style="font-size:24px;">&#x2B50;</span>
+            <div style="text-align:left;">
+              <p style="font-size:14px; font-weight:700; color:#92400e;">+1 Estrela de Coragem!</p>
+              <p style="font-size:11px; color:#b45309;">Por refletir sobre a missão</p>
+            </div>
+          </div>
+          <!-- /CP-2 -->
+          <button class="btn btn-outline btn-sm" style="margin-top:12px; border-color:#10B981; color:#10B981;" onclick="goTo('t1')">Voltar</button>
+        </div>
+      </div>
+    </div><!-- /auto-explorador -->
+
+    <!-- ---- Autoavaliação Aventureiro ---- -->
+    <div id="auto-aventureiro" style="display:none; flex-direction:column; flex:1;">
+      <div class="blip-header-child" style="background:linear-gradient(135deg,#7c3aed 0%,#A78BFA 100%);">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,.2); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0;">🦁</div>
+        <div style="flex:1;"><p style="color:#fff; font-weight:700; font-size:17px;">Pedro</p></div>
+      </div>
+      <div class="screen-body" style="background:#F5F3FF;">
+        <div class="task-card aventureiro" style="border-color:#10B981; background:linear-gradient(135deg,#ECFDF5 0%,#fff 100%); margin-bottom:14px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:30px;">📚</span>
+            <div style="flex:1;">
+              <p style="font-size:15px; font-weight:700; color:#1A1040;">Dever de casa</p>
+              <span class="badge badge-mint" style="font-size:11px;">✓ Missão enviada!</span>
+            </div>
+            <span style="font-size:18px; font-weight:700; color:#10B981;">+10 XP</span>
+          </div>
+        </div>
+
+        <!-- Selector aventureiro: 2 dimensões separadas -->
+        <div class="mood-card-aventureiro emotional-selector-enter" id="selector-aventureiro">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+              <svg width="36" height="48" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-curious" style="flex-shrink:0;">
+                <use href="#mascote-curioso"/>
+              </svg>
+              <p style="font-size:15px; font-weight:700; color:#1A1040;">Conta para o Blip!</p>
+            </div>
+            <button class="skip-btn" onclick="goTo('t1')">Pular</button>
+          </div>
+
+          <!-- DIMENSÃO 1 — Sentimento emocional (tons quentes: laranja/amarelo) -->
+          <div style="background:linear-gradient(135deg,#FFF7ED 0%,#FFFBEB 100%); border:1.5px solid #FED7AA; border-radius:14px; padding:12px 10px; margin-bottom:10px;">
+            <p style="font-size:12px; font-weight:700; color:#9a3412; text-transform:uppercase; letter-spacing:.6px; margin-bottom:10px;">😊 Como você está agora?</p>
+            <div class="feeling-selector" style="gap:8px;">
+              <button class="feeling-btn size-sm" id="aven-bem" onclick="selectFeeling('aven', 'bem')" style="background:#fff3e0;">
+                <span class="emoji">😄</span>
+                <span class="label">Feliz</span>
+              </button>
+              <button class="feeling-btn size-sm" id="aven-medio" onclick="selectFeeling('aven', 'medio')" style="background:#fff3e0;">
+                <span class="emoji">😐</span>
+                <span class="label">Ok</span>
+              </button>
+              <button class="feeling-btn size-sm" id="aven-nao" onclick="selectFeeling('aven', 'nao')" style="background:#fff3e0;">
+                <span class="emoji">😢</span>
+                <span class="label">Triste</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- DIMENSÃO 2 — Dificuldade percebida (tons frios: azul/verde) -->
+          <div style="background:linear-gradient(135deg,#EFF6FF 0%,#F0FDF4 100%); border:1.5px solid #BFDBFE; border-radius:14px; padding:12px 10px; margin-bottom:12px;">
+            <p style="font-size:12px; font-weight:700; color:#1e40af; text-transform:uppercase; letter-spacing:.6px; margin-bottom:10px;">💪 Como foi a tarefa?</p>
+            <div class="feeling-selector" style="gap:8px;">
+              <button class="feeling-btn size-sm" id="aven-dif-facil" onclick="selectDiff('aven', 'facil')" style="background:#eff6ff;">
+                <span class="emoji">⭐</span>
+                <span class="label">Fácil</span>
+              </button>
+              <button class="feeling-btn size-sm" id="aven-dif-normal" onclick="selectDiff('aven', 'normal')" style="background:#eff6ff;">
+                <span class="emoji">🌟</span>
+                <span class="label">Normal</span>
+              </button>
+              <button class="feeling-btn size-sm" id="aven-dif-dificil" onclick="selectDiff('aven', 'dificil')" style="background:#eff6ff;">
+                <span class="emoji">🔥</span>
+                <span class="label">Difícil</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- CP-3 [Vygotsky]: botao escrever como opcao secundaria — andaime progressivo -->
+          <div style="text-align:center; margin-bottom:8px;">
+            <button id="aven-write-toggle" onclick="toggleAvenWrite()" style="background:none; border:1.5px dashed #A78BFA; color:#7c3aed; border-radius:10px; padding:7px 14px; font-family:'Fredoka',sans-serif; font-size:13px; font-weight:600; cursor:pointer; width:100%; transition:all .2s;">
+              &#x270F;&#xFE0F; Quero escrever algo
+            </button>
+            <div id="aven-write-area" style="display:none; margin-top:8px; animation:slideUp .25s ease;">
+              <textarea id="aven-text-input" maxlength="120" placeholder="O que aconteceu? (opcional, máx. 120 caracteres)" style="width:100%; border:1.5px solid #A78BFA; border-radius:10px; padding:10px 12px; font-family:'Fredoka',sans-serif; font-size:13px; color:#1A1040; resize:none; height:72px; outline:none; background:#F5F3FF;"></textarea>
+              <p id="aven-char-count" style="font-size:11px; color:#9ca3af; text-align:right; margin-top:2px;">0 / 120</p>
+            </div>
+          </div>
+          <!-- /CP-3 -->
+          <!-- OPCIONALIDADE: confirmar sempre visivel — sem obrigatoriedade (decisao 2026-04-01) -->
+          <div id="aven-confirm" style="display:block; margin-top:4px;">
+            <button class="btn btn-primary btn-sm" style="width:100%;" onclick="confirmFeeling('aven')">
+              Confirmar
+            </button>
+          </div>
+        </div>
+
+        <!-- Legenda de opcionalidade — aventureiro -->
+        <p style="font-size:12px; color:#7c3aed; text-align:center; margin:-4px 0 12px; line-height:1.5;">
+          Responder é opcional — suas respostas ajudam o Blip a te conhecer melhor 🐾
+        </p>
+        <div id="aven-confirmed" style="display:none; background:#fff; border-radius:14px; padding:16px; text-align:center;">
+          <span style="font-size:16px; font-weight:700; color:#10B981;">Missão registrada!</span>
+          <p style="font-size:13px; color:#6b7280; margin-top:4px;">Aguardando revisão do responsável.</p>
+          <!-- CP-2 [Montessori+Dweck]: Estrela de Coragem — sistema paralelo -->
+          <div style="background:linear-gradient(135deg,#FFFBEB 0%,#EDE9FE 100%); border:1.5px solid #FBBF24; border-radius:12px; padding:8px 14px; margin-top:10px; display:flex; align-items:center; justify-content:center; gap:8px;">
+            <span style="font-size:22px;">&#x2B50;</span>
+            <div style="text-align:left;">
+              <p style="font-size:13px; font-weight:700; color:#5b21b6;">+1 Estrela de Coragem</p>
+              <p style="font-size:11px; color:#7c3aed;">Separado dos seus pontos de missão</p>
+            </div>
+          </div>
+          <!-- /CP-2 -->
+          <button class="btn btn-outline btn-sm" style="margin-top:12px;" onclick="goTo('t1')">Voltar</button>
+        </div>
+
+        <div style="background:#EDE9FE; border-radius:12px; padding:10px 12px; margin-top:10px;">
+          <p style="font-size:12px; color:#5b21b6; line-height:1.5;">
+            Cada pequeno passo conta muito. Seu sentimento ajuda o Blip a entender sua jornada. Só seus pais veem isso.
+          </p>
+        </div>
+      </div>
+    </div><!-- /auto-aventureiro -->
+  </div><!-- /t3 -->
+
+
+  <!-- ════════════════════════════════════════════════════
+       TELA 4 — PendingReviewsPanel (visão do pai)
+       ════════════════════════════════════════════════════ -->
+  <div class="screen" id="t4">
+    <div class="blip-header-parent">
+      <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+      <div class="blip-logo">
+        <svg width="32" height="32" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+          <use href="#mascote-feliz"/>
+        </svg>
+        <span class="wordmark">Blip</span>
+      </div>
+      <button class="btn btn-sm" style="background:rgba(255,255,255,.2); color:#fff; border:1px solid rgba(255,255,255,.4);" onclick="goTo('t1')">← Voltar</button>
+    </div>
+
+    <div class="screen-body">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+        <div>
+          <p style="font-size:11px; text-transform:uppercase; letter-spacing:.6px; color:#9ca3af;">Responsável</p>
+          <p style="font-size:19px; font-weight:700; color:#1A1040;">Luna e Pedro mandaram novidades!</p>
+        </div>
+        <span style="background:#F97316; color:#fff; padding:4px 12px; border-radius:999px; font-size:14px; font-weight:700;">2</span>
+      </div>
+
+      <!-- Task 1 — Luna · Dever de casa -->
+      <div style="background:#fff; border-radius:16px; border:1.5px solid #e5e7eb; overflow:hidden; margin-bottom:12px; box-shadow:0 2px 8px rgba(0,0,0,.05);">
+        <div style="background:linear-gradient(90deg,#FFF7ED,#fff); padding:12px 14px; border-bottom:1px solid #f3f4f6;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:32px;">🐰</span>
+            <div style="flex:1;">
+              <p style="font-size:13px; color:#9ca3af; font-weight:500;">Luna · 6 anos</p>
+              <p style="font-size:16px; font-weight:700; color:#1A1040;">📚 Dever de casa</p>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="font-size:12px;">↻ Reabrir</button>
+          </div>
+        </div>
+
+        <div style="padding:12px 14px;">
+          <div style="display:flex; gap:12px; font-size:12px; color:#9ca3af; margin-bottom:10px;">
+            <span>📅 Terça, 01/04</span>
+            <span>⏰ 18:32</span>
+          </div>
+
+          <!-- CP-7 [Mosé+Freixo]: mini-guia contextual — pai vê orientação ANTES da resposta da criança -->
+          <div style="background:linear-gradient(135deg,#FFFBEB 0%,#FFF 100%); border:1.5px solid #FBBF24; border-radius:12px; padding:10px 12px; margin-bottom:10px; display:flex; gap:10px; align-items:flex-start;">
+            <svg width="28" height="36" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0; opacity:.9;">
+              <use href="#mascote-curioso"/>
+            </svg>
+            <div>
+              <p style="font-size:12px; font-weight:700; color:#92400e; text-transform:uppercase; letter-spacing:.5px; margin-bottom:2px;">Dica Blip</p>
+              <p style="font-size:12px; color:#78350f; line-height:1.5;">Reconheça o esforço antes de comentar o resultado. Ex: <em>&ldquo;Obrigado por contar &mdash; que missão difícil!&rdquo;</em></p>
+            </div>
+          </div>
+          <!-- /CP-7 -->
+          <!-- CP-6 [Brown]: frases sugeridas para o pai dizer ao filho presencialmente (MVP sem campo de texto) -->
+          <div style="background:#F0FDF4; border:1.5px dashed #10B981; border-radius:12px; padding:10px 12px; margin-bottom:10px;">
+            <p style="font-size:11px; font-weight:700; color:#065f46; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">&#x1F4AC; Frases para dizer ao seu filho</p>
+            <div style="display:flex; flex-direction:column; gap:6px;" id="frases-pai-lista">
+              <button onclick="selectFrasePai(this)" style="background:#fff; border:1.5px solid #D1FAE5; border-radius:8px; padding:8px 10px; text-align:left; font-family:'Fredoka',sans-serif; font-size:12px; color:#374151; cursor:pointer; transition:all .2s; line-height:1.4;">&ldquo;Obrigado por contar! Coisas difíceis acontecem &mdash; o importante é que você tentou.&rdquo;</button>
+              <button onclick="selectFrasePai(this)" style="background:#fff; border:1.5px solid #D1FAE5; border-radius:8px; padding:8px 10px; text-align:left; font-family:'Fredoka',sans-serif; font-size:12px; color:#374151; cursor:pointer; transition:all .2s; line-height:1.4;">&ldquo;Que missão difícil! Vamos conversar sobre isso mais tarde?&rdquo;</button>
+              <button onclick="selectFrasePai(this)" style="background:#fff; border:1.5px solid #D1FAE5; border-radius:8px; padding:8px 10px; text-align:left; font-family:'Fredoka',sans-serif; font-size:12px; color:#374151; cursor:pointer; transition:all .2s; line-height:1.4;">&ldquo;Fiquei feliz que você contou. Juntos a gente descobre como fica mais fácil.&rdquo;</button>
+            </div>
+          </div>
+          <!-- /CP-6 -->
+          <div class="review-feeling-row">
+            <span style="font-size:13px; font-weight:600; color:#6b7280;">Sentimento da Luna:</span>
+            <span class="feeling-chip bem">😄 Adorei!</span>
+            <span style="font-size:11px; color:#9ca3af; margin-left:auto;">via autoavaliação</span>
+          </div>
+
+          <div style="display:flex; gap:8px; align-items:center; margin-bottom:12px;">
+            <div style="background:#D1FAE5; border-radius:999px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; font-size:20px; position:relative; flex-shrink:0;">
+              😀
+              <span style="position:absolute; top:-2px; right:-2px; background:#10B981; width:14px; height:14px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-size:9px; color:#fff; font-weight:700;">✓</span>
+            </div>
+            <span style="font-size:13px; font-weight:600; color:#374151;">Resposta da Luna: Feliz</span>
+          </div>
+
+          <div style="margin-bottom:6px;">
+            <p style="font-size:11px; text-transform:uppercase; letter-spacing:.6px; color:#9ca3af; margin-bottom:6px;">Confirmar como</p>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <button class="btn btn-mint btn-sm" onclick="reviewTask('t4-task1', 'feliz')">😀 Feliz</button>
+              <button class="btn btn-sm" style="background:#FEF3C7; color:#92400e;">😐 Ok</button>
+              <button class="btn btn-sm" style="background:#FFE4E6; color:#be123c;">😕 Foi difícil</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task 2 — Pedro · Arrumar quarto -->
+      <div style="background:#fff; border-radius:16px; border:1.5px solid #e5e7eb; overflow:hidden; margin-bottom:12px; box-shadow:0 2px 8px rgba(0,0,0,.05);">
+        <div style="background:linear-gradient(90deg,#F5F3FF,#fff); padding:12px 14px; border-bottom:1px solid #f3f4f6;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:32px;">🦁</span>
+            <div style="flex:1;">
+              <p style="font-size:13px; color:#9ca3af; font-weight:500;">Pedro · 11 anos</p>
+              <p style="font-size:16px; font-weight:700; color:#1A1040;">🛏️ Arrumar o quarto</p>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="font-size:12px;">↻ Reabrir</button>
+          </div>
+        </div>
+
+        <div style="padding:12px 14px;">
+          <div style="display:flex; gap:12px; font-size:12px; color:#9ca3af; margin-bottom:10px;">
+            <span>📅 Terça, 01/04</span>
+            <span>⏰ 17:15</span>
+          </div>
+
+          <!-- 2 dimensões lado a lado — sentimento (quente) + dificuldade (frio) -->
+          <div style="display:flex; gap:8px; margin-bottom:10px;">
+            <div class="review-feeling-row" style="flex:1; background:#FFF7ED; border:1px solid #FED7AA;">
+              <span style="font-size:11px; font-weight:600; color:#9a3412;">😊 Sentimento</span>
+              <span class="feeling-chip bem" style="margin-left:auto;">😄 Feliz</span>
+            </div>
+            <div class="review-feeling-row" style="flex:1; background:#EFF6FF; border:1px solid #BFDBFE;">
+              <span style="font-size:11px; font-weight:600; color:#1e40af;">💪 Tarefa</span>
+              <span class="feeling-chip nao" style="margin-left:auto; background:#FEE2E2; color:#be123c;">🔥 Difícil</span>
+            </div>
+          </div>
+
+          <!-- Insight pedagógico: feliz E achou difícil — isso é crescimento! -->
+          <div style="background:linear-gradient(135deg,#FFFBEB 0%,#EFF6FF 100%); border-radius:10px; padding:8px 12px; margin-bottom:10px; border:1px solid #FEF3C7;">
+            <p style="font-size:12px; color:#92400e; line-height:1.5;">
+              Pedro estava <strong>feliz</strong> mas achou a tarefa <strong>difícil</strong> — isso é ótimo! Significa que ele se esforçou e superou um desafio. Vale um elogio!
+            </p>
+          </div>
+
+          <div style="display:flex; gap:8px; align-items:center; margin-bottom:12px;">
+            <div style="background:#D1FAE5; border-radius:999px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; font-size:20px; position:relative; flex-shrink:0;">
+              😀
+            </div>
+            <span style="font-size:13px; font-weight:600; color:#374151;">Resposta do Pedro: Feliz</span>
+          </div>
+
+          <div>
+            <p style="font-size:11px; text-transform:uppercase; letter-spacing:.6px; color:#9ca3af; margin-bottom:6px;">Confirmar como</p>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <button class="btn btn-mint btn-sm">😀 Feliz</button>
+              <button class="btn btn-sm" style="background:#FEF3C7; color:#92400e;">😐 Ok</button>
+              <button class="btn btn-sm" style="background:#FFE4E6; color:#be123c;">😕 Foi difícil</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estado após revisar (feedback) -->
+      <div id="t4-reviewed" style="display:none; background:#D1FAE5; border-radius:16px; padding:16px; text-align:center; margin-top:8px;">
+        <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+        <svg width="56" height="74" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-celebrate" style="display:block; margin:0 auto;">
+          <use href="#mascote-celebrando"/>
+        </svg>
+        <p style="font-size:16px; font-weight:700; color:#065f46; margin-top:6px;">Luna foi notificada!</p>
+        <p style="font-size:13px; color:#6b7280; margin-top:4px;">Missão completa! O Blip está orgulhoso de você.</p>
+      </div>
+    </div>
+  </div><!-- /t4 -->
+
+
+  <!-- ════════════════════════════════════════════════════
+       TELA 5 — Celebration com identidade Blip
+       Mascote no estado CELEBRANDO — braços erguidos
+       ════════════════════════════════════════════════════ -->
+  <div class="screen" id="t5">
+    <div style="padding:12px 16px 0; background:#1A1040;">
+      <div class="toggle-group" style="background:rgba(255,255,255,.15);">
+        <button class="toggle-btn active" id="cel-tog-peq" onclick="toggleCeleb('pequenino', this)">Pequenino</button>
+        <button class="toggle-btn" id="cel-tog-aven" onclick="toggleCeleb('aventureiro', this)">Aventureiro</button>
+      </div>
+    </div>
+
+    <!-- ---- Celebration Pequenino ---- -->
+    <div id="cel-pequenino" style="display:flex; flex-direction:column; flex:1; background:#1A1040;">
+      <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:24px; position:relative; overflow:hidden;">
+        <div id="confetti-peq" style="position:absolute; inset:0; pointer-events:none;"></div>
+
+        <div class="celebration-card" id="cel-card-peq">
+          <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+          <!-- Estado celebrando: braços erguidos, olhos fechados em alegria máxima, estrelinhas -->
+          <svg width="100" height="130" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-celebrate" style="display:block; margin:0 auto;">
+            <use href="#mascote-celebrando"/>
+          </svg>
+          <h2 style="font-size:28px; font-weight:700; color:#fff; margin-top:8px;">META DA SEMANA!</h2>
+          <p style="font-size:17px; color:rgba(255,255,255,.9); margin-top:6px;">
+            Luna completou 4 missões esta semana.<br>O Blip está orgulhoso de você! 🌟
+          </p>
+          <div style="background:rgba(255,255,255,.2); border-radius:12px; padding:10px 16px; margin-top:14px;">
+            <p style="font-size:22px; font-weight:700; color:#fff;">⭐ 100 pontos</p>
+          </div>
+        </div>
+
+        <button
+          style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(255,255,255,.2); color:#fff; border:1px solid rgba(255,255,255,.3); padding:8px 18px; border-radius:20px; font-family:'Fredoka',sans-serif; font-size:13px; cursor:pointer;"
+          onclick="launchConfetti('peq')"
+        >↺ Repetir animação</button>
+      </div>
+      <div style="padding:16px; background:#1A1040; text-align:center;">
+        <button class="btn btn-primary" onclick="goTo('t2')">Continuar</button>
+      </div>
+    </div>
+
+    <!-- ---- Celebration Aventureiro ---- -->
+    <div id="cel-aventureiro" style="display:none; flex-direction:column; flex:1; background:#1A1040;">
+      <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:24px; position:relative; overflow:hidden;">
+        <div id="confetti-aven" style="position:absolute; inset:0; pointer-events:none;"></div>
+
+        <div style="background:linear-gradient(135deg,#A78BFA 0%,#7c3aed 100%); border-radius:24px; padding:28px 24px; text-align:center; box-shadow:0 20px 60px rgba(124,58,237,.4); animation:bounceIn .4s cubic-bezier(.34,1.56,.64,1);">
+          <!-- SVG placeholder baseado no brandbook — substituir pelo asset oficial após due diligence -->
+          <!-- Aventureiro: mascote celebrando, versão menor, mais contida -->
+          <svg width="60" height="80" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-celebrate" style="display:block; margin:0 auto; opacity:.9;">
+            <use href="#mascote-celebrando"/>
+          </svg>
+          <h2 style="font-size:22px; font-weight:700; color:#fff; margin-top:6px;">MISSÃO CONCLUÍDA!</h2>
+          <p style="font-size:14px; color:rgba(255,255,255,.8); margin-top:4px;">
+            Pedro completou a semana!
+          </p>
+          <div style="display:flex; gap:8px; justify-content:center; margin-top:14px;">
+            <span style="background:rgba(255,255,255,.2); color:#fff; padding:6px 14px; border-radius:999px; font-size:13px; font-weight:600;">⚡ +100 XP</span>
+            <span style="background:rgba(251,191,36,.3); color:#FBBF24; padding:6px 14px; border-radius:999px; font-size:13px; font-weight:600;">🏆 Nível 4!</span>
+          </div>
+        </div>
+
+        <button
+          style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(255,255,255,.15); color:#fff; border:1px solid rgba(255,255,255,.25); padding:8px 18px; border-radius:20px; font-family:'Fredoka',sans-serif; font-size:13px; cursor:pointer;"
+          onclick="launchConfetti('aven')"
+        >↺ Repetir</button>
+      </div>
+      <div style="padding:16px; background:#1A1040; text-align:center;">
+        <button class="btn btn-violet" onclick="goTo('t2')">Continuar</button>
+      </div>
+    </div>
+  </div><!-- /t5 -->
+
+</div><!-- /device-shell -->
+
+<script>
+  // ── Navegação entre telas ──────────────────────────────────
+  function goTo(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.screen-nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('nav-' + id)?.classList.add('active');
+
+    if (id === 't5') {
+      setTimeout(() => {
+        const activeCel = document.getElementById('cel-pequenino').style.display !== 'none' ? 'peq' : 'aven';
+        launchConfetti(activeCel);
+      }, 300);
+    }
+  }
+
+  // ── Toggle criança (tela 2) ─────────────────────────────────
+  function togglePerfil(perfil, btn) {
+    document.querySelectorAll('#t2 .toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('child-pequenino').style.display = perfil === 'pequenino' ? 'flex' : 'none';
+    document.getElementById('child-aventureiro').style.display = perfil === 'aventureiro' ? 'flex' : 'none';
+  }
+
+  // ── Toggle autoavaliação (tela 3) — 3 perfis ────────────────
+  function toggleAuto(perfil, btn) {
+    document.querySelectorAll('#t3 .toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('auto-pequenino').style.display  = perfil === 'pequenino'  ? 'flex' : 'none';
+    document.getElementById('auto-explorador').style.display = perfil === 'explorador' ? 'flex' : 'none';
+    document.getElementById('auto-aventureiro').style.display= perfil === 'aventureiro'? 'flex' : 'none';
+  }
+
+  // ── Toggle celebration (tela 5) ────────────────────────────
+  function toggleCeleb(perfil, btn) {
+    document.querySelectorAll('#t5 .toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('cel-pequenino').style.display = perfil === 'pequenino' ? 'flex' : 'none';
+    document.getElementById('cel-aventureiro').style.display = perfil === 'aventureiro' ? 'flex' : 'none';
+    setTimeout(() => launchConfetti(perfil === 'pequenino' ? 'peq' : 'aven'), 200);
+  }
+
+  // ── Selector emocional ─────────────────────────────────────
+  const feelingClasses = { bem: 'active-bem', medio: 'active-medio', nao: 'active-nao' };
+
+  const peqSelectedColors = {
+    bem:   { bg: '#D1FAE5', border: '#10B981' },
+    medio: { bg: '#FEF3C7', border: '#FBBF24' },
+    nao:   { bg: '#FFE4E6', border: '#f43f5e' }
+  };
+
+  function selectFeeling(prefix, feeling) {
+    ['bem','medio','nao'].forEach(f => {
+      const btn = document.getElementById(prefix + '-' + f);
+      if (!btn) return;
+      if (prefix === 'peq') {
+        // Pequenino: botões SVG inline sem classe feeling-btn
+        btn.classList.remove('peq-selected-bem','peq-selected-medio','peq-selected-nao');
+        btn.style.background = '#f3f4f6';
+        btn.style.borderColor = 'transparent';
+        btn.style.transform = 'scale(1)';
+      } else {
+        btn.classList.remove('active-bem','active-medio','active-nao');
+      }
+    });
+    const btn = document.getElementById(prefix + '-' + feeling);
+    if (btn) {
+      if (prefix === 'peq') {
+        const col = peqSelectedColors[feeling];
+        btn.classList.add('peq-selected-' + feeling);
+        btn.style.background = col.bg;
+        btn.style.borderColor = col.border;
+        btn.style.transform = 'scale(1.1)';
+      } else {
+        btn.classList.add(feelingClasses[feeling]);
+      }
+    }
+    const confirmBtn = document.getElementById(prefix + '-confirm');
+    if (confirmBtn) confirmBtn.style.display = 'block';
+  }
+
+  // Selector de dificuldade (Dimensão 2 — aventureiro+)
+  const diffClasses = { facil: 'active-bem', normal: 'active-medio', dificil: 'active-nao' };
+
+  function selectDiff(prefix, level) {
+    ['facil','normal','dificil'].forEach(l => {
+      const btn = document.getElementById(prefix + '-dif-' + l);
+      if (btn) btn.classList.remove('active-bem','active-medio','active-nao');
+    });
+    const btn = document.getElementById(prefix + '-dif-' + level);
+    if (btn) btn.classList.add(diffClasses[level]);
+    // Mostra confirmar se sentimento também já foi selecionado
+    const hasFeeling = ['bem','medio','nao'].some(f => {
+      const b = document.getElementById(prefix + '-' + f);
+      return b && (b.classList.contains('active-bem') || b.classList.contains('active-medio') || b.classList.contains('active-nao'));
+    });
+    if (hasFeeling) {
+      const confirmBtn = document.getElementById(prefix + '-confirm');
+      if (confirmBtn) confirmBtn.style.display = 'block';
+    }
+  }
+
+  function confirmFeeling(prefix) {
+    const nameMap = { peq: 'pequenino', exp: 'explorador', aven: 'aventureiro' };
+    const selector = document.getElementById('selector-' + (nameMap[prefix] || prefix));
+    const confirmed = document.getElementById(prefix + '-confirmed');
+    if (selector) selector.style.display = 'none';
+    if (confirmed) {
+      confirmed.style.display = 'block';
+      confirmed.style.animation = 'selectorEnter .3s ease';
+    }
+  }
+
+  // ── Revisão de tarefa (tela 4) ─────────────────────────────
+  function reviewTask(taskId, mood) {
+    document.getElementById('t4-reviewed').style.display = 'block';
+    document.getElementById('t4-reviewed').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // CP-1: exibe micro-texto de framing futuro ao selecionar 'dificil' no Explorador
+  const _origSelectDiff = selectDiff;
+  selectDiff = function(prefix, level) {
+    _origSelectDiff(prefix, level);
+    if (prefix === 'exp') {
+      const framingEl = document.getElementById('exp-framing-futuro');
+      if (framingEl) {
+        framingEl.style.display = (level === 'dificil') ? 'block' : 'none';
+      }
+    }
+  };
+
+  // CP-3: toggle do campo de texto no Aventureiro
+  function toggleAvenWrite() {
+    const area = document.getElementById('aven-write-area');
+    const btn  = document.getElementById('aven-write-toggle');
+    const inp  = document.getElementById('aven-text-input');
+    if (!area) return;
+    const open = area.style.display === 'none' || area.style.display === '';
+    area.style.display = open ? 'block' : 'none';
+    btn.style.background = open ? '#EDE9FE' : 'none';
+    btn.style.borderStyle = open ? 'solid' : 'dashed';
+    if (open && inp) inp.focus();
+  }
+
+  // CP-3: contador de caracteres do textarea do Aventureiro
+  document.addEventListener('DOMContentLoaded', function() {
+    const inp = document.getElementById('aven-text-input');
+    const counter = document.getElementById('aven-char-count');
+    if (inp && counter) {
+      inp.addEventListener('input', function() {
+        counter.textContent = inp.value.length + ' / 120';
+        counter.style.color = inp.value.length > 100 ? '#f43f5e' : '#9ca3af';
+      });
+    }
+  });
+
+  // CP-6: seleção de frase sugerida para o pai
+  function selectFrasePai(btn) {
+    document.querySelectorAll('#frases-pai-lista button').forEach(b => {
+      b.style.background = '#fff';
+      b.style.borderColor = '#D1FAE5';
+      b.style.fontWeight = '400';
+    });
+    btn.style.background = '#D1FAE5';
+    btn.style.borderColor = '#10B981';
+    btn.style.fontWeight = '700';
+  }
+
+  // ── Confete nas cores Blip ─────────────────────────────────
+  const blipColors = ['#F97316','#FBBF24','#10B981','#A78BFA','#FED7AA','#1A1040','#F8F7FF'];
+
+  function launchConfetti(variant) {
+    const containerId = 'confetti-' + variant;
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+
+    const count = variant === 'peq' ? 60 : 35;
+    for (let i = 0; i < count; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const color = blipColors[Math.floor(Math.random() * blipColors.length)];
+      const size = Math.random() * 8 + 5;
+      piece.style.cssText = `
+        left: ${Math.random() * 100}%;
+        background: ${color};
+        width: ${size}px;
+        height: ${size * 0.6}px;
+        animation-delay: ${Math.random() * 1.2}s;
+        animation-duration: ${2 + Math.random() * 1.5}s;
+        border-radius: ${Math.random() > .5 ? '50%' : '2px'};
+      `;
+      container.appendChild(piece);
+    }
+  }
+</script>
+
+</body>
+</html>

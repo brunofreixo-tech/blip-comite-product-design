@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blip — Comite de Product Design · Abril 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { fredoka: ['Fredoka', 'sans-serif'] },
+          colors: {
+            blip: {
+              orange:   '#F97316',
+              night:    '#1A1040',
+              peach:    '#FED7AA',
+              gold:     '#FBBF24',
+              mint:     '#10B981',
+              violet:   '#A78BFA',
+              offwhite: '#F8F7FF',
+            }
+          },
+          animation: {
+            'float': 'float 4s ease-in-out infinite',
+            'float-slow': 'float 6s ease-in-out infinite',
+            'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
+            'slide-up': 'slideUp 0.6s ease forwards',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --blip-orange:   #F97316;
+      --blip-night:    #1A1040;
+      --blip-peach:    #FED7AA;
+      --blip-gold:     #FBBF24;
+      --blip-mint:     #10B981;
+      --blip-violet:   #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Fredoka', sans-serif;
+      background: var(--blip-offwhite);
+      color: var(--blip-night);
+      line-height: 1.6;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: var(--blip-orange); border-radius: 3px; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(-2deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    @keyframes pulseSoft {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes mascotBounce {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+    @keyframes mascotCelebrate {
+      0%, 100% { transform: translateY(0) scale(1) rotate(-3deg); }
+      30% { transform: translateY(-12px) scale(1.06) rotate(4deg); }
+      60% { transform: translateY(-4px) scale(1.03) rotate(-2deg); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: scale(0.7); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .mascot-idle { animation: mascotBounce 3.5s ease infinite; }
+    .mascot-celebrate { animation: mascotCelebrate 1.2s ease infinite; }
+
+    /* ── NAV ── */
+    .nav-link {
+      font-weight: 600;
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-link:hover {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    /* ── SECTION MARKERS ── */
+    .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      background: var(--blip-orange);
+      color: white;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* ── SCORE BADGE ── */
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--blip-orange), #ea580c);
+      color: white;
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    /* ── MEMBER TAG ── */
+    .member-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.25);
+      color: #ea580c;
+      border-radius: 999px;
+      padding: 3px 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* ── FLOW ARROW ── */
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blip-orange);
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    /* ── CARD HOVER ── */
+    .card-hover {
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(249,115,22,0.15);
+    }
+
+    /* ── PROFILE CARDS ── */
+    .profile-pequenino { background: linear-gradient(135deg, #FFF3E8 0%, #FFF9F0 100%); border-color: #FED7AA; }
+    .profile-explorador { background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%); border-color: #6EE7B7; }
+    .profile-aventureiro { background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%); border-color: #C4B5FD; }
+    .profile-pro { background: linear-gradient(135deg, #1A1040 0%, #0F0A28 100%); border-color: #4C3D8F; }
+
+    /* ── QUOTE BLOCK ── */
+    .quote-block {
+      border-left: 4px solid var(--blip-orange);
+      background: rgba(249,115,22,0.05);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      color: #374151;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* ── SHIMMER TEXT ── */
+    .shimmer-text {
+      background: linear-gradient(90deg, var(--blip-orange) 0%, var(--blip-gold) 50%, var(--blip-orange) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+
+    /* ── METRIC CARD ── */
+    .metric-value {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--blip-orange);
+      line-height: 1;
+      animation: countUp 0.8s ease forwards;
+    }
+
+    /* ── REVEAL ON SCROLL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── SECTION SEPARATOR ── */
+    .sep {
+      width: 60px;
+      height: 4px;
+      background: var(--blip-orange);
+      border-radius: 2px;
+    }
+
+    /* ── SIDE BY SIDE ── */
+    .side-card-pai {
+      background: linear-gradient(135deg, #FFF7ED 0%, #fff 100%);
+      border: 1.5px solid var(--blip-peach);
+    }
+    .side-card-filho {
+      background: linear-gradient(135deg, #F0FDF4 0%, #fff 100%);
+      border: 1.5px solid #6EE7B7;
+    }
+
+    /* ── OPEN ITEM ── */
+    .open-item {
+      border-left: 3px solid;
+      padding: 14px 18px;
+      border-radius: 0 10px 10px 0;
+      background: #fff;
+    }
+    .open-item.critical { border-color: #ef4444; }
+    .open-item.pending  { border-color: var(--blip-gold); }
+    .open-item.legal    { border-color: var(--blip-violet); }
+    .open-item.infra    { border-color: var(--blip-mint); }
+  </style>
+
+  <!-- Favicon mascote inline -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='18' rx='10' ry='11' fill='%23F97316'/%3E%3Cellipse cx='16' cy='13' rx='9' ry='9.5' fill='%23F97316'/%3E%3Cellipse cx='12.5' cy='12' rx='2.8' ry='3.2' fill='white'/%3E%3Cellipse cx='19.5' cy='12' rx='2.8' ry='3.2' fill='white'/%3E%3Ccircle cx='13.2' cy='12.5' r='1.6' fill='%231A1040'/%3E%3Ccircle cx='20.2' cy='12.5' r='1.6' fill='%231A1040'/%3E%3Cpath d='M13.5 17 Q16 19 18.5 17' stroke='%231A1040' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- ████████████████████████████████████████████████
+     MASCOTE SVG — DEFS INLINE (não renderiza)
+████████████████████████████████████████████████ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+    <symbol id="mascote-feliz" viewBox="0 0 120 160">
+      <ellipse cx="43" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="77" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="43" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="77" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="60" cy="122" rx="36" ry="38" fill="#F97316"/>
+      <ellipse cx="60" cy="128" rx="22" ry="24" fill="#FED7AA"/>
+      <ellipse cx="20" cy="110" rx="11" ry="8" fill="#F97316" transform="rotate(-30 20 110)"/>
+      <ellipse cx="100" cy="110" rx="11" ry="8" fill="#F97316" transform="rotate(30 100 110)"/>
+      <ellipse cx="22" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="98" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="60" cy="74" rx="44" ry="46" fill="#F97316"/>
+      <ellipse cx="43" cy="68" rx="14" ry="16" fill="white"/>
+      <ellipse cx="77" cy="68" rx="14" ry="16" fill="white"/>
+      <circle cx="45" cy="70" r="8" fill="#1A1040"/>
+      <circle cx="79" cy="70" r="8" fill="#1A1040"/>
+      <circle cx="48" cy="66" r="3" fill="white"/>
+      <circle cx="82" cy="66" r="3" fill="white"/>
+      <ellipse cx="30" cy="82" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+      <ellipse cx="90" cy="82" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+      <path d="M48 90 Q60 100 72 90" stroke="#1A1040" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="mascote-celebrando" viewBox="0 0 120 160">
+      <ellipse cx="43" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="77" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="43" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="77" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="60" cy="120" rx="36" ry="38" fill="#F97316"/>
+      <ellipse cx="60" cy="126" rx="22" ry="24" fill="#FED7AA"/>
+      <ellipse cx="16" cy="88" rx="11" ry="8" fill="#F97316" transform="rotate(-70 16 88)"/>
+      <ellipse cx="104" cy="88" rx="11" ry="8" fill="#F97316" transform="rotate(70 104 88)"/>
+      <ellipse cx="22" cy="60" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="98" cy="60" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="60" cy="70" rx="44" ry="46" fill="#F97316"/>
+      <path d="M30 66 Q43 56 56 66" stroke="#1A1040" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M64 66 Q77 56 90 66" stroke="#1A1040" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="28" cy="78" rx="12" ry="8" fill="#FED7AA" opacity="0.9"/>
+      <ellipse cx="92" cy="78" rx="12" ry="8" fill="#FED7AA" opacity="0.9"/>
+      <path d="M42 88 Q60 104 78 88" stroke="#1A1040" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <text x="8" y="30" font-size="14" fill="#FBBF24">&#10022;</text>
+      <text x="98" y="28" font-size="14" fill="#FBBF24">&#10022;</text>
+      <text x="4" y="60" font-size="10" fill="#10B981">&#10022;</text>
+      <text x="106" y="58" font-size="10" fill="#10B981">&#10022;</text>
+    </symbol>
+    <symbol id="mascote-curioso" viewBox="0 0 120 160">
+      <ellipse cx="43" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="77" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="43" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="77" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="60" cy="122" rx="36" ry="38" fill="#F97316" transform="rotate(3 60 122)"/>
+      <ellipse cx="60" cy="128" rx="22" ry="24" fill="#FED7AA"/>
+      <ellipse cx="22" cy="102" rx="11" ry="8" fill="#F97316" transform="rotate(-20 22 102)"/>
+      <ellipse cx="102" cy="92" rx="11" ry="8" fill="#F97316" transform="rotate(-50 102 92)"/>
+      <ellipse cx="22" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="98" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="60" cy="74" rx="44" ry="46" fill="#F97316" transform="rotate(5 60 74)"/>
+      <ellipse cx="42" cy="68" rx="16" ry="17" fill="white"/>
+      <ellipse cx="77" cy="70" rx="13" ry="14" fill="white"/>
+      <circle cx="44" cy="70" r="9" fill="#1A1040"/>
+      <circle cx="79" cy="72" r="7.5" fill="#1A1040"/>
+      <circle cx="48" cy="65" r="3.5" fill="white"/>
+      <circle cx="83" cy="68" r="2.8" fill="white"/>
+      <path d="M28 52 Q42 46 54 52" stroke="#1A1040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="30" cy="82" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+      <ellipse cx="90" cy="83" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+      <path d="M48 90 Q60 97 72 91" stroke="#1A1040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <text x="95" y="45" font-size="20" fill="#FBBF24" font-weight="bold">?</text>
+    </symbol>
+  </defs>
+</svg>
+
+
+<!-- ████████████████████████████████████████████████
+     NAV — STICKY TOPO
+████████████████████████████████████████████████ -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100; box-shadow:0 2px 20px rgba(0,0,0,0.4);">
+  <div style="max-width:1200px; margin:0 auto; padding:0 24px; height:56px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
+
+    <!-- Logo -->
+    <a href="#hero" style="display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0;">
+      <svg width="32" height="32" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+        <use href="#mascote-feliz"/>
+      </svg>
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px; color:#fff; letter-spacing:-0.3px;">Blip</span>
+    </a>
+
+    <!-- Links -->
+    <div style="display:flex; align-items:center; gap:4px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;">
+      <a href="#produto" class="nav-link">Produto</a>
+      <a href="#perfis" class="nav-link">Perfis</a>
+      <a href="#objetivos" class="nav-link">Objetivos</a>
+      <a href="#diferencial" class="nav-link">Diferencial</a>
+      <a href="#antipadroes" class="nav-link">Anti-Padroes</a>
+      <a href="#aberto" class="nav-link">Em Aberto</a>
+    </div>
+
+    <!-- CTA -->
+    <a href="./blip-mvp-04-validacao.html" target="_blank"
+       style="background:var(--blip-orange); color:#fff; font-family:'Fredoka',sans-serif; font-weight:700; font-size:13px; padding:7px 16px; border-radius:20px; text-decoration:none; white-space:nowrap; flex-shrink:0; transition:background 0.2s;"
+       onmouseover="this.style.background='#ea580c'" onmouseout="this.style.background='#F97316'">
+      Ver Prototipo
+    </a>
+  </div>
+</nav>
+
+
+<!-- ████████████████████████████████████████████████
+     HERO / COVER
+████████████████████████████████████████████████ -->
+<section id="hero" style="background: linear-gradient(135deg, #1A1040 0%, #2D1B6B 50%, #1A1040 100%); min-height:100vh; display:flex; align-items:center; position:relative; overflow:hidden;">
+
+  <!-- Orbs decorativos de fundo -->
+  <div style="position:absolute; top:-80px; right:-80px; width:400px; height:400px; background:radial-gradient(circle, rgba(249,115,22,0.18) 0%, transparent 70%); border-radius:50%; pointer-events:none;"></div>
+  <div style="position:absolute; bottom:-60px; left:-60px; width:300px; height:300px; background:radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%); border-radius:50%; pointer-events:none;"></div>
+  <div style="position:absolute; top:30%; left:20%; width:200px; height:200px; background:radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%); border-radius:50%; pointer-events:none;"></div>
+
+  <div style="max-width:1200px; margin:0 auto; padding:80px 24px; width:100%; position:relative; z-index:1;">
+    <div style="display:grid; grid-template-columns:1fr auto; gap:60px; align-items:center;">
+
+      <!-- Texto principal -->
+      <div>
+        <!-- Chip de contexto -->
+        <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(249,115,22,0.15); border:1px solid rgba(249,115,22,0.3); border-radius:999px; padding:6px 16px; margin-bottom:32px;">
+          <div style="width:8px;height:8px;background:#F97316;border-radius:50%;animation:pulseSoft 2s ease infinite;"></div>
+          <span style="color:rgba(255,255,255,0.85); font-size:13px; font-weight:600; letter-spacing:0.5px;">MATERIAL ASSÍNCRONO · COMITE DE PRODUCT DESIGN</span>
+        </div>
+
+        <h1 style="font-size:clamp(42px,6vw,80px); font-weight:700; color:#fff; line-height:1.05; margin-bottom:20px; letter-spacing:-1px;">
+          Por que o usuario<br>
+          <span class="shimmer-text">volta amanha?</span>
+        </h1>
+
+        <p style="font-size:clamp(16px,2vw,22px); color:rgba(255,255,255,0.7); max-width:580px; line-height:1.6; margin-bottom:40px; font-weight:400;">
+          Material de revisao assíncrona — Comite de Product Design · Abril 2026.<br>
+          Um produto para familias. Quatro experiencias por faixa etaria.
+        </p>
+
+        <!-- Stats credenciais -->
+        <div style="display:flex; gap:32px; flex-wrap:wrap; margin-bottom:48px;">
+          <div>
+            <div style="font-size:36px; font-weight:700; color:var(--blip-orange);">8,4</div>
+            <div style="font-size:13px; color:rgba(255,255,255,0.5); font-weight:600;">Comite Pedagogico</div>
+          </div>
+          <div style="width:1px; background:rgba(255,255,255,0.1);"></div>
+          <div>
+            <div style="font-size:36px; font-weight:700; color:var(--blip-mint);">8,8</div>
+            <div style="font-size:13px; color:rgba(255,255,255,0.5); font-weight:600;">Comite de Negocios</div>
+          </div>
+          <div style="width:1px; background:rgba(255,255,255,0.1);"></div>
+          <div>
+            <div style="font-size:36px; font-weight:700; color:var(--blip-gold);">9,2</div>
+            <div style="font-size:13px; color:rgba(255,255,255,0.5); font-weight:600;">Dweck · Growth Mindset</div>
+          </div>
+        </div>
+
+        <!-- Navegacao de seções -->
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="#produto" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.8); font-family:'Fredoka',sans-serif; font-weight:600; font-size:14px; padding:10px 20px; border-radius:20px; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(249,115,22,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">1 · O Produto</a>
+          <a href="#perfis" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.8); font-family:'Fredoka',sans-serif; font-weight:600; font-size:14px; padding:10px 20px; border-radius:20px; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(249,115,22,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">2 · Perfis Etarios</a>
+          <a href="#objetivos" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.8); font-family:'Fredoka',sans-serif; font-weight:600; font-size:14px; padding:10px 20px; border-radius:20px; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(249,115,22,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">3 · Objetivos</a>
+          <a href="#diferencial" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.8); font-family:'Fredoka',sans-serif; font-weight:600; font-size:14px; padding:10px 20px; border-radius:20px; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(249,115,22,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">4 · Diferencial</a>
+          <a href="#antipadroes" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.8); font-family:'Fredoka',sans-serif; font-weight:600; font-size:14px; padding:10px 20px; border-radius:20px; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(249,115,22,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">5 · Anti-Padroes</a>
+          <a href="#aberto" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.8); font-family:'Fredoka',sans-serif; font-weight:600; font-size:14px; padding:10px 20px; border-radius:20px; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(249,115,22,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">6 · Em Aberto</a>
+        </div>
+      </div>
+
+      <!-- Mascote hero -->
+      <div style="display:flex; flex-direction:column; align-items:center; gap:16px; flex-shrink:0;">
+        <svg width="200" height="264" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-celebrate" style="filter:drop-shadow(0 20px 40px rgba(249,115,22,0.4));">
+          <use href="#mascote-celebrando"/>
+        </svg>
+        <div style="text-align:center;">
+          <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:8px 16px;">
+            <div style="font-size:11px; color:rgba(255,255,255,0.5); font-weight:600; letter-spacing:0.5px; margin-bottom:2px;">SPRINT ATUAL</div>
+            <div style="font-size:14px; color:rgba(255,255,255,0.9); font-weight:600;">MVP-04 em andamento</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████
+     SECAO 1 — O PRODUTO
+████████████████████████████████████████████████ -->
+<section id="produto" style="background:#fff; padding:96px 24px;">
+  <div style="max-width:1100px; margin:0 auto;">
+
+    <!-- Header da secao -->
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+      <div class="section-num">1</div>
+      <h2 style="font-size:clamp(28px,4vw,44px); font-weight:700; color:#1A1040; line-height:1.1;">O Produto</h2>
+    </div>
+    <div class="sep" style="margin-bottom:48px;"></div>
+
+    <!-- 3 frases -->
+    <div style="background:linear-gradient(135deg, #FFF7ED 0%, #FFF 100%); border:1.5px solid #FED7AA; border-radius:20px; padding:36px; margin-bottom:56px;">
+      <p style="font-size:clamp(18px,2.5vw,26px); color:#1A1040; font-weight:600; line-height:1.55;">
+        O Blip ajuda pais a criarem rotinas de tarefas com os filhos sem conflito. A crianca completa as tarefas, autoavalia como se sentiu, e o pai ve contexto emocional — nao so resultado. <span style="color:var(--blip-orange);">E um produto web funcional hoje, com MVP-04 em andamento.</span>
+      </p>
+    </div>
+
+    <!-- 3 pilares -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:24px; margin-bottom:64px;">
+
+      <!-- Pilar Pedagogico -->
+      <div class="card-hover" style="background:#fff; border:1.5px solid #e5e7eb; border-radius:20px; padding:28px; border-top:4px solid var(--blip-mint);">
+        <div style="font-size:36px; margin-bottom:12px;">📚</div>
+        <h3 style="font-size:20px; font-weight:700; color:#1A1040; margin-bottom:10px;">Pedagogico</h3>
+        <p style="font-size:15px; color:#4b5563; line-height:1.6;">Por que funciona. Fundamentado em Dweck (growth mindset), Vygotsky (ZDP por faixa etaria), Duckworth (grit) e Lieberman (afeto labeling). Score pedagogico: <strong style="color:var(--blip-mint);">8,4 / 10</strong>.</p>
+        <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="background:#D1FAE5; color:#065f46; border-radius:999px; padding:3px 10px; font-size:12px; font-weight:600;">Dweck 9,2</span>
+          <span style="background:#D1FAE5; color:#065f46; border-radius:999px; padding:3px 10px; font-size:12px; font-weight:600;">Brown 9,0</span>
+          <span style="background:#D1FAE5; color:#065f46; border-radius:999px; padding:3px 10px; font-size:12px; font-weight:600;">Lieberman 9,2</span>
+        </div>
+      </div>
+
+      <!-- Pilar Negocios -->
+      <div class="card-hover" style="background:#fff; border:1.5px solid #e5e7eb; border-radius:20px; padding:28px; border-top:4px solid var(--blip-gold);">
+        <div style="font-size:36px; margin-bottom:12px;">📈</div>
+        <h3 style="font-size:20px; font-weight:700; color:#1A1040; margin-bottom:10px;">Negocios</h3>
+        <p style="font-size:15px; color:#4b5563; line-height:1.6;">Como escala. Freemium ate 2 filhos · R$19,90 premium · licenca escolar B2B. Com churn de 3%, LTV ~R$663. Score: <strong style="color:var(--blip-gold);">8,8 / 10</strong>.</p>
+        <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="background:#FEF3C7; color:#92400e; border-radius:999px; padding:3px 10px; font-size:12px; font-weight:600;">73% dos pais BR</span>
+          <span style="background:#FEF3C7; color:#92400e; border-radius:999px; padding:3px 10px; font-size:12px; font-weight:600;">B2B2C Escola Q4</span>
+          <span style="background:#FEF3C7; color:#92400e; border-radius:999px; padding:3px 10px; font-size:12px; font-weight:600;">LTV R$663</span>
+        </div>
+      </div>
+
+      <!-- Pilar Product Design -->
+      <div class="card-hover" style="background:#1A1040; border:1.5px solid #4C3D8F; border-radius:20px; padding:28px; border-top:4px solid var(--blip-orange);">
+        <div style="font-size:36px; margin-bottom:12px;">✦</div>
+        <h3 style="font-size:20px; font-weight:700; color:#fff; margin-bottom:10px;">Product Design</h3>
+        <p style="font-size:15px; color:rgba(255,255,255,0.7); line-height:1.6;">Por que volta. Quatro experiencias distintas para quatro faixas etarias. Inteligencia emocional como diferencial de mercado — nao existe em nenhum concorrente.</p>
+        <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="background:rgba(249,115,22,0.2); color:#fed7aa; border-radius:999px; padding:3px 10px; font-size:12px; font-weight:600;">4 perfis etarios</span>
+          <span style="background:rgba(249,115,22,0.2); color:#fed7aa; border-radius:999px; padding:3px 10px; font-size:12px; font-weight:600;">Autoavaliacao emocional</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status atual -->
+    <div style="background:linear-gradient(135deg, #1A1040 0%, #2D1B6B 100%); border-radius:20px; padding:32px; display:flex; align-items:center; gap:32px; flex-wrap:wrap;">
+      <svg width="80" height="106" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-idle" style="flex-shrink:0;">
+        <use href="#mascote-feliz"/>
+      </svg>
+      <div style="flex:1; min-width:240px;">
+        <div style="font-size:13px; color:rgba(255,255,255,0.5); font-weight:600; letter-spacing:0.5px; margin-bottom:6px;">STATUS ATUAL</div>
+        <h3 style="font-size:22px; font-weight:700; color:#fff; margin-bottom:10px;">Produto web funcional · Sprint MVP-04</h3>
+        <p style="color:rgba(255,255,255,0.7); font-size:15px; line-height:1.6;">Interface da crianca e do pai implementadas. Campo <code style="background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px; font-size:13px;">reaction</code> em producao. Fluxo de resposta emocional e Estrelas de Coragem especificados — decisoes B1 e B4 confirmadas.</p>
+      </div>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-size:28px; font-weight:700; color:var(--blip-orange);">MVP-04</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.5);">Sprint atual</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:28px; font-weight:700; color:var(--blip-mint);">Q3 26</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.5);">Lancamento</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████
+     SECAO 2 — PERFIS ETARIOS
+████████████████████████████████████████████████ -->
+<section id="perfis" style="background:#F8F7FF; padding:96px 24px;">
+  <div style="max-width:1100px; margin:0 auto;">
+
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+      <div class="section-num">2</div>
+      <h2 style="font-size:clamp(28px,4vw,44px); font-weight:700; color:#1A1040; line-height:1.1;">Sistema de Perfis Etarios</h2>
+    </div>
+    <div class="sep" style="margin-bottom:20px;"></div>
+
+    <!-- Principio central -->
+    <div style="background:linear-gradient(135deg, #1A1040 0%, #2D1B6B 100%); border-radius:16px; padding:24px 32px; margin-bottom:48px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+      <span style="font-size:32px;">✦</span>
+      <div>
+        <div style="font-size:20px; font-weight:700; color:#fff; margin-bottom:4px;">Um produto, quatro experiencias</div>
+        <div style="font-size:15px; color:rgba(255,255,255,0.7);">Nao sao quatro produtos separados. E um sistema de design adaptativo — a mesma logica de negocio, com camadas de apresentacao radicalmente distintas por faixa etaria.</div>
+      </div>
+    </div>
+
+    <!-- Grid de perfis -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:24px;">
+
+      <!-- Pequenino -->
+      <div class="card-hover profile-pequenino" style="border:2px solid; border-radius:24px; padding:28px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:-20px; right:-20px; width:80px; height:80px; background:rgba(249,115,22,0.08); border-radius:50%;"></div>
+        <div style="margin-bottom:16px; display:flex; justify-content:space-between; align-items:flex-start;">
+          <svg width="64" height="84" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-idle">
+            <use href="#mascote-celebrando"/>
+          </svg>
+          <span style="background:#F97316; color:white; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700;">4 - 6 anos</span>
+        </div>
+        <h3 style="font-size:22px; font-weight:700; color:#1A1040; margin-bottom:6px;">Pequenino</h3>
+        <div style="display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;">
+          <div style="width:16px;height:16px;background:#FF6B6B;border-radius:50%;"></div>
+          <div style="width:16px;height:16px;background:#4ECDC4;border-radius:50%;"></div>
+          <div style="width:16px;height:16px;background:#FFE66D;border-radius:50%;"></div>
+          <div style="width:16px;height:16px;background:#F97316;border-radius:50%;"></div>
+        </div>
+        <p style="font-size:14px; color:#374151; line-height:1.6; margin-bottom:14px;">Mascote sempre presente. Icones 64px+. Texto minimo. Feedback exagerado com confete.</p>
+        <div style="background:rgba(249,115,22,0.08); border-radius:10px; padding:10px 14px;">
+          <div style="font-size:11px; font-weight:700; color:var(--blip-orange); margin-bottom:4px;">TOM DE VOZ</div>
+          <div style="font-size:13px; color:#374151; font-style:italic;">"Voce fez isso! Que incrivel!"</div>
+        </div>
+        <div style="margin-top:12px;">
+          <div style="font-size:11px; font-weight:700; color:#9CA3AF; margin-bottom:6px;">INTERACAO</div>
+          <div style="font-size:13px; color:#4b5563;">Toque em area grande · Sem gestos complexos · Sem leitura obrigatoria</div>
+        </div>
+      </div>
+
+      <!-- Explorador -->
+      <div class="card-hover profile-explorador" style="border:2px solid; border-radius:24px; padding:28px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:-20px; right:-20px; width:80px; height:80px; background:rgba(16,185,129,0.08); border-radius:50%;"></div>
+        <div style="margin-bottom:16px; display:flex; justify-content:space-between; align-items:flex-start;">
+          <svg width="64" height="84" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-idle">
+            <use href="#mascote-curioso"/>
+          </svg>
+          <span style="background:#10B981; color:white; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700;">7 - 9 anos</span>
+        </div>
+        <h3 style="font-size:22px; font-weight:700; color:#1A1040; margin-bottom:6px;">Explorador</h3>
+        <div style="display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;">
+          <div style="width:16px;height:16px;background:#F97316;border-radius:50%;"></div>
+          <div style="width:16px;height:16px;background:#FBBF24;border-radius:50%;"></div>
+          <div style="width:16px;height:16px;background:#10B981;border-radius:50%;"></div>
+        </div>
+        <p style="font-size:14px; color:#374151; line-height:1.6; margin-bottom:14px;">Mascote presente 76px. Pontos numericos com animacao "+X". Celebracao pose missao-completa 2s.</p>
+        <div style="background:rgba(16,185,129,0.08); border-radius:10px; padding:10px 14px;">
+          <div style="font-size:11px; font-weight:700; color:var(--blip-mint); margin-bottom:4px;">TOM DE VOZ</div>
+          <div style="font-size:13px; color:#374151; font-style:italic;">"Missao enviada! O Blip guardou sua resposta!"</div>
+        </div>
+        <div style="margin-top:12px;">
+          <div style="font-size:11px; font-weight:700; color:#9CA3AF; margin-bottom:6px;">INTERACAO</div>
+          <div style="font-size:13px; color:#4b5563;">Le bem · Aceita descricoes curtas · Botoes de sentimento com escala 1-5</div>
+        </div>
+      </div>
+
+      <!-- Aventureiro -->
+      <div class="card-hover profile-aventureiro" style="border:2px solid; border-radius:24px; padding:28px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:-20px; right:-20px; width:80px; height:80px; background:rgba(167,139,250,0.08); border-radius:50%;"></div>
+        <div style="margin-bottom:16px; display:flex; justify-content:space-between; align-items:flex-start;">
+          <div style="font-size:64px; line-height:1;">⚔️</div>
+          <span style="background:#A78BFA; color:white; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700;">10 - 12 anos</span>
+        </div>
+        <h3 style="font-size:22px; font-weight:700; color:#1A1040; margin-bottom:6px;">Aventureiro</h3>
+        <div style="display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;">
+          <div style="width:16px;height:16px;background:#A78BFA;border-radius:50%;"></div>
+          <div style="width:16px;height:16px;background:#FBBF24;border-radius:50%;"></div>
+          <div style="width:16px;height:16px;background:#3B82F6;border-radius:50%;"></div>
+        </div>
+        <p style="font-size:14px; color:#374151; line-height:1.6; margin-bottom:14px;">Linguagem de quests e XP. Mascote discreto. Botoes + opcao de texto livre. RPG sem condescendencia.</p>
+        <div style="background:rgba(167,139,250,0.08); border-radius:10px; padding:10px 14px;">
+          <div style="font-size:11px; font-weight:700; color:var(--blip-violet); margin-bottom:4px;">TOM DE VOZ</div>
+          <div style="font-size:13px; color:#374151; font-style:italic;">"Missao difícil. Isso acontece com os melhores."</div>
+        </div>
+        <div style="margin-top:12px;">
+          <div style="font-size:11px; font-weight:700; color:#9CA3AF; margin-bottom:6px;">INTERACAO</div>
+          <div style="font-size:13px; color:#4b5563;">XP popup · Swipe aceito · Botoes com opção "Quero escrever"</div>
+        </div>
+      </div>
+
+      <!-- Pro -->
+      <div class="card-hover profile-pro" style="border:2px solid; border-radius:24px; padding:28px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:-20px; right:-20px; width:80px; height:80px; background:rgba(167,139,250,0.08); border-radius:50%;"></div>
+        <div style="margin-bottom:16px; display:flex; justify-content:space-between; align-items:flex-start;">
+          <div style="font-size:56px; line-height:1;">🎧</div>
+          <span style="background:rgba(167,139,250,0.2); color:#A78BFA; border:1px solid rgba(167,139,250,0.3); border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700;">13 - 14 anos</span>
+        </div>
+        <h3 style="font-size:22px; font-weight:700; color:#fff; margin-bottom:6px;">Pro</h3>
+        <div style="display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;">
+          <div style="width:16px;height:16px;background:#A78BFA;border-radius:50%;"></div>
+          <div style="width:16px;height:16px;background:#10B981;border-radius:50%;"></div>
+          <div style="width:16px;height:16px;background:#F8F7FF;border-radius:50%; border:1px solid rgba(255,255,255,0.2);"></div>
+        </div>
+        <p style="font-size:14px; color:rgba(255,255,255,0.65); line-height:1.6; margin-bottom:14px;">Dark mode. Sem mascote em micro-interacoes. Texto livre 200 chars. Estatisticas e streak.</p>
+        <div style="background:rgba(167,139,250,0.1); border:1px solid rgba(167,139,250,0.2); border-radius:10px; padding:10px 14px;">
+          <div style="font-size:11px; font-weight:700; color:var(--blip-violet); margin-bottom:4px;">TOM DE VOZ</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.75); font-style:italic;">"Pontuacao ajustada. Quer registrar sua visao?"</div>
+        </div>
+        <div style="margin-top:12px;">
+          <div style="font-size:11px; font-weight:700; color:rgba(255,255,255,0.3); margin-bottom:6px;">INTERACAO</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.55);">Gestos avancados · Texto livre · Vibração sutil · Personalização</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████
+     SECAO 3 — OBJETIVOS
+████████████████████████████████████████████████ -->
+<section id="objetivos" style="background:#fff; padding:96px 24px;">
+  <div style="max-width:1100px; margin:0 auto;">
+
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+      <div class="section-num">3</div>
+      <h2 style="font-size:clamp(28px,4vw,44px); font-weight:700; color:#1A1040; line-height:1.1;">Os 3 Objetivos do Comite</h2>
+    </div>
+    <div class="sep" style="margin-bottom:56px;"></div>
+
+    <!-- OBJ 01 -->
+    <div style="border:1.5px solid #e5e7eb; border-radius:24px; overflow:hidden; margin-bottom:32px; box-shadow:0 4px 24px rgba(0,0,0,0.06);">
+      <div style="background:linear-gradient(135deg, var(--blip-orange) 0%, #ea580c 100%); padding:28px 32px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+          <div>
+            <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.7); letter-spacing:1px; margin-bottom:6px;">OBJ 01</div>
+            <h3 style="font-size:26px; font-weight:700; color:#fff; line-height:1.2;">Onboarding — Semana 1</h3>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,0.15); color:#fff; border-radius:999px; padding:5px 14px; font-size:13px; font-weight:600;">Mig Reyes</span>
+            <span style="background:rgba(255,255,255,0.15); color:#fff; border-radius:999px; padding:5px 14px; font-size:13px; font-weight:600;">Ryan Sims</span>
+            <span style="background:rgba(255,255,255,0.15); color:#fff; border-radius:999px; padding:5px 14px; font-size:13px; font-weight:600;">Fabricio Teixeira</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding:32px; background:#fff;">
+        <div class="quote-block" style="margin-bottom:28px;">
+          "O pai cria a conta, configura o filho, define a primeira missao — e fecha o app. Ele volta no dia seguinte?"
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:24px; margin-bottom:28px;">
+          <div>
+            <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">JA CONSTRUIDO</div>
+            <ul style="font-size:14px; color:#374151; line-height:1.8; list-style:none;">
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> Tour de onboarding (tourData.ts)</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> Register e VerifyPhone funcionando</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> RoleSelectionModal implementado</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> Auth por telefone (sem senha)</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">EM VALIDACAO</div>
+            <ul style="font-size:14px; color:#374151; line-height:1.8; list-style:none;">
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Fluxo revisado (P0-04 header pesado)</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Settings denso (P0-06)</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Formulario sem indicador de progresso</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Spec onboarding por perfil etario</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">METRICAS DE SUCESSO</div>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div style="background:#FFF7ED; border-radius:12px; padding:14px; text-align:center;">
+                <div style="font-size:28px; font-weight:700; color:var(--blip-orange);">80%</div>
+                <div style="font-size:12px; color:#9CA3AF; font-weight:600;">criam 1a missao</div>
+              </div>
+              <div style="background:#F0FDF4; border-radius:12px; padding:14px; text-align:center;">
+                <div style="font-size:28px; font-weight:700; color:var(--blip-mint);">60%</div>
+                <div style="font-size:12px; color:#9CA3AF; font-weight:600;">voltam em 48h</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="./blip-mvp-04-validacao.html" target="_blank" style="display:inline-flex; align-items:center; gap:8px; background:var(--blip-orange); color:#fff; font-family:'Fredoka',sans-serif; font-weight:700; font-size:14px; padding:10px 22px; border-radius:12px; text-decoration:none; transition:background 0.2s;" onmouseover="this.style.background='#ea580c'" onmouseout="this.style.background='#F97316'">
+          Ver prototipo interativo →
+        </a>
+      </div>
+    </div>
+
+    <!-- OBJ 02 -->
+    <div style="border:1.5px solid #e5e7eb; border-radius:24px; overflow:hidden; margin-bottom:32px; box-shadow:0 4px 24px rgba(0,0,0,0.06);">
+      <div style="background:linear-gradient(135deg, #6D28D9 0%, #4C1D95 100%); padding:28px 32px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+          <div>
+            <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.7); letter-spacing:1px; margin-bottom:6px;">OBJ 02</div>
+            <h3 style="font-size:26px; font-weight:700; color:#fff; line-height:1.2;">Loop Semanal — Semanas 2-8</h3>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,0.15); color:#fff; border-radius:999px; padding:5px 14px; font-size:13px; font-weight:600;">Ivan Zhao</span>
+            <span style="background:rgba(255,255,255,0.15); color:#fff; border-radius:999px; padding:5px 14px; font-size:13px; font-weight:600;">Jason Oberfest</span>
+            <span style="background:rgba(255,255,255,0.15); color:#fff; border-radius:999px; padding:5px 14px; font-size:13px; font-weight:600;">Alex Zhu</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding:32px; background:#fff;">
+        <div class="quote-block" style="margin-bottom:28px;">
+          "O que mantem a familia abrindo o app toda semana?"
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:24px; margin-bottom:28px;">
+          <div>
+            <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">JA CONSTRUIDO</div>
+            <ul style="font-size:14px; color:#374151; line-height:1.8; list-style:none;">
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> Campo reaction em tasks</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> celebrationUtils por faixa etaria</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> WeeklyHistory funcionando</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> PendingReviewsPanel para o pai</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">EM VALIDACAO</div>
+            <ul style="font-size:14px; color:#374151; line-height:1.8; list-style:none;">
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Micro-interacoes por perfil (spec)</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> ChildHome diferenciada por faixa</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Resumo semanal para o pai</li>
+              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Loop de aprovacao em 24h</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">METRICA DE SUCESSO</div>
+            <div style="background:#F5F3FF; border-radius:12px; padding:20px; text-align:center;">
+              <div style="font-size:36px; font-weight:700; color:#6D28D9;">3%</div>
+              <div style="font-size:12px; color:#9CA3AF; font-weight:600; margin-bottom:8px;">churn max por mes</div>
+              <div style="font-size:13px; color:#6b7280; line-height:1.5;">Ivan Zhao vai questionar o sistema de missoes configuráveis como estrutura flexivel.</div>
+            </div>
+          </div>
+        </div>
+        <a href="./blip-mvp-04-validacao.html" target="_blank" style="display:inline-flex; align-items:center; gap:8px; background:#6D28D9; color:#fff; font-family:'Fredoka',sans-serif; font-weight:700; font-size:14px; padding:10px 22px; border-radius:12px; text-decoration:none; transition:background 0.2s;" onmouseover="this.style.background='#4C1D95'" onmouseout="this.style.background='#6D28D9'">
+          Ver loop semanal no prototipo →
+        </a>
+      </div>
+    </div>
+
+    <!-- OBJ 03 -->
+    <div style="border:1.5px solid #e5e7eb; border-radius:24px; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.06);">
+      <div style="background:linear-gradient(135deg, #059669 0%, #047857 100%); padding:28px 32px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+          <div>
+            <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.7); letter-spacing:1px; margin-bottom:6px;">OBJ 03</div>
+            <h3 style="font-size:26px; font-weight:700; color:#fff; line-height:1.2;">Crescimento com as Familias — Mes 3+</h3>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,0.15); color:#fff; border-radius:999px; padding:5px 14px; font-size:13px; font-weight:600;">Alex Zhu</span>
+            <span style="background:rgba(255,255,255,0.15); color:#fff; border-radius:999px; padding:5px 14px; font-size:13px; font-weight:600;">Julie Zhuo</span>
+            <span style="background:rgba(255,255,255,0.15); color:#fff; border-radius:999px; padding:5px 14px; font-size:13px; font-weight:600;">Evan Sharp</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding:32px; background:#fff;">
+        <div class="quote-block" style="margin-bottom:28px;">
+          "O produto foi feito para uma crianca de 7 anos. Ela tem 8. O que muda?"
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:24px; margin-bottom:28px;">
+          <div>
+            <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">MECANISMO</div>
+            <div style="background:#F0FDF4; border:1.5px solid #6EE7B7; border-radius:16px; padding:20px;">
+              <p style="font-size:14px; color:#374151; line-height:1.7;">O sistema de perfis etarios nao e estatico. Quando a crianca atingir a faixa superior, o pai recebe notificacao sugerindo a migracao de perfil. A experiencia evolui junto com o filho.</p>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">DECISAO PENDENTE</div>
+            <div style="background:#FFF7ED; border:1.5px solid #FED7AA; border-radius:16px; padding:20px;">
+              <p style="font-size:14px; color:#374151; line-height:1.7;">Modo Confianca (Montessori): aprovacao parental opcional acima dos 10 anos. Identificado como alta prioridade pelo Comite Pedagogico — em roadmap para Q4.</p>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">METRICA DE SUCESSO</div>
+            <div style="background:#F0FDF4; border-radius:12px; padding:20px; text-align:center;">
+              <div style="font-size:15px; font-weight:700; color:#059669; line-height:1.4;">Relevancia igual no mes 12 e no mes 1</div>
+              <div style="font-size:12px; color:#9CA3AF; margin-top:8px;">Reid Hoffman: validar retencao semanas 4, 8 e 12 antes de escalar</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#F0FDF4; border:1.5px solid #6EE7B7; border-radius:12px; padding:16px 20px;">
+          <div style="font-size:12px; font-weight:700; color:#059669; margin-bottom:6px;">GAP DECLARADO</div>
+          <p style="font-size:14px; color:#374151;">Especialista em produto infantil (psicologia do desenvolvimento 7-14 anos) ainda nao esta no time. Gap critico — contratacao prevista em 60 dias.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████
+     SECAO 4 — DIFERENCIAL
+████████████████████████████████████████████████ -->
+<section id="diferencial" style="background:#F8F7FF; padding:96px 24px;">
+  <div style="max-width:1100px; margin:0 auto;">
+
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+      <div class="section-num">4</div>
+      <h2 style="font-size:clamp(28px,4vw,44px); font-weight:700; color:#1A1040; line-height:1.1;">O Diferencial — Inteligencia Emocional</h2>
+    </div>
+    <div class="sep" style="margin-bottom:20px;"></div>
+
+    <!-- Scores pedagogicos -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:16px; margin-bottom:48px;">
+      <div style="background:#fff; border-radius:16px; padding:20px; text-align:center; border:1.5px solid #e5e7eb; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+        <div style="font-size:40px; font-weight:700; color:var(--blip-orange);">9,2</div>
+        <div style="font-size:14px; font-weight:700; color:#1A1040; margin:4px 0;">Dweck</div>
+        <div style="font-size:12px; color:#9CA3AF;">Growth Mindset · Stanford</div>
+        <div style="margin-top:10px; font-size:12px; color:#4b5563; font-style:italic; line-height:1.5;">"Implementacao mais fiel do mindset de crescimento que ja vi em produto de consumo"</div>
+      </div>
+      <div style="background:#fff; border-radius:16px; padding:20px; text-align:center; border:1.5px solid #e5e7eb; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+        <div style="font-size:40px; font-weight:700; color:var(--blip-mint);">9,0</div>
+        <div style="font-size:14px; font-weight:700; color:#1A1040; margin:4px 0;">Brown</div>
+        <div style="font-size:12px; color:#9CA3AF;">Vulnerabilidade · Houston</div>
+        <div style="margin-top:10px; font-size:12px; color:#4b5563; font-style:italic; line-height:1.5;">"Espaco de vulnerabilidade estruturada — raro e precioso em tecnologia infantil"</div>
+      </div>
+      <div style="background:#fff; border-radius:16px; padding:20px; text-align:center; border:1.5px solid #e5e7eb; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+        <div style="font-size:40px; font-weight:700; color:var(--blip-violet);">9,2</div>
+        <div style="font-size:14px; font-weight:700; color:#1A1040; margin:4px 0;">Lieberman</div>
+        <div style="font-size:12px; color:#9CA3AF;">Afeto Labeling</div>
+        <div style="margin-top:10px; font-size:12px; color:#4b5563; font-style:italic; line-height:1.5;">Nomear o que sentiu ativa o cortex pre-frontal e reduz a resposta da amigdala</div>
+      </div>
+      <div style="background:#fff; border-radius:16px; padding:20px; text-align:center; border:1.5px solid #e5e7eb; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+        <div style="font-size:40px; font-weight:700; color:var(--blip-gold);">8,5</div>
+        <div style="font-size:14px; font-weight:700; color:#1A1040; margin:4px 0;">Vygotsky</div>
+        <div style="font-size:12px; color:#9CA3AF;">ZDP · Legado</div>
+        <div style="margin-top:10px; font-size:12px; color:#4b5563; font-style:italic; line-height:1.5;">Botoes como andaime (Explorador) evoluindo para texto livre (Pro) respeita a ZDP</div>
+      </div>
+    </div>
+
+    <!-- Ciclo emocional - fluxo visual -->
+    <div style="background:#fff; border-radius:24px; padding:36px; border:1.5px solid #e5e7eb; box-shadow:0 4px 24px rgba(0,0,0,0.06); margin-bottom:40px;">
+      <h3 style="font-size:20px; font-weight:700; color:#1A1040; margin-bottom:28px; text-align:center;">O Ciclo Emocional</h3>
+
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center;">
+        <!-- Passo 1 -->
+        <div style="background:linear-gradient(135deg,#FFF7ED,#fff); border:1.5px solid #FED7AA; border-radius:16px; padding:18px 20px; text-align:center; min-width:140px; flex:1; max-width:180px;">
+          <div style="font-size:28px; margin-bottom:6px;">✅</div>
+          <div style="font-size:13px; font-weight:700; color:#1A1040; margin-bottom:4px;">Filho conclui</div>
+          <div style="font-size:11px; color:#9CA3AF;">Marca a tarefa como feita</div>
+        </div>
+
+        <div class="flow-arrow" style="font-size:20px; color:var(--blip-orange);">→</div>
+
+        <!-- Passo 2 -->
+        <div style="background:linear-gradient(135deg,#FFF3E8,#fff); border:1.5px solid #FED7AA; border-radius:16px; padding:18px 20px; text-align:center; min-width:140px; flex:1; max-width:180px;">
+          <div style="font-size:28px; margin-bottom:6px;">💭</div>
+          <div style="font-size:13px; font-weight:700; color:#1A1040; margin-bottom:4px;">Autoavalia</div>
+          <div style="font-size:11px; color:#9CA3AF;">"Como voce se sentiu?"</div>
+        </div>
+
+        <div class="flow-arrow" style="font-size:20px; color:var(--blip-orange);">→</div>
+
+        <!-- Passo 3 -->
+        <div style="background:linear-gradient(135deg,#F0FDF4,#fff); border:1.5px solid #6EE7B7; border-radius:16px; padding:18px 20px; text-align:center; min-width:140px; flex:1; max-width:180px;">
+          <div style="font-size:28px; margin-bottom:6px;">👁️</div>
+          <div style="font-size:13px; font-weight:700; color:#1A1040; margin-bottom:4px;">Pai ve contexto</div>
+          <div style="font-size:11px; color:#9CA3AF;">Nao so resultado — emocao tambem</div>
+        </div>
+
+        <div class="flow-arrow" style="font-size:20px; color:var(--blip-orange);">→</div>
+
+        <!-- Passo 4 -->
+        <div style="background:linear-gradient(135deg,#EDE9FE,#fff); border:1.5px solid #C4B5FD; border-radius:16px; padding:18px 20px; text-align:center; min-width:140px; flex:1; max-width:180px;">
+          <div style="font-size:28px; margin-bottom:6px;">💬</div>
+          <div style="font-size:13px; font-weight:700; color:#1A1040; margin-bottom:4px;">Pai responde</div>
+          <div style="font-size:11px; color:#9CA3AF;">3 sugestoes alinhadas ao tom Blip</div>
+        </div>
+
+        <div class="flow-arrow" style="font-size:20px; color:var(--blip-orange);">→</div>
+
+        <!-- Passo 5 -->
+        <div style="background:linear-gradient(135deg,#FFFBEB,#fff); border:1.5px solid #FCD34D; border-radius:16px; padding:18px 20px; text-align:center; min-width:140px; flex:1; max-width:180px;">
+          <div style="font-size:28px; margin-bottom:6px;">⭐</div>
+          <div style="font-size:13px; font-weight:700; color:#1A1040; margin-bottom:4px;">Filho recebe</div>
+          <div style="font-size:11px; color:#9CA3AF;">Acolhimento + Estrela de Coragem</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estrelas de Coragem + regras -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:40px;">
+
+      <!-- Estrelas de Coragem -->
+      <div style="background:linear-gradient(135deg, #1A1040 0%, #2D1B6B 100%); border-radius:20px; padding:28px;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+          <span style="font-size:32px;">⭐</span>
+          <div>
+            <h3 style="font-size:20px; font-weight:700; color:#fff;">Estrelas de Coragem</h3>
+            <div style="font-size:12px; color:rgba(255,255,255,0.5);">Sistema paralelo — separado da meta semanal</div>
+          </div>
+        </div>
+        <ul style="font-size:14px; color:rgba(255,255,255,0.75); line-height:1.9; list-style:none;">
+          <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold);">✦</span> 1 estrela por reflexao concluida</li>
+          <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold);">✦</span> +2 bonus ao responder 3+ reflexoes/semana</li>
+          <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold);">✦</span> Nunca ultrapassa valor simbolico</li>
+          <li style="display:flex; gap:8px; text-decoration:line-through; opacity:0.5;"><span>✦</span> NAO entra na meta semanal</li>
+          <li style="display:flex; gap:8px; text-decoration:line-through; opacity:0.5;"><span>✦</span> NAO entra no calculo de recompensa</li>
+        </ul>
+        <div style="margin-top:16px; background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.3); border-radius:10px; padding:12px 14px;">
+          <div style="font-size:11px; font-weight:700; color:var(--blip-gold); margin-bottom:4px;">DECISAO UNANIME DO COMITE PEDAGOGICO</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.7);">Montessori + Dweck + Duckworth: expressao emocional nao deve ser instrumental</div>
+        </div>
+      </div>
+
+      <!-- 3 Regras Anti-Gamificacao -->
+      <div style="background:#fff; border:1.5px solid #e5e7eb; border-radius:20px; padding:28px;">
+        <h3 style="font-size:20px; font-weight:700; color:#1A1040; margin-bottom:20px;">3 Regras Anti-Gamificacao</h3>
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="min-width:32px; height:32px; background:var(--blip-orange); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; font-size:14px;">1</div>
+            <div>
+              <div style="font-size:14px; font-weight:700; color:#1A1040;">Pontos atrasados</div>
+              <div style="font-size:13px; color:#6b7280; line-height:1.5;">Estrelas aparecem so apos o pai visualizar — cria motivacao para o pai engajar ativamente</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="min-width:32px; height:32px; background:var(--blip-orange); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; font-size:14px;">2</div>
+            <div>
+              <div style="font-size:14px; font-weight:700; color:#1A1040;">Teto semanal</div>
+              <div style="font-size:13px; color:#6b7280; line-height:1.5;">Maximo 3 reflexoes com estrelas por semana — impede uso estratégico do fluxo emocional</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="min-width:32px; height:32px; background:var(--blip-orange); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; font-size:14px;">3</div>
+            <div>
+              <div style="font-size:14px; font-weight:700; color:#1A1040;">Separacao total</div>
+              <div style="font-size:13px; color:#6b7280; line-height:1.5;">Estrelas de Coragem nunca aparecem junto com pontos de tarefa no painel principal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side by side: o que o filho ve / o que o pai ve -->
+    <div>
+      <h3 style="font-size:20px; font-weight:700; color:#1A1040; margin-bottom:20px; text-align:center;">O mesmo momento — duas perspectivas</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+
+        <!-- Filho -->
+        <div class="side-card-filho" style="border-radius:20px; padding:28px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+            <svg width="40" height="52" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-idle">
+              <use href="#mascote-curioso"/>
+            </svg>
+            <div>
+              <div style="font-size:13px; font-weight:700; color:var(--blip-mint);">FILHO VE</div>
+              <div style="font-size:16px; font-weight:700; color:#1A1040;">Interface de expressao</div>
+            </div>
+          </div>
+          <div style="background:#fff; border-radius:14px; padding:16px; margin-bottom:12px;">
+            <div style="font-size:14px; font-weight:600; color:#1A1040; margin-bottom:8px;">Missao difícil. Isso acontece com os melhores. O que rolou?</div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <div style="background:#D1FAE5; border-radius:10px; padding:8px 12px; font-size:13px; font-weight:600; color:#065f46;">Fiz o meu melhor</div>
+              <div style="background:#FEF3C7; border-radius:10px; padding:8px 12px; font-size:13px; font-weight:600; color:#92400e;">Da prox vez tentarei diferente</div>
+              <div style="background:#EDE9FE; border-radius:10px; padding:8px 12px; font-size:13px; font-weight:600; color:#5b21b6;">Da prox vez peco ajuda</div>
+            </div>
+          </div>
+          <div style="font-size:13px; color:#4b5563; line-height:1.5;">Opcoes com framing futuro (Duckworth). Nao confirma fraqueza passada — projeta agencia.</div>
+        </div>
+
+        <!-- Pai -->
+        <div class="side-card-pai" style="border-radius:20px; padding:28px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+            <div style="font-size:32px;">👨</div>
+            <div>
+              <div style="font-size:13px; font-weight:700; color:var(--blip-orange);">PAI VE</div>
+              <div style="font-size:16px; font-weight:700; color:#1A1040;">Painel com contexto emocional</div>
+            </div>
+          </div>
+          <div style="background:#fff; border-radius:14px; padding:16px; border:1.5px solid #FED7AA; margin-bottom:12px;">
+            <div style="font-size:11px; font-weight:700; color:var(--blip-orange); margin-bottom:8px;">DICA BLIP</div>
+            <div style="font-size:13px; color:#374151; font-style:italic; margin-bottom:12px;">Reconheca o esforco antes de comentar o resultado. Ex: "Obrigado por contar — que missao difícil!"</div>
+            <div style="font-size:12px; font-weight:700; color:#9CA3AF; margin-bottom:8px;">SUGESTOES DE RESPOSTA</div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <div style="background:#FFF7ED; border-radius:8px; padding:8px 12px; font-size:12px; color:#374151;">"Obrigado por contar! Coisas difíceis acontecem."</div>
+              <div style="background:#F0FDF4; border-radius:8px; padding:8px 12px; font-size:12px; color:#374151;">"Que missao difícil! Vamos conversar sobre isso?"</div>
+            </div>
+          </div>
+          <div style="font-size:13px; color:#4b5563; line-height:1.5;">Mini-guia antes de revelar a resposta (Brown). O app educa o pai ao mesmo tempo que acolhe a crianca.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CTA prototipo -->
+    <div style="margin-top:36px; text-align:center;">
+      <a href="./blip-mvp-04-validacao.html" target="_blank"
+         style="display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg, var(--blip-orange) 0%, #ea580c 100%); color:#fff; font-family:'Fredoka',sans-serif; font-weight:700; font-size:17px; padding:14px 32px; border-radius:16px; text-decoration:none; box-shadow:0 8px 24px rgba(249,115,22,0.3); transition:all 0.2s;"
+         onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 32px rgba(249,115,22,0.4)'"
+         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(249,115,22,0.3)'">
+        Ver prototipo interativo completo →
+      </a>
+      <div style="margin-top:10px; font-size:13px; color:#9CA3AF;">Inclui fluxo de resposta emocional por faixa etaria · Blip MVP v0.4</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████
+     SECAO 5 — ANTI-PADROES
+████████████████████████████████████████████████ -->
+<section id="antipadroes" style="background:#fff; padding:96px 24px;">
+  <div style="max-width:1100px; margin:0 auto;">
+
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+      <div class="section-num">5</div>
+      <h2 style="font-size:clamp(28px,4vw,44px); font-weight:700; color:#1A1040; line-height:1.1;">Anti-Padroes e Guardrails</h2>
+    </div>
+    <div class="sep" style="margin-bottom:20px;"></div>
+
+    <!-- Tag Andy Puddicombe -->
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:40px;">
+      <span class="member-tag">Andy Puddicombe</span>
+      <span class="member-tag">Headspace</span>
+      <span style="font-size:14px; color:#6b7280;">O produto reduz estresse familiar — nao amplifica</span>
+    </div>
+
+    <!-- Grid escolhas -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:40px;">
+
+      <!-- O que NAO fazemos -->
+      <div style="background:#FFF1F2; border:1.5px solid #FECDD3; border-radius:20px; padding:28px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+          <span style="font-size:24px;">🚫</span>
+          <h3 style="font-size:18px; font-weight:700; color:#1A1040;">O que escolhemos NAO fazer</h3>
+        </div>
+        <ul style="font-size:14px; color:#374151; line-height:1.9; list-style:none;">
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:#ef4444; font-weight:700; flex-shrink:0;">✗</span>
+            <span>Streak punitivo — sem "voce perdeu sua sequencia!" para criancas</span>
+          </li>
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:#ef4444; font-weight:700; flex-shrink:0;">✗</span>
+            <span>Notificacoes de urgencia ansiogenas — sem contador regressivo de prazo</span>
+          </li>
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:#ef4444; font-weight:700; flex-shrink:0;">✗</span>
+            <span>Recompensas externas como unico motivador — risco de dependencia (Dweck)</span>
+          </li>
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:#ef4444; font-weight:700; flex-shrink:0;">✗</span>
+            <span>Pontuacao emocional que afeta a meta semanal — corrompe comportamento</span>
+          </li>
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:#ef4444; font-weight:700; flex-shrink:0;">✗</span>
+            <span>Linguagem de vergonha — nunca "seu pai ajustou seus pontos"</span>
+          </li>
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:#ef4444; font-weight:700; flex-shrink:0;">✗</span>
+            <span>Ranking entre criancas de familias diferentes — comparacao negativa</span>
+          </li>
+        </ul>
+        <div style="margin-top:16px; background:rgba(239,68,68,0.06); border-radius:10px; padding:12px; font-size:12px; color:#7f1d1d; font-style:italic;">
+          Nir Eyal esta no comite como "consultor de anti-padroes (nao modelo)". Distinção deliberada.
+        </div>
+      </div>
+
+      <!-- O que fazemos como alternativa -->
+      <div style="background:#F0FDF4; border:1.5px solid #6EE7B7; border-radius:20px; padding:28px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+          <span style="font-size:24px;">✦</span>
+          <h3 style="font-size:18px; font-weight:700; color:#1A1040;">O que implementamos como alternativa</h3>
+        </div>
+        <ul style="font-size:14px; color:#374151; line-height:1.9; list-style:none;">
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:var(--blip-mint); font-weight:700; flex-shrink:0;">✓</span>
+            <span>Streak de consistencia positivo — celebra presenca, nao pune ausencia</span>
+          </li>
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:var(--blip-mint); font-weight:700; flex-shrink:0;">✓</span>
+            <span>Estrelas de Coragem separadas — reflexao emocional tem valor proprio, nao instrumental</span>
+          </li>
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:var(--blip-mint); font-weight:700; flex-shrink:0;">✓</span>
+            <span>Loop neurologico documentado: cue → rotina → recompensa intrinseca (Duckworth)</span>
+          </li>
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:var(--blip-mint); font-weight:700; flex-shrink:0;">✓</span>
+            <span>Celebracao compassiva diferenciada por faixa — sem punicao visivel ao falhar</span>
+          </li>
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:var(--blip-mint); font-weight:700; flex-shrink:0;">✓</span>
+            <span>Modo Confianca (roadmap): aprovacao opcional 10+ anos — autonomia progressiva</span>
+          </li>
+          <li style="display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:var(--blip-mint); font-weight:700; flex-shrink:0;">✓</span>
+            <span>Teto de 3 reflexoes/semana — impede uso estrategico do fluxo emocional</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Gamificacao saudavel vs dependencia -->
+    <div style="background:linear-gradient(135deg, #1A1040 0%, #2D1B6B 100%); border-radius:20px; padding:32px;">
+      <h3 style="font-size:20px; font-weight:700; color:#fff; margin-bottom:20px; text-align:center;">Habito saudavel vs. Dependencia — os 3 principios Blip</h3>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px;">
+        <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:20px;">
+          <div style="font-size:24px; margin-bottom:10px;">🌱</div>
+          <div style="font-size:15px; font-weight:700; color:#fff; margin-bottom:6px;">1. Motivacao intrinseca primeiro</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.65); line-height:1.6;">Recompensas externas existem mas sao consequencia — nao o mecanismo de retencao principal. A crianca volta pelo progresso que sente, nao pelo premio que espera.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:20px;">
+          <div style="font-size:24px; margin-bottom:10px;">🤝</div>
+          <div style="font-size:15px; font-weight:700; color:#fff; margin-bottom:6px;">2. Conexao familiar como produto</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.65); line-height:1.6;">O app e um canal de comunicacao entre pai e filho. Sucesso = pai e filho conversando mais fora do app — nao mais tempo dentro do app.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:20px;">
+          <div style="font-size:24px; margin-bottom:10px;">🧘</div>
+          <div style="font-size:15px; font-weight:700; color:#fff; margin-bottom:6px;">3. Calma como norte de design</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.65); line-height:1.6;">Referencia Headspace (Puddicombe): toda decisao de UX e testada pela pergunta "isso aumenta ou reduz a ansiedade familiar?". Sem contadores, sem urgencia artificial.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████
+     SECAO 6 — EM ABERTO
+████████████████████████████████████████████████ -->
+<section id="aberto" style="background:#F8F7FF; padding:96px 24px;">
+  <div style="max-width:1100px; margin:0 auto;">
+
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+      <div class="section-num">6</div>
+      <h2 style="font-size:clamp(28px,4vw,44px); font-weight:700; color:#1A1040; line-height:1.1;">O Que Esta Aberto</h2>
+    </div>
+    <div class="sep" style="margin-bottom:16px;"></div>
+    <p style="font-size:16px; color:#6b7280; margin-bottom:48px; max-width:640px; line-height:1.6;">Transparencia total. Nomeamos os gaps antes de ser questionados — porque o comite vai perguntar, e a honestidade e mais forte que a omissao.</p>
+
+    <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:48px;">
+
+      <!-- Gap critico -->
+      <div class="open-item critical">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:240px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+              <span style="background:#FEE2E2; color:#ef4444; border-radius:999px; padding:3px 12px; font-size:12px; font-weight:700;">GAP CRITICO</span>
+              <span style="font-size:16px; font-weight:700; color:#1A1040;">Especialista em produto infantil</span>
+            </div>
+            <p style="font-size:14px; color:#4b5563; line-height:1.6;">Psicologia do desenvolvimento 7-14 anos. Gap declarado no proprio documento do comite. O produto toma decisoes de design que impactam desenvolvimento emocional de criancas sem um especialista dedicado.</p>
+          </div>
+          <div style="background:#FEE2E2; border-radius:10px; padding:10px 16px; text-align:center; flex-shrink:0;">
+            <div style="font-size:20px; font-weight:700; color:#ef4444;">60 dias</div>
+            <div style="font-size:11px; color:#9CA3AF; font-weight:600;">prazo de contratacao</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Decisao pendente infraestrutura -->
+      <div class="open-item infra">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:240px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+              <span style="background:#D1FAE5; color:#065f46; border-radius:999px; padding:3px 12px; font-size:12px; font-weight:700;">DECISAO TECNICA</span>
+              <span style="font-size:16px; font-weight:700; color:#1A1040;">Polling vs. Realtime</span>
+            </div>
+            <p style="font-size:14px; color:#4b5563; line-height:1.6;">Para deteccao de pai online quando filho conclui uma tarefa. Polling funciona no MVP (custo zero de infraestrutura). Realtime (Supabase) e mais elegante mas adiciona complexidade. Decisao nao foi tomada — aguarda dados de uso real.</p>
+          </div>
+          <div style="background:#D1FAE5; border-radius:10px; padding:10px 16px; text-align:center; flex-shrink:0;">
+            <div style="font-size:14px; font-weight:700; color:#065f46;">Em avaliacao</div>
+            <div style="font-size:11px; color:#9CA3AF; font-weight:600;">pos-MVP</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Juridico -->
+      <div class="open-item legal">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:240px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+              <span style="background:#EDE9FE; color:#5b21b6; border-radius:999px; padding:3px 12px; font-size:12px; font-weight:700;">DUE DILIGENCE</span>
+              <span style="font-size:16px; font-weight:700; color:#1A1040;">Blip vs. Blippi (Moonbug)</span>
+            </div>
+            <p style="font-size:14px; color:#4b5563; line-height:1.6;">Analise juridica do nome "Blip" em relacao ao personagem Blippi (Moonbug/Disney). Advogados consultados, processo em andamento. Nao bloqueia desenvolvimento — anda em paralelo.</p>
+          </div>
+          <div style="background:#EDE9FE; border-radius:10px; padding:10px 16px; text-align:center; flex-shrink:0;">
+            <div style="font-size:14px; font-weight:700; color:#5b21b6;">Em andamento</div>
+            <div style="font-size:11px; color:#9CA3AF; font-weight:600;">advogados consultados</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DPO -->
+      <div class="open-item pending">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:240px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+              <span style="background:#FEF3C7; color:#92400e; border-radius:999px; padding:3px 12px; font-size:12px; font-weight:700;">REGULATORIO</span>
+              <span style="font-size:16px; font-weight:700; color:#1A1040;">DPO especializado em menores</span>
+            </div>
+            <p style="font-size:14px; color:#4b5563; line-height:1.6;">Coleta de dados emocionais de criancas eleva o produto a categoria regulatoria mais sensivel. LGPD e GDPR exigem DPO e politica explicita antes do lancamento publico. Recomendacao urgente do Comite de Negocios (PwC/EY).</p>
+          </div>
+          <div style="background:#FEF3C7; border-radius:10px; padding:10px 16px; text-align:center; flex-shrink:0;">
+            <div style="font-size:14px; font-weight:700; color:#92400e;">Pre-lancamento</div>
+            <div style="font-size:11px; color:#9CA3AF; font-weight:600;">pre-requisito obrigatorio</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Veredito final -->
+    <div style="background:linear-gradient(135deg, #1A1040 0%, #2D1B6B 100%); border-radius:24px; padding:40px; display:flex; align-items:center; gap:40px; flex-wrap:wrap;">
+      <svg width="100" height="130" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" class="mascot-celebrate" style="flex-shrink:0; filter:drop-shadow(0 10px 20px rgba(249,115,22,0.3));">
+        <use href="#mascote-celebrando"/>
+      </svg>
+      <div style="flex:1; min-width:240px;">
+        <div style="font-size:13px; font-weight:700; color:rgba(255,255,255,0.5); letter-spacing:1px; margin-bottom:10px;">VEREDITO DOS COMITES · MARCO 2026</div>
+        <h3 style="font-size:24px; font-weight:700; color:#fff; margin-bottom:12px; line-height:1.3;">De 'proposta com potencial' para 'produto com fundamento pedagogico e modelo de negocio solidos'</h3>
+        <p style="color:rgba(255,255,255,0.7); font-size:15px; line-height:1.6; margin-bottom:20px;">O diferencial emocional — a autoavaliacao da crianca apos cada tarefa — e unico no mercado global e cria um moat defensavel que nenhum concorrente tem atualmente.</p>
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+          <div style="background:rgba(249,115,22,0.15); border:1px solid rgba(249,115,22,0.3); border-radius:12px; padding:12px 20px; text-align:center;">
+            <div style="font-size:28px; font-weight:700; color:var(--blip-orange);">8,4/10</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.5); font-weight:600;">Pedagogico</div>
+          </div>
+          <div style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.3); border-radius:12px; padding:12px 20px; text-align:center;">
+            <div style="font-size:28px; font-weight:700; color:var(--blip-mint);">8,8/10</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.5); font-weight:600;">Negocios</div>
+          </div>
+          <div style="background:rgba(251,191,36,0.15); border:1px solid rgba(251,191,36,0.3); border-radius:12px; padding:12px 20px; text-align:center;">
+            <div style="font-size:28px; font-weight:700; color:var(--blip-gold);">Seed ready</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.5); font-weight:600;">R$500K - 1M BR</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████
+     FOOTER
+████████████████████████████████████████████████ -->
+<footer style="background:#1A1040; padding:32px 24px;">
+  <div style="max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+
+    <div style="display:flex; align-items:center; gap:10px;">
+      <svg width="28" height="36" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" style="opacity:0.9;">
+        <use href="#mascote-feliz"/>
+      </svg>
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:18px; color:#fff; opacity:0.9;">Blip</span>
+    </div>
+
+    <div style="text-align:center; flex:1;">
+      <div style="font-size:13px; color:rgba(255,255,255,0.45); font-weight:600; letter-spacing:0.3px;">
+        Blip · Material confidencial · Comite de Product Design · Abril 2026
+      </div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.3); margin-top:4px;">
+        missaodasemana.com · Feito com amor — por familia, para familias
+      </div>
+    </div>
+
+    <a href="./blip-mvp-04-validacao.html" target="_blank"
+       style="background:rgba(249,115,22,0.15); border:1px solid rgba(249,115,22,0.3); color:#FED7AA; font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px; padding:8px 18px; border-radius:20px; text-decoration:none; white-space:nowrap; transition:all 0.2s;"
+       onmouseover="this.style.background='rgba(249,115,22,0.25)'" onmouseout="this.style.background='rgba(249,115,22,0.15)'">
+      Ver prototipo →
+    </a>
+
+  </div>
+</footer>
+
+
+<!-- ████████████████████████████████████████████████
+     SCROLL REVEAL
+████████████████████████████████████████████████ -->
+<script>
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Highlight nav link ativo com base na secao visivel
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.style.background = '';
+          link.style.color = 'rgba(255,255,255,0.8)';
+        });
+        const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (activeLink) {
+          activeLink.style.background = 'rgba(249,115,22,0.25)';
+          activeLink.style.color = '#fff';
+        }
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => navObserver.observe(s));
+</script>
+
+</body>
+</html>
