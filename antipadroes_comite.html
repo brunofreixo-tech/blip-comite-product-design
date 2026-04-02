@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anti-padrões e Guardrails — Material para o Comitê de Product
+Design — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Anti-padrões e Guardrails —
+Material para o Comitê de Product Design</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1
+    id="anti-padrões-e-guardrails-material-para-o-comitê-de-product-design">Anti-padrões
+    e Guardrails — Material para o Comitê de Product Design</h1>
+    <p><strong>Para:</strong> Comitê de Product Design
+    <strong>Destinatário principal:</strong> Nir Eyal (consultor de
+    anti-padrões), Andy Puddicombe (calma, não-ansiogênico)
+    <strong>Data:</strong> 2026-04-02 <strong>Elaborado por:</strong>
+    <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    <strong>Sprint:</strong> Sprint 3 — Consolidação final
+    <strong>Nota:</strong> Este documento foi escrito para antecipar a
+    tensão que Nir Eyal vai provocar no comitê. Não é uma defesa — é uma
+    exposição honesta das escolhas e dos seus fundamentos.</p>
+    <hr />
+    <h2 id="o-que-o-blip-escolheu-não-fazer">1. O que o Blip escolheu
+    NÃO fazer</h2>
+    <p>Cada item a seguir foi uma decisão deliberada de produto, não uma
+    omissão por falta de recurso. A justificativa pedagógica está ao
+    lado de cada dark pattern descartado.</p>
+    <h3 id="sem-streak-punitivo">1.1 Sem streak punitivo</h3>
+    <p><strong>O que seria:</strong> contador de dias consecutivos com
+    tarefas concluídas que é zerado e destacado visualmente quando a
+    criança perde um dia — como o Duolingo faz com a “chama” que se
+    apaga.</p>
+    <p><strong>Por que foi descartado:</strong></p>
+    <p>A pesquisa de Murayama et al. (2010) sobre motivação extrínseca e
+    intrínseca em crianças em idade escolar é inequívoca: recompensas
+    que dependem de continuidade ininterrupta criam ansiedade de
+    performance, não hábito genuíno. A criança que perde um dia não
+    pensa “vou retomar amanhã” — pensa “já quebrei, não adianta mais”. O
+    fenômeno é chamado de “all-or-nothing fallacy” na psicologia do
+    comportamento.</p>
+    <p>O Blip usa <strong>streak positivo</strong>: celebra a presença
+    acumulada sem punir a ausência. A criança que completou 3 dias esta
+    semana é celebrada por isso — o que aconteceu nos outros 2 dias não
+    é mencionado.</p>
+    <p><strong>Implementado como alternativa:</strong> contagem de dias
+    concluídos visível para o perfil Pro (sem destaque de “falhou”),
+    progresso semanal por zonas para Explorador e Aventureiro.</p>
+    <hr />
+    <h3 id="sem-notificação-de-ansiedade">1.2 Sem notificação de
+    ansiedade</h3>
+    <p><strong>O que seria:</strong> notificações do tipo “Faltam 2
+    horas para a missão do [filho] expirar!”, “Você não aprovou as
+    tarefas há 3 dias!”, “Sua criança ainda não concluiu a missão de
+    hoje”.</p>
+    <p><strong>Por que foi descartado:</strong></p>
+    <p>Notificações de urgência funcionam como estímulos de ameaça.
+    Ativam o sistema de resposta ao estresse antes de qualquer ação do
+    usuário. Em um produto voltado para pais no final do dia e crianças
+    em processo de aprendizado, estresse é o oposto do que queremos
+    criar.</p>
+    <p>O princípio de Andy Puddicombe é claro: o app deve ser um canal
+    de comunicação tranquilizador, não um mecanismo de pressão. Uma
+    notificação bem-feita diz “algo está esperando por você” — não “você
+    está atrasado”.</p>
+    <p><strong>Implementado como alternativa:</strong> nudge de
+    “configuração incompleta” no painel do pai (para a recompensa não
+    configurada), sem prazo e sem urgência visual. Sem notificações de
+    expiração para crianças.</p>
+    <hr />
+    <h3 id="sem-leaderboard-entre-irmãos">1.3 Sem leaderboard entre
+    irmãos</h3>
+    <p><strong>O que seria:</strong> ranking visível comparando a
+    pontuação de cada filho, com posição de 1º, 2º, etc.</p>
+    <p><strong>Por que foi descartado:</strong></p>
+    <p>A comparação social entre irmãos em um contexto familiar é
+    especificamente contraindicada pela psicologia do desenvolvimento.
+    Não é uma questão de “não é saudável” em geral — é um risco de dano
+    real e documentado: sibling rivalry ampliada por reforço de produto,
+    desigualdade de pontos que reflete diferença de faixa etária (não de
+    esforço), e quebra de aliança pai-filho quando o filho percebe que o
+    app o posiciona em competição com o irmão.</p>
+    <p>Duckworth é explícita sobre isso: grit não se desenvolve em
+    ambientes de comparação constante com pares — se desenvolve em
+    ambientes de autoavaliação progressiva. O filho que compara seus
+    pontos com o irmão está medindo o lugar que ocupa na família, não o
+    esforço que fez.</p>
+    <p><strong>Implementado como alternativa:</strong> cada filho tem
+    sua própria tela, sua própria meta e sua própria recompensa. O pai
+    vê as duas colunas no painel — mas sem ranking visual, sem destaque
+    de “melhor da semana”, sem indicação de quem “ganhou”.</p>
+    <hr />
+    <h3 id="sem-recompensa-variável-imprevisível-slot-machine">1.4 Sem
+    recompensa variável imprevisível (slot machine)</h3>
+    <p><strong>O que seria:</strong> pontos ou prêmios que variam de
+    forma aleatória a cada tarefa concluída — “você pode ganhar entre 10
+    e 50 pontos, descubra ao finalizar!” — para maximizar dopamina de
+    antecipação.</p>
+    <p><strong>Por que foi descartado:</strong></p>
+    <p>O mecanismo de recompensa variável é o núcleo do modelo de
+    dependência em casinos e redes sociais (Skinner, reforço
+    intermitente). Em crianças, a pesquisa de Schultz (1998) sobre
+    neurônios de dopamina demonstra que o pico de ativação não é quando
+    a recompensa chega — é quando ela é imprevisível. Isso cria
+    comportamento compulsivo, não hábito saudável.</p>
+    <p>O Blip usa recompensa previsível: a criança sabe exatamente
+    quantos pontos vai ganhar antes de fazer a tarefa. O sistema de peso
+    (1 estrela, 2 estrelas, 3 estrelas) é visível no card da tarefa. A
+    única variável é o humor da criança, que ela mesma reporta — e que
+    pode aumentar ou diminuir os pontos dentro de um range que ela
+    conhece.</p>
+    <p><strong>Implementado como alternativa:</strong> pontos base +
+    peso visíveis em cada tarefa. O pai configura os pontos; a criança
+    sabe o que esperar. Recompensa mensal definida pelo pai
+    antecipadamente — sem surpresa, sem imprevisibilidade.</p>
+    <hr />
+    <h3 id="sem-tempo-de-tela-como-prêmio">1.5 Sem tempo de tela como
+    prêmio</h3>
+    <p><strong>O que seria:</strong> “Complete 5 tarefas esta semana e
+    ganhe 30 minutos extras de tela!” — usando o app como alavanca para
+    administrar consumo de tela.</p>
+    <p><strong>Por que foi descartado:</strong></p>
+    <p>Tempo de tela como recompensa pelo comportamento do produto cria
+    uma recursão problemática: o produto que ensina hábitos usa o hábito
+    de tela como moeda de troca. Isso subverte o objetivo de autonomia
+    do filho (a criança trabalha para mais tela, não para a competência
+    da tarefa) e transforma o app em controlador de acesso — papel que
+    pertence ao pai, não ao produto.</p>
+    <p>O Blip não tem opinião sobre quanto tempo de tela uma criança
+    deve ter. As recompensas são definidas pelo pai: semanada em
+    dinheiro, prêmio físico ou experiência (passeio, atividade). A tela
+    não está no menu.</p>
+    <hr />
+    <h2 id="o-que-foi-implementado-como-alternativa-saudável">2. O que
+    foi implementado como alternativa saudável</h2>
+    <h3 id="estrelas-de-coragem-separadas-da-meta-semanal">2.1 Estrelas
+    de Coragem separadas da meta semanal</h3>
+    <p>A reflexão emocional pós-tarefa gera <strong>Estrelas de
+    Coragem</strong> — sistema paralelo, visível no perfil da criança,
+    completamente separado da pontuação de tarefas.</p>
+    <p><strong>Por que isso importa:</strong> se a reflexão emocional
+    gerasse pontos na meta semanal, crianças mais velhas usariam o fluxo
+    emocional como estratégia de recuperação de pontos — corrompendo o
+    comportamento que se quer desenvolver. A decisão foi unânime no
+    Comitê Pedagógico (Montessori, Dweck, Duckworth).</p>
+    <p>A separação é <strong>estrutural e visual</strong>: as Estrelas
+    de Coragem nunca aparecem na mesma seção, barra ou card que os
+    pontos de tarefas. Em todas as 4 interfaces etárias, há um divisor
+    visual explícito entre as duas métricas.</p>
+    <h3 id="streak-positivo-celebra-presença-não-pune-ausência">2.2
+    Streak positivo — celebra presença, não pune ausência</h3>
+    <p>O streak no Blip conta dias concluídos e celebra o acúmulo. Não
+    zera com destaque, não envia notificação de “você quebrou”, não
+    exibe contador de “dias sem atividade”.</p>
+    <p>Para o perfil Aventureiro: o streak aparece no header da
+    ChildHome como número simples (“7 dias”). Sem ícone de fogo. Sem
+    animação de extinção. Se a criança não concluir nenhuma tarefa
+    amanhã, o número simplesmente para — sem cerimônia.</p>
+    <h3 id="recompensas-definidas-pelo-pai-o-app-não-escolhe">2.3
+    Recompensas definidas pelo pai — o app não escolhe</h3>
+    <p>O Blip fornece a estrutura (meta percentual, sistema de pontos,
+    semana de referência), mas a recompensa em si é definida pelo pai. O
+    app oferece 3 categorias: semanada em R$, prêmio físico ou
+    experiência. O conteúdo específico (“sorvete depois da escola”,
+    “passeio ao parque”) é digitado pelo pai.</p>
+    <p>Esse design tem duas vantagens pedagógicas: (1) o pai precisa
+    pensar no que motiva seu filho específico — não terceiriza essa
+    decisão para o app; (2) a recompensa fica carregada de significado
+    familiar, não de conotação de produto.</p>
+    <h3
+    id="teto-de-reflexões-emocionais-máximo-3-por-semana-lieberman">2.4
+    Teto de reflexões emocionais — máximo 3 por semana (Lieberman)</h3>
+    <p>O fluxo de Estrelas de Coragem tem um teto: máximo 3 reflexões
+    com pontuação efetiva por semana. Após o terceiro, a criança pode
+    continuar respondendo, mas não acumula mais estrelas.</p>
+    <p><strong>Fundamento (Lieberman):</strong> o afeto labeling (nomear
+    o que sentiu) é mais efetivo como prática quando feito com
+    frequência baixa e atenção genuína — não como rotina mecânica. Um
+    teto de 3 por semana mantém o fluxo emocional como evento especial,
+    não como tarefa adicional.</p>
+    <hr />
+    <h2 id="confronto-direto-nir-eyal-vs.-comitê-pedagógico">3.
+    Confronto direto: Nir Eyal vs. Comitê Pedagógico</h2>
+    <p>Esta é a tensão real. Vale nomeá-la diretamente.</p>
+    <h3 id="o-modelo-hooked-aplicado-ao-blip-o-que-usamos">O modelo
+    Hooked aplicado ao Blip — o que usamos</h3>
+    <p>O framework Hooked de Nir Eyal descreve 4 fases de criação de
+    hábito em produto: Trigger, Action, Variable Reward, Investment. O
+    Blip usa versões adaptadas de 3 dessas 4 fases:</p>
+    <table style="width:100%;">
+    <colgroup>
+    <col style="width: 25%" />
+    <col style="width: 33%" />
+    <col style="width: 41%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Fase Hooked</th>
+    <th>O que o Blip usa</th>
+    <th>O que o Blip não usa</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><strong>Trigger</strong></td>
+    <td>Missão criada pelo pai como gatilho externo; mascote como
+    gatilho interno (curiosidade)</td>
+    <td>Notificações de urgência (“falta 2 horas”), badges de
+    ansiedade</td>
+    </tr>
+    <tr>
+    <td><strong>Action</strong></td>
+    <td>Conclusão de tarefa com 1 toque; autoavaliação de humor com 1
+    toque</td>
+    <td>Ações em múltiplas etapas que criam comprometimento antes da
+    entrega de valor</td>
+    </tr>
+    <tr>
+    <td><strong>Variable Reward</strong></td>
+    <td><strong>Não usamos</strong> — recompensas são previsíveis e
+    definidas pelo pai</td>
+    <td>Pontos aleatórios, surpresas, mecanismo de slot machine</td>
+    </tr>
+    <tr>
+    <td><strong>Investment</strong></td>
+    <td>Histórico semanal, streaks positivos, Estrelas de Coragem
+    acumuladas</td>
+    <td>Dependência de dados que o usuário não pode exportar;
+    lock-in</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="a-distinção-que-o-comitê-pedagógico-define">A distinção que
+    o Comitê Pedagógico define</h3>
+    <p>Nir Eyal, em “Indistractable” (2019), faz uma distinção que o
+    próprio autor reconhece como não resolvida em “Hooked”: há diferença
+    entre criar um hábito que serve ao usuário e criar um comportamento
+    compulsivo que serve ao produto.</p>
+    <p>O Blip toma posição explícita nessa distinção:</p>
+    <p><strong>Hábito saudável</strong> (o que o Blip quer criar): - A
+    criança abre o app porque espera encontrar suas tarefas do dia - O
+    pai aprova porque quer fechar o ciclo com o filho - O filho responde
+    à reflexão emocional porque encontrou valor na conversa com o pai -
+    A família volta na semana seguinte porque o produto organizou algo
+    que antes estava na cabeça do pai</p>
+    <p><strong>Dependência</strong> (o que o Blip rejeita): - A criança
+    abre o app compulsivamente para ver se chegou nova pontuação - O pai
+    aprova rapidamente para livrar o badge de notificação - O filho
+    responde ao fluxo emocional para ganhar pontos extras, não para
+    refletir - A família continua usando por inércia de dados
+    acumulados, não por valor percebido</p>
+    <p>A diferença não é filosófica — é operacional. Os guardrails
+    descritos neste documento (streak não-punitivo, recompensa
+    previsível, Estrelas de Coragem separadas, teto de 3
+    reflexões/semana) são as implementações concretas dessa
+    distinção.</p>
+    <h3 id="andy-puddicombe-como-fio-condutor">Andy Puddicombe como fio
+    condutor</h3>
+    <p>A presença de Andy Puddicombe no comitê não é simbólica. Ela
+    define uma linha que o produto não pode cruzar: o app deve ser algo
+    que o pai e o filho escolhem usar, não algo que eles sentem que
+    precisam usar para não perder.</p>
+    <p>A diferença entre “querer” e “ter que” é a fronteira entre canal
+    de comunicação saudável e mecanismo de ansiedade. Cada dark pattern
+    descartado neste documento representa uma decisão de ficar do lado
+    certo dessa fronteira.</p>
+    <p>O produto que cria “quero” diz ao filho: “suas tarefas estão aqui
+    quando você quiser”. O produto que cria “tenho que” diz ao filho:
+    “se você não abrir hoje, você perde”. O Blip foi projetado para ser
+    o primeiro.</p>
+    <hr />
+    <p><em>Documento produzido por <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    — Sprint 3 do Comitê de Product Design. Para distribuição ao comitê
+    como material de leitura prévia — especificamente para a agenda de
+    “Anti-padrões e guardrails”.</em></p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

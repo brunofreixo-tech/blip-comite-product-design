@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spec: Resumo Semanal do
+Pai — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Spec: Resumo Semanal do Pai</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1 id="spec-resumo-semanal-do-pai">Spec: Resumo Semanal do Pai</h1>
+    <p><strong>Data:</strong> 2026-04-02 <strong>Elaborado por:</strong>
+    <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    <strong>Sprint:</strong> Sprint 2 — Comitê de Product Design
+    <strong>Escopo:</strong> Especificação do que o pai vê ao encerrar a
+    semana. Não é implementação — é especificação para avaliação do
+    comitê. <strong>Referência:</strong> Recomendação 4 do Resumo
+    Executivo v2 (alta prioridade): “dados do ‘como você se sentiu?’
+    agregados para o pai”.</p>
+    <hr />
+    <h2 id="contexto">Contexto</h2>
+    <p>Hoje não existe tela de resumo semanal. O encerramento da semana
+    acontece silenciosamente — o snapshot é gravado em background
+    (<code>upsertWeekHistory</code>) quando o pai abre o painel, mas
+    nenhuma tela celebra o fim da semana, nenhum dado é apresentado como
+    visão consolidada, e nenhuma ação é sugerida para a semana
+    seguinte.</p>
+    <p>Esta spec define o que essa tela precisaria conter para fechar o
+    loop de retenção identificado na análise do loop semanal atual.</p>
+    <hr />
+    <h2 id="quando-essa-tela-aparece">Quando essa tela aparece</h2>
+    <p><strong>Gatilho:</strong> segunda-feira, no primeiro acesso do
+    pai após o encerramento da semana anterior.</p>
+    <p>Alternativa considerada: domingo à noite com notificação push.
+    Descartada para esta spec — notificações push são sprint dedicada
+    (decisão de produto registrada). O gatilho de segunda-feira é o que
+    pode ser implementado sem infraestrutura de notificação.</p>
+    <p><strong>Formato:</strong> modal de celebração sobre o painel
+    principal, dispensável com 1 toque. Não é tela separada — não quebra
+    o fluxo do pai que quer ir direto às tarefas da semana nova.</p>
+    <hr />
+    <h2 id="bloco-1-dados-de-desempenho">Bloco 1 — Dados de
+    Desempenho</h2>
+    <p><strong>O que o pai vê:</strong> - Pontuação total da semana por
+    filho (pontos obtidos / pontos máximos possíveis) - Percentual da
+    meta semanal atingido por filho - Número de tarefas concluídas
+    vs. total de tarefas da semana</p>
+    <p><strong>Exemplo visual (para 1 filho):</strong></p>
+    <pre><code>Luna — Semana de 24/03 a 30/03
+████████░░  78%  (234 / 300 pontos)
+Tarefas: 14 de 18 concluídas</code></pre>
+    <p><strong>Dados necessários no Supabase:</strong></p>
+    <table>
+    <colgroup>
+    <col style="width: 24%" />
+    <col style="width: 48%" />
+    <col style="width: 27%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Campo</th>
+    <th>Tabela / Hook</th>
+    <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>scores</code> por filho</td>
+    <td><code>weekly_history.scores</code> (JSON)</td>
+    <td>Existe — <code>WeeklyHistory</code> já persiste</td>
+    </tr>
+    <tr>
+    <td><code>max_scores</code> por filho</td>
+    <td><code>weekly_history.max_scores</code> (JSON)</td>
+    <td>Existe</td>
+    </tr>
+    <tr>
+    <td>Total de tarefas concluídas</td>
+    <td>Contagem de <code>tasks</code> com
+    <code>status = 'closed'</code> na semana</td>
+    <td>Existe via <code>summariesByChild.counts</code> no
+    <code>useWeeklyTasks</code></td>
+    </tr>
+    <tr>
+    <td>Total de tarefas criadas</td>
+    <td>Contagem total de <code>tasks</code> na semana por filho</td>
+    <td>Existe</td>
+    </tr>
+    <tr>
+    <td>Meta semanal por filho</td>
+    <td><code>profile_week_goals.goal_percent</code></td>
+    <td>Existe</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>O que precisaria ser criado:</strong> nenhum dado novo.
+    Tudo existe. Falta apenas a tela que os apresenta.</p>
+    <hr />
+    <h2 id="bloco-2-painel-emocional-agregado">Bloco 2 — Painel
+    Emocional Agregado</h2>
+    <p><strong>O que o pai vê:</strong> Distribuição de como o filho se
+    sentiu ao longo da semana, dia a dia. Para cada dia da semana, um
+    indicador visual de qual humor predominou nas tarefas
+    concluídas.</p>
+    <p><strong>Exemplo visual:</strong></p>
+    <pre><code>Como Luna se sentiu essa semana:
+Seg  Ter  Qua  Qui  Sex  Sáb  Dom
+ 😊   😊   😐   😢   😊   —    —</code></pre>
+    <p>Nota: o traço (—) indica dia sem tarefas concluídas.</p>
+    <p><strong>Dado adicional:</strong> percentual semanal de cada
+    humor.</p>
+    <pre><code>😊 Feliz: 60%   😐 Neutro: 25%   😢 Difícil: 15%</code></pre>
+    <p><strong>Por que isso importa para o pai:</strong> o dado
+    emocional agregado transforma informação individual (tarefa por
+    tarefa, visível no PendingReviewsPanel) em padrão semanal. Um filho
+    que teve 3 dias difíceis seguidos — dado invisível na interface
+    atual — fica visível como padrão quando apresentado como calendário
+    semanal.</p>
+    <p><strong>Dados necessários no Supabase:</strong></p>
+    <table>
+    <colgroup>
+    <col style="width: 30%" />
+    <col style="width: 34%" />
+    <col style="width: 34%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Campo</th>
+    <th>Tabela</th>
+    <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>reaction</code> por tarefa (😊/😐/😢)</td>
+    <td><code>tasks.reaction</code></td>
+    <td>Existe — preenchido na aprovação parental</td>
+    </tr>
+    <tr>
+    <td><code>carinha</code> por tarefa</td>
+    <td><code>tasks.face</code></td>
+    <td>Existe — preenchido pela criança</td>
+    </tr>
+    <tr>
+    <td>Data da tarefa</td>
+    <td><code>tasks.date</code></td>
+    <td>Existe</td>
+    </tr>
+    <tr>
+    <td>Aggregação por dia por filho</td>
+    <td>—</td>
+    <td>Não existe — precisa ser calculado no frontend ou
+    persistido</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>O que precisaria ser criado:</strong> - Query que agrupa
+    <code>tasks</code> por <code>child_id</code> + <code>date</code> +
+    <code>reaction</code> para a semana encerrada - Cálculo da
+    distribuição percentual de humores na semana - Ou persistência
+    desses dados em <code>weekly_history.emotional_summary</code> (JSON)
+    — campo novo</p>
+    <p>Recomendação: calcular no frontend a partir dos dados existentes
+    de <code>tasks</code> — sem novo campo de banco para o MVP desta
+    tela.</p>
+    <hr />
+    <h2 id="bloco-3-destaque-da-semana">Bloco 3 — Destaque da
+    Semana</h2>
+    <p><strong>O que o pai vê:</strong> Um insight gerado pelo produto —
+    1 frase — sobre o desempenho da semana. Não é dado bruto. É uma
+    observação que o produto gera a partir dos dados.</p>
+    <p><strong>Exemplos de insights por padrão:</strong></p>
+    <table>
+    <colgroup>
+    <col style="width: 50%" />
+    <col style="width: 50%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Padrão detectado</th>
+    <th>Insight exibido</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Filho concluiu tarefas nos 5 dias úteis</td>
+    <td>“Luna foi consistente nos 5 dias — isso é raro e valioso.”</td>
+    </tr>
+    <tr>
+    <td>Primeira semana com 100% de meta atingida</td>
+    <td>“Primeira semana com meta atingida. Isso vai ficar no
+    histórico.”</td>
+    </tr>
+    <tr>
+    <td>Taxa de conclusão caiu vs. semana anterior</td>
+    <td>“Luna concluiu menos tarefas que semana passada. Vale
+    conversar?”</td>
+    </tr>
+    <tr>
+    <td>Nenhuma tarefa concluída em 2 dias seguidos</td>
+    <td>“Quarta e quinta sem tarefas concluídas. Pode ser cansaço — ou a
+    missão está difícil demais?”</td>
+    </tr>
+    <tr>
+    <td>Todos os dias com humor positivo</td>
+    <td>“Luna sinalizou que estava bem a semana toda. Missões no ponto
+    certo.”</td>
+    </tr>
+    <tr>
+    <td>Mais de 50% das tarefas com humor triste</td>
+    <td>“Muitas missões foram difíceis. O nível está adequado para a
+    Luna?”</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Lógica de geração:</strong> regras determinísticas no
+    frontend, sem IA. Cada insight é uma condição <code>if</code> sobre
+    os dados da semana. Prioridade: o insight mais relevante é exibido;
+    nunca empilhar dois.</p>
+    <p><strong>Dados necessários:</strong> os mesmos dos Blocos 1 e 2.
+    Nenhum dado adicional.</p>
+    <p><strong>O que precisaria ser criado:</strong> - Biblioteca de
+    templates de insights com condições associadas
+    (<code>src/lib/weeklyInsights.ts</code>) - Lógica de seleção do
+    insight mais relevante</p>
+    <hr />
+    <h2 id="bloco-4-ação-sugerida">Bloco 4 — Ação Sugerida</h2>
+    <p><strong>O que o pai vê:</strong> Uma ação concreta que o produto
+    sugere para a semana seguinte, derivada do insight do Bloco 3.</p>
+    <p><strong>Exemplos:</strong></p>
+    <table>
+    <colgroup>
+    <col style="width: 54%" />
+    <col style="width: 45%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Insight (Bloco 3)</th>
+    <th>Ação sugerida</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Muitas missões difíceis</td>
+    <td>“Dever de casa teve muitas carinhas tristes — vale conversar com
+    a Luna?”</td>
+    </tr>
+    <tr>
+    <td>Dias sem conclusão</td>
+    <td>“Que tal criar uma missão mais curta para as
+    quartas-feiras?”</td>
+    </tr>
+    <tr>
+    <td>Semana ótima</td>
+    <td>“Tudo certo! Quer adicionar uma missão nova essa semana?”</td>
+    </tr>
+    <tr>
+    <td>Meta não atingida</td>
+    <td>“A meta foi 78%. Que tal ajustar para 70% por enquanto?”</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Formato:</strong> 1 frase + 1 botão de ação (ex: “Abrir
+    Settings”, “Criar Nova Missão”, “OK, vou conversar”). O botão “OK,
+    vou conversar” não faz nada — é apenas fechamento do modal com
+    intenção registrada (opcional: log de intenção para métricas
+    futuras).</p>
+    <p><strong>Dados necessários:</strong> derivados dos Blocos 1, 2 e
+    3. Sem dados adicionais.</p>
+    <p><strong>O que precisaria ser criado:</strong> - Mapeamento
+    <code>insight → ação</code> na mesma biblioteca de
+    <code>weeklyInsights.ts</code> - Componente de botão de ação que
+    navega para a tela correta ou fecha o modal</p>
+    <hr />
+    <h2 id="bloco-5-recompensa">Bloco 5 — Recompensa</h2>
+    <p><strong>O que o pai vê (quando meta foi atingida):</strong>
+    Celebração visual — animação simples, mascote Blip, mensagem de
+    parabéns — seguida da exibição da recompensa definida.</p>
+    <p><strong>Exemplo:</strong></p>
+    <pre><code>[animação mascote Blip]
+Luna atingiu a meta da semana!
+
+Recompensa: Sorvete especial depois da escola</code></pre>
+    <p><strong>O que o pai vê (quando meta não foi atingida):</strong>
+    Sem celebração. Apenas os dados dos Blocos 1–4 sem destaque
+    emocional. A falta de celebração é a comunicação — não há mensagem
+    de “você não conseguiu”, pois isso é o contrário do tom Blip.</p>
+    <p><strong>Dados necessários:</strong></p>
+    <table>
+    <colgroup>
+    <col style="width: 30%" />
+    <col style="width: 34%" />
+    <col style="width: 34%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Campo</th>
+    <th>Tabela</th>
+    <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Tipo de recompensa semanal</td>
+    <td><code>profile_goal_settings.default_week_reward_type</code></td>
+    <td>Existe</td>
+    </tr>
+    <tr>
+    <td>Título/valor da recompensa</td>
+    <td><code>profile_goal_settings.default_week_reward_title</code> /
+    <code>default_week_reward_amount</code></td>
+    <td>Existe</td>
+    </tr>
+    <tr>
+    <td>Meta semanal por filho</td>
+    <td><code>profile_week_goals.goal_percent</code></td>
+    <td>Existe</td>
+    </tr>
+    <tr>
+    <td>Score da semana</td>
+    <td><code>weekly_history.scores</code></td>
+    <td>Existe</td>
+    </tr>
+    <tr>
+    <td>Max da semana</td>
+    <td><code>weekly_history.max_scores</code></td>
+    <td>Existe</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>O que precisaria ser criado:</strong> - Lógica de
+    comparação <code>(score / max_score) &gt;= goal_percent</code> -
+    Componente de celebração com animação (pode ser CSS puro ou lottie —
+    decisão de UX) - Exibição da recompensa configurada</p>
+    <hr />
+    <h2
+    id="mapa-de-dados-o-que-existe-hoje-vs.-o-que-precisa-ser-criado">Mapa
+    de dados: o que existe hoje vs. o que precisa ser criado</h2>
+    <table>
+    <colgroup>
+    <col style="width: 19%" />
+    <col style="width: 16%" />
+    <col style="width: 22%" />
+    <col style="width: 41%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Bloco</th>
+    <th>Dado</th>
+    <th>Existe</th>
+    <th>Precisa criar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>1 — Desempenho</td>
+    <td>Pontuação semanal por filho</td>
+    <td>Sim (<code>weekly_history</code>)</td>
+    <td>Tela</td>
+    </tr>
+    <tr>
+    <td>1 — Desempenho</td>
+    <td>Taxa de tarefas concluídas</td>
+    <td>Sim (<code>tasks.status</code>)</td>
+    <td>Tela + query</td>
+    </tr>
+    <tr>
+    <td>2 — Painel emocional</td>
+    <td>Humor por tarefa</td>
+    <td>Sim (<code>tasks.reaction</code>)</td>
+    <td>Aggregação + tela</td>
+    </tr>
+    <tr>
+    <td>2 — Painel emocional</td>
+    <td>Distribuição percentual</td>
+    <td>Não</td>
+    <td>Cálculo no frontend</td>
+    </tr>
+    <tr>
+    <td>3 — Destaque</td>
+    <td>Insight gerado</td>
+    <td>Não</td>
+    <td><code>weeklyInsights.ts</code> + lógica</td>
+    </tr>
+    <tr>
+    <td>4 — Ação sugerida</td>
+    <td>Ação derivada do insight</td>
+    <td>Não</td>
+    <td>Mapeamento + componente</td>
+    </tr>
+    <tr>
+    <td>5 — Recompensa</td>
+    <td>Tipo e valor</td>
+    <td>Sim (<code>profile_goal_settings</code>)</td>
+    <td>Lógica de comparação + componente</td>
+    </tr>
+    <tr>
+    <td>5 — Recompensa</td>
+    <td>Celebração visual</td>
+    <td>Não</td>
+    <td>Animação + componente</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Resumo:</strong> os dados existem. O que não existe é a
+    camada de apresentação e interpretação. Essa tela é, do ponto de
+    vista de banco de dados, de baixo custo — nenhuma migração
+    necessária para o MVP desta tela.</p>
+    <hr />
+    <h2 id="o-que-esta-tela-não-é">O que esta tela NÃO é</h2>
+    <ul>
+    <li>Não é relatório de BI — sem gráficos de série temporal, sem
+    comparações entre filhos, sem benchmarks externos</li>
+    <li>Não é dashboard permanente — aparece uma vez por semana, não
+    fica disponível como tela principal</li>
+    <li>Não é punição camuflada — quando a meta não é atingida, não há
+    mensagem negativa, apenas ausência de celebração</li>
+    <li>Não é opcional para o produto — sem encerramento visual do ciclo
+    semanal, não há loop de retenção</li>
+    </ul>
+    <hr />
+    <h2
+    id="notas-de-implementação-para-referência-futura-do-arquiteto">Notas
+    de implementação (para referência futura do Arquiteto)</h2>
+    <p>Esta spec não define implementação. As notas abaixo são
+    orientações de contexto para quando a tarefa for para
+    desenvolvimento:</p>
+    <ul>
+    <li>O modal deve ser verificado na montagem da tela
+    <code>Index</code> — comparar <code>lastWeekResumeSeen</code>
+    (localstorage) com o <code>weekStart</code> atual para decidir se
+    exibe</li>
+    <li>Os dados de <code>tasks</code> da semana encerrada precisam vir
+    de um query com range de datas
+    <code>[weekStart - 7, weekStart - 1]</code></li>
+    <li>A aggregação emocional pode ser feita no mesmo hook
+    <code>useWeeklyTasks</code> com <code>referenceDate</code> na semana
+    anterior</li>
+    <li>O componente de celebração deve usar o SVG oficial do mascote
+    Blip (liberado por Bruno — ver <code>decisoes_produto.md</code>,
+    2026-04-01)</li>
+    </ul>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

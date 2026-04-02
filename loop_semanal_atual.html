@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loop Semanal Atual — Mapa
+Completo — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Loop Semanal Atual — Mapa
+Completo</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1 id="loop-semanal-atual-mapa-completo">Loop Semanal Atual — Mapa
+    Completo</h1>
+    <p><strong>Data:</strong> 2026-04-02 <strong>Elaborado por:</strong>
+    <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    <strong>Sprint:</strong> Sprint 2 — Comitê de Product Design
+    <strong>Escopo:</strong> O que acontece segunda a domingo do ponto
+    de vista do pai e do filho, com identificação dos pontos onde o loop
+    se rompe hoje.</p>
+    <hr />
+    <h2 id="diagrama-do-ciclo">Diagrama do Ciclo</h2>
+    <pre><code>SEGUNDA                  QUARTA/QUINTA              DOMINGO/SEGUNDA
+    │                         │                           │
+[Pai cria missões]    [Filho conclui + reage]    [Pai aprova ou ignora]
+    │                         │                           │
+    ↓                         ↓                           ↓
+App exibe no           App exibe &quot;aguardando       App fecha semana
+ChildHome do filho     revisão&quot; para o pai         (sem sinal automático)</code></pre>
+    <p>Hoje o loop é inteiramente dependente de ação humana. Não há
+    notificação, não há resumo, não há sinal de retorno automático em
+    nenhum dos três momentos acima.</p>
+    <hr />
+    <h2 id="tabela-dia-a-dia-do-loop">Tabela: Dia a Dia do Loop</h2>
+    <table>
+    <colgroup>
+    <col style="width: 9%" />
+    <col style="width: 10%" />
+    <col style="width: 25%" />
+    <col style="width: 22%" />
+    <col style="width: 34%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Momento</th>
+    <th>Quem age</th>
+    <th>O que precisa acontecer</th>
+    <th>O que o app faz hoje</th>
+    <th>Estado de abandono (ninguém age)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Segunda-feira (início da semana)</td>
+    <td>Pai</td>
+    <td>Criar ou confirmar as missões da semana para cada filho</td>
+    <td>Exibe o painel <code>/</code> com <code>ChildColumn</code> por
+    filho; tarefas da semana atual aparecem se já cadastradas via
+    recorrência ou manualmente</td>
+    <td>Filhos abrem o app e veem tela vazia ou tarefas da semana
+    anterior como contexto visual</td>
+    </tr>
+    <tr>
+    <td>Segunda a Sexta (dias úteis)</td>
+    <td>Filho</td>
+    <td>Abrir o app, ver as missões do dia e marcar como concluída com
+    autoavaliação de humor</td>
+    <td><code>ChildHome</code> exibe tarefas do dia agrupadas por
+    horário; após conclusão, status muda para
+    <code>awaiting_review</code></td>
+    <td>Tarefas ficam como <code>pending</code> até expirarem pelo
+    <code>auto_lock_time</code> configurado em Settings</td>
+    </tr>
+    <tr>
+    <td>Qualquer dia após conclusão</td>
+    <td>Pai</td>
+    <td>Revisar tarefas no <code>PendingReviewsPanel</code>, aprovar ou
+    ajustar pontuação</td>
+    <td><code>PendingReviewsPanel</code> exibe tarefas com status
+    <code>awaiting_review</code>; pai revisa com mood (😊/😐/😢)</td>
+    <td>Tarefa fica em <code>awaiting_review</code> indefinidamente —
+    não há prazo forçado de aprovação</td>
+    </tr>
+    <tr>
+    <td>Final de semana (Sáb/Dom)</td>
+    <td>Sistema / Pai</td>
+    <td>Encerrar a semana, calcular pontuação final, salvar no
+    histórico</td>
+    <td>Snapshot semanal é gravado automaticamente com debounce de 1,5s
+    quando o pai abre o painel (<code>Index.tsx</code>,
+    <code>upsertWeekHistory</code>)</td>
+    <td>Snapshot é gravado com dados incompletos se o pai não abriu o
+    painel; sem encerramento formal</td>
+    </tr>
+    <tr>
+    <td>Domingo à noite / Segunda cedo</td>
+    <td>Pai</td>
+    <td>Ver o resumo da semana encerrada e planejar a próxima</td>
+    <td>Nenhuma tela de resumo semanal existe hoje</td>
+    <td>Semana seguinte começa sem nenhum sinal de fechamento da
+    anterior</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="o-que-cada-parte-vê-por-estado">O que cada parte vê por
+    estado</h2>
+    <h3 id="o-que-o-pai-vê-no-painel-quando-o-filho-não-respondeu">O que
+    o pai vê no painel quando o filho não respondeu</h3>
+    <p>O <code>ChildColumn</code> no painel <code>/</code> exibe: -
+    Tarefas do dia com status <code>pending</code> — sem indicação
+    visual de urgência ou de quanto tempo falta para expirar - O card de
+    progresso semanal mostra <code>0 / N pontos</code> com a barra vazia
+    - O <code>PendingReviewsPanel</code> não exibe nada (sem itens para
+    revisar) - Não há diferença visual entre “filho ainda não abriu o
+    app hoje” e “filho abriu e não concluiu”</p>
+    <p>O pai não tem como saber, pela interface atual, se a criança
+    sequer viu as missões.</p>
+    <h3 id="o-que-a-criança-vê-quando-não-tem-missões">O que a criança
+    vê quando não tem missões</h3>
+    <p>O <code>ChildHome</code> renderiza os filtros de dia e a lista de
+    tarefas do dia atual. Se não há tarefas: - Exibe estado vazio — sem
+    mensagem motivacional, sem direcionamento do que fazer - O mascote
+    não aparece neste estado (não implementado) - Não há instrução do
+    tipo “peça ao seu pai para criar missões”</p>
+    <p>A criança em estado vazio não tem ação disponível dentro do
+    app.</p>
+    <h3 id="o-que-acontece-se-o-pai-não-aprova-em-48h">O que acontece se
+    o pai não aprova em 48h</h3>
+    <p>Não há mecanismo de prazo forçado para aprovação parental. O
+    produto hoje: - Mantém a tarefa em <code>awaiting_review</code> até
+    o pai agir - Não envia nenhum lembrete ao pai - Não exibe contador
+    de tempo no <code>PendingReviewsPanel</code> - A tarefa continua
+    computando pontos potenciais como se ainda estivesse aberta para
+    revisão - O filho não recebe feedback de que o pai viu ou não
+    viu</p>
+    <p>Caso extremo: tarefas concluídas pelo filho na segunda-feira
+    podem estar pendentes de revisão no domingo seguinte sem nenhum
+    aviso.</p>
+    <h3 id="há-algum-sinal-de-retorno-automático-hoje">Há algum sinal de
+    retorno automático hoje</h3>
+    <p>Não. O produto não tem: - Notificações push - E-mail de lembrete
+    - Resumo semanal automático - Badge de “você tem X tarefas para
+    revisar” - Qualquer sinal proativo para pai ou filho</p>
+    <p>O único mecanismo automático existente é o snapshot semanal
+    gravado em <code>upsertWeekHistory</code> — mas esse é invisível ao
+    usuário (gravação de dado, não comunicação).</p>
+    <hr />
+    <h2 id="onde-o-loop-quebra-hoje">Onde o Loop Quebra Hoje</h2>
+    <h3 id="quebra-1-ausência-de-missões-no-início-da-semana">Quebra 1 —
+    Ausência de missões no início da semana</h3>
+    <p><strong>Trigger:</strong> Pai não cria missões na segunda-feira.
+    <strong>O que acontece:</strong> Filho abre o app, vê estado vazio,
+    fecha o app. Sem missões criadas, não há loop. <strong>Por que
+    quebra:</strong> O produto não tem recorrência automática (criação
+    semanal automática a partir de templates). Cada segunda-feira exige
+    ação do pai. <strong>Critério de loop quebrado:</strong> Filho não
+    encontra nenhuma missão no primeiro acesso da semana.</p>
+    <h3 id="quebra-2-filho-não-conclui-as-missões-do-dia">Quebra 2 —
+    Filho não conclui as missões do dia</h3>
+    <p><strong>Trigger:</strong> Criança não abre o app em determinado
+    dia. <strong>O que acontece:</strong> Tarefas expiram pelo
+    <code>auto_lock_time</code> configurado (ou ficam em
+    <code>pending</code> para sempre se não configurado). O pai vê o
+    card vazio naquele dia sem saber se foi esquecimento ou resistência.
+    <strong>Por que quebra:</strong> Não há diferença visual entre
+    tarefa não vista e tarefa vista mas não concluída. O pai não tem
+    contexto para agir. <strong>Critério de loop quebrado:</strong>
+    Tarefa expira sem resposta do filho por 2 dias seguidos sem sinal ao
+    pai.</p>
+    <h3 id="quebra-3-pai-não-aprova-as-tarefas-do-filho">Quebra 3 — Pai
+    não aprova as tarefas do filho</h3>
+    <p><strong>Trigger:</strong> Pai não abre o painel por 48h ou mais
+    após o filho concluir tarefas. <strong>O que acontece:</strong>
+    Tarefas ficam em <code>awaiting_review</code> indefinidamente. O
+    filho que voltou ao app no dia seguinte ainda vê suas tarefas como
+    “aguardando revisão” — sem pontuação final, sem celebração, sem
+    fechamento emocional. <strong>Por que quebra:</strong> A celebração
+    pós-conclusão no <code>ChildHome</code> depende da aprovação
+    parental. Sem aprovação, o feedback de valor que motiva a criança a
+    fazer a tarefa amanhã nunca acontece. <strong>Critério de loop
+    quebrado:</strong> Filho conclui tarefa e não recebe aprovação ou
+    feedback em 48h.</p>
+    <h3 id="quebra-4-semana-encerra-sem-resumo">Quebra 4 — Semana
+    encerra sem resumo</h3>
+    <p><strong>Trigger:</strong> Domingo à noite — semana encerra.
+    <strong>O que acontece:</strong> O snapshot é gravado em segundo
+    plano se o pai abriu o painel. Mas não há tela de encerramento, não
+    há celebração de semana completada, não há visualização do que foi
+    conquistado. <strong>Por que quebra:</strong> O fechamento de ciclo
+    é o momento de maior potencial de motivação para a semana seguinte.
+    Sem ele, cada semana começa como se fosse a primeira — sem memória
+    emocional do que foi conquistado. <strong>Critério de loop
+    quebrado:</strong> A semana encerra sem que pai ou filho receba
+    qualquer sinal de conclusão ou de transição para a semana
+    seguinte.</p>
+    <hr />
+    <h2 id="resumo-dos-pontos-de-quebra">Resumo dos Pontos de
+    Quebra</h2>
+    <table>
+    <colgroup>
+    <col style="width: 4%" />
+    <col style="width: 11%" />
+    <col style="width: 23%" />
+    <col style="width: 15%" />
+    <col style="width: 44%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>#</th>
+    <th>Quebra</th>
+    <th>Quem é afetado</th>
+    <th>Gravidade</th>
+    <th>O que o produto precisaria ter</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>1</td>
+    <td>Sem missões no início da semana</td>
+    <td>Filho</td>
+    <td>Alta — loop não começa</td>
+    <td>Recorrência automática ou nudge ao pai na segunda</td>
+    </tr>
+    <tr>
+    <td>2</td>
+    <td>Filho não conclui</td>
+    <td>Pai + Filho</td>
+    <td>Média — loop começa mas não avança</td>
+    <td>Diferenciação visual entre “não viu” e “não fez”; lembrete</td>
+    </tr>
+    <tr>
+    <td>3</td>
+    <td>Pai não aprova em 48h</td>
+    <td>Filho (feedback bloqueado)</td>
+    <td>Alta — loop avança mas nunca fecha para a criança</td>
+    <td>Prazo de revisão com alerta; aprovação expirada com pontuação
+    automática</td>
+    </tr>
+    <tr>
+    <td>4</td>
+    <td>Semana encerra sem resumo</td>
+    <td>Pai + Filho</td>
+    <td>Alta — sem retenção para semana seguinte</td>
+    <td>Tela de resumo semanal com dados de desempenho e celebração</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="observações-para-o-comitê">Observações para o Comitê</h2>
+    <p><strong>Para Jason Oberfest (retenção como rotina):</strong> O
+    produto hoje não fecha o ciclo semanal de nenhuma das formas que
+    criam hábito — sem celebração de encerramento, sem antecipação da
+    semana seguinte, sem resumo que motive a voltar. A retenção semana a
+    semana depende inteiramente da motivação extrínseca do pai e da
+    criança, não de nenhuma estrutura do produto.</p>
+    <p><strong>Para Ivan Zhao (sistema de missões
+    configuráveis):</strong> A ausência de recorrência automática é a
+    principal causa da quebra 1. Um sistema onde o pai precisa criar
+    missões toda segunda-feira é estruturalmente propenso a semanas
+    vazias — especialmente nas semanas 3 e 4, quando o entusiasmo
+    inicial diminui.</p>
+    <p><strong>O que é prioridade para fechar o loop:</strong> (1)
+    Recorrência automática de missões, (2) Aprovação com prazo +
+    fallback automático, (3) Tela de resumo semanal. Os três são
+    pré-requisitos para que o loop funcione sem depender de disciplina
+    extraordinária do pai.</p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

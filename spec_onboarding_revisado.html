@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spec: Onboarding Revisado —
+Blip — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Spec: Onboarding Revisado —
+Blip</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1 id="spec-onboarding-revisado-blip">Spec: Onboarding Revisado —
+    Blip</h1>
+    <p><strong>Data:</strong> 2026-04-02 <strong>Elaborado por:</strong>
+    <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    <strong>Sprint:</strong> Sprint 1 — Comitê de Product Design
+    <strong>Status:</strong> Proposta para avaliação do comitê — não
+    implementar <strong>Referências:</strong>
+    <code>fluxo_onboarding_atual.md</code>,
+    <code>auditoria-ux-web-2026-03-30.md</code>,
+    <code>decisoes_produto.md</code>,
+    <code>conceito_resposta_emocional_v2.md</code></p>
+    <hr />
+    <h2 id="premissas-que-não-estão-em-discussão">Premissas que não
+    estão em discussão</h2>
+    <p>Estas decisões já foram tomadas e são insumo para esta spec, não
+    pauta aberta:</p>
+    <ul>
+    <li><strong>B1:</strong> Ambos os gatilhos de resposta emocional (A
+    e B) entram no MVP. (Bruno, 2026-04-01)</li>
+    <li><strong>B4:</strong> Resposta do pai em texto + 3 sugestões
+    pré-formuladas obrigatórias. (Bruno, 2026-04-01)</li>
+    <li><strong>N1:</strong> Comentário do pai ao ajustar pontos é
+    opcional. (Bruno, 2026-04-01)</li>
+    <li><strong>Perfis etários:</strong> Começar com Pequenino (4-6) e
+    Aventureiro (10-12). Explorador e Pro entram depois.
+    (decisoes_produto.md, 2026-04-01)</li>
+    <li><strong>Identidade:</strong> O produto se chama Blip. Mascote
+    aprovado. Paleta definida no Brandbook v3.</li>
+    </ul>
+    <hr />
+    <h2 id="quantas-telas-no-total">1. Quantas telas no total</h2>
+    <p>O onboarding revisado tem <strong>4 telas obrigatórias + 1 tela
+    opcional (configuração avançada)</strong>.</p>
+    <table>
+    <colgroup>
+    <col style="width: 6%" />
+    <col style="width: 13%" />
+    <col style="width: 27%" />
+    <col style="width: 51%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>#</th>
+    <th>Tela</th>
+    <th>Obrigatória</th>
+    <th>O que acontece aqui</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>T1</td>
+    <td>Boas-vindas do Blip</td>
+    <td>Sim</td>
+    <td>Proposta de valor em 1 frase + mascote. Botões: “Criar conta” /
+    “Já tenho conta”.</td>
+    </tr>
+    <tr>
+    <td>T2</td>
+    <td>Cadastro do pai (2 steps)</td>
+    <td>Sim</td>
+    <td>Step 2a: dados básicos (nome + celular + senha). Step 2b: aceite
+    de termos + verificação de SMS. Indicador de progresso visível.</td>
+    </tr>
+    <tr>
+    <td>T3</td>
+    <td>Primeiro filho</td>
+    <td>Sim</td>
+    <td>Nome, apelido, data de nascimento (ou faixa etária se criança
+    não sabe a data), avatar. Seleção de perfil etário exibida como
+    resultado automático da data de nascimento.</td>
+    </tr>
+    <tr>
+    <td>T4</td>
+    <td>Primeira missão</td>
+    <td>Sim</td>
+    <td>Template de missão sugerida + opção de customizar. Pai confirma
+    e vai dormir sabendo que o filho já tem algo para amanhã.</td>
+    </tr>
+    <tr>
+    <td>T5</td>
+    <td>Configurações de recompensa</td>
+    <td>Opcional (mas com nudge forte)</td>
+    <td>Definir recompensa mensal. Posicionada como “último passo para a
+    experiência completa”. Pode ser pulada e retomada depois com alerta
+    persistente no painel.</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Por que 4 e não 7:</strong> A configuração técnica
+    (pontos por humor, threshold de honestidade, janela de resposta) sai
+    do onboarding e vai para o painel de Configurações Avançadas,
+    acessível depois. O pai que nunca tocar nessas configurações terá os
+    defaults, que já são bem calibrados.</p>
+    <hr />
+    <h2 id="sequência-proposta">2. Sequência proposta</h2>
+    <h3
+    id="obrigatório-o-pai-não-chega-ao-painel-sem-passar-por-isso">Obrigatório
+    (o pai não chega ao painel sem passar por isso)</h3>
+    <pre><code>T1 — Boas-vindas
+  → T2a — Dados do pai (nome + celular + senha)
+    → T2b — Verificação SMS
+      → T3 — Primeiro filho (nome + data + avatar)
+        → T4 — Primeira missão (template ou customizada)
+          → Painel do pai (com nudge para T5)</code></pre>
+    <h3 id="opcional-pode-ser-pulado-mas-o-app-lembra">Opcional (pode
+    ser pulado, mas o app lembra)</h3>
+    <pre><code>T5 — Recompensa mensal
+  → aparece como banner persistente no painel: &quot;Falta um passo para a experiência completa&quot;
+  → pode ser acessado a qualquer momento via Settings → Recompensas</code></pre>
+    <h3 id="filho-adicional-fluxo-secundário-após-onboarding">Filho
+    adicional (fluxo secundário, após onboarding)</h3>
+    <pre><code>Painel → Adicionar filho
+  → T3 (reutilizada, sem o Step T2)
+  → Sessão de criação de missão para o novo filho</code></pre>
+    <p><strong>Decisão:</strong> O cadastro do filho acontece depois da
+    conta do pai, não junto. Justificativa na seção 4.</p>
+    <hr />
+    <h2 id="o-que-muda-por-perfil-etário">3. O que muda por perfil
+    etário</h2>
+    <h3 id="perfil-pequenino-4-6-anos">Perfil Pequenino (4-6 anos)</h3>
+    <p><strong>No onboarding do pai:</strong> - T3 exibe uma prévia
+    simplificada de como o filho vai ver o app: mascote grande, tarefas
+    com emoji 64px, botões sem texto. - O pai recebe 1 dica contextual:
+    “Seu filho ainda não lê — as tarefas precisam ter um emoji fácil de
+    reconhecer.” - Sugestão de primeira missão em T4: tarefas do
+    cotidiano com emojis claros (escovar os dentes, guardar o brinquedo,
+    vestir o pijama).</p>
+    <p><strong>No onboarding do filho (primeira vez que o filho abre o
+    app):</strong> - Mascote Blip aparece em pose de curiosidade
+    (110px), anima-se e “aponta” para a primeira tarefa via efeito de
+    bounce. - Sem texto no onboarding do filho — apenas animação
+    gestual. - Após a primeira resposta: celebração exagerada (confete
+    nas cores Blip, mascote em pose de missão-completa, som opcional se
+    o dispositivo permitir).</p>
+    <h3 id="perfil-aventureiro-10-12-anos">Perfil Aventureiro (10-12
+    anos)</h3>
+    <p><strong>No onboarding do pai:</strong> - T3 exibe uma prévia de
+    como o filho vai ver o app: tarefas com título + pontos + estrelas
+    de peso + barra de tempo. - O pai recebe 1 dica contextual: “Seu
+    filho quer entender o raciocínio — mostre os pontos e o motivo de
+    cada missão.” - Sugestão de primeira missão em T4: missões com
+    progressão de pontos visível (missão leve = 1 estrela, missão
+    importante = 3 estrelas).</p>
+    <p><strong>No onboarding do filho (primeira vez que o filho abre o
+    app):</strong> - Tour textual curto: 3 telas com “Aqui estão suas
+    missões”, “Aqui você vê seus pontos”, “Aqui a recompensa que está
+    chegando”. - Tom direto, sem infantilização. - Após a primeira
+    resposta: badge “Missão Concluída” + pontos animados flutuando para
+    o totalizador.</p>
+    <p><strong>Nota sobre Explorador (7-9) e Pro (13-14):</strong> Esses
+    perfis estão no roadmap, não no MVP. O onboarding dos 2 perfis
+    ativos (Pequenino + Aventureiro) deve ser projetado de forma que a
+    adição de novos perfis não exija redesign estrutural — apenas
+    variações de conteúdo e estilo visual.</p>
+    <hr />
+    <h2 id="decisão-sobre-o-momento-de-cadastro-do-filho">4. Decisão
+    sobre o momento de cadastro do filho</h2>
+    <p><strong>Proposta:</strong> O filho é cadastrado após a conta do
+    pai estar verificada (após o SMS).</p>
+    <p><strong>Justificativa pedagógica (Vygotsky — ZDP):</strong> O pai
+    precisa primeiro entender o que é o produto para poder apresentar o
+    filho de forma adequada. Se o cadastro do filho vem junto com o
+    cadastro do pai, o pai preenche nome, apelido e data de nascimento
+    do filho sem saber para quê aquelas informações servem. Depois da
+    verificação do SMS, o pai já sabe que está no painel de um app de
+    missões — o contexto torna o cadastro do filho significativo, não
+    burocrático.</p>
+    <p><strong>Justificativa UX (auditoria P1-07):</strong> O formulário
+    atual que une pai + filho em uma única tela é um dos maiores pontos
+    de abandono. A separação temporal (primeiro pai, depois filho) reduz
+    a percepção de comprimento do formulário mesmo que o número total de
+    campos seja o mesmo.</p>
+    <p><strong>Justificativa de negócio:</strong> Um pai que chegou até
+    a verificação do SMS já tem uma conta. Mesmo que ele abandone antes
+    de cadastrar o filho, ele pode retornar e completar. O estado
+    parcial é salvo — diferente do fluxo atual onde o abandono antes do
+    SMS perde tudo.</p>
+    <p><strong>O que NÃO fazer:</strong> Não exigir que o pai adicione
+    todos os filhos antes de criar a primeira missão. O onboarding
+    revisado registra apenas o primeiro filho. Os filhos adicionais
+    entram pelo painel, após o primeiro uso.</p>
+    <hr />
+    <h2 id="como-o-app-ancora-o-hábito-no-primeiro-uso">5. Como o app
+    ancora o hábito no primeiro uso</h2>
+    <p><strong>Princípio:</strong> O pai precisa sair do onboarding com
+    uma sensação de conclusão genuína, não de “configurei um sistema”.
+    Essa sensação vem de uma missão concreta, com data de hoje, já
+    visível no painel — não de ter preenchido formulários.</p>
+    <h3 id="a-sequência-de-ancoragem-proposta">A sequência de ancoragem
+    proposta</h3>
+    <ol type="1">
+    <li><strong>T4 — Primeira missão (template sugerido):</strong>
+    <ul>
+    <li>O app sugere 3 templates de missão adequados ao perfil etário
+    detectado em T3 (pela data de nascimento).</li>
+    <li>O pai pode aceitar um template com 1 toque, ou editar e
+    customizar.</li>
+    <li>Ao confirmar, o app mostra uma tela de confirmação: “Pronto!
+    [Nome do filho] já tem uma missão esperando amanhã de manhã.”</li>
+    </ul></li>
+    <li><strong>Tela de confirmação pós-onboarding:</strong>
+    <ul>
+    <li>Mascote em pose de missão-completa.</li>
+    <li>Texto: “O Blip vai avisar quando [Nome do filho] responder a
+    missão.” (foreshadowing de notificação futura — mesmo que ainda não
+    esteja implementado)</li>
+    <li>Botão único: “Ver o painel”</li>
+    </ul></li>
+    <li><strong>Painel do pai — primeiro acesso:</strong>
+    <ul>
+    <li>A missão criada está visível, com o nome do filho e a data.</li>
+    <li>Badge no topo: “Configuração quase completa — defina a
+    recompensa do mês” (nudge para T5)</li>
+    <li>O PendingReviewsPanel não aparece ainda (não há nada pendente) —
+    o painel está limpo, não vazio. Diferença importante: “limpo” tem
+    uma missão visível; “vazio” não tem nada.</li>
+    </ul></li>
+    </ol>
+    <h3 id="o-loop-de-retorno-em-48h">O loop de retorno em 48h</h3>
+    <p>O critério de sucesso do onboarding não é o pai terminar o
+    cadastro. É o pai voltar em 48h para ver se o filho respondeu.</p>
+    <p>Para isso acontecer, o produto precisa: - Criar a expectativa de
+    que algo vai acontecer (a missão está lá esperando o filho) - Dar ao
+    filho o acesso à missão na primeira vez (o onboarding do filho deve
+    ser simples o suficiente para uma criança de 6 anos conseguir
+    completar sozinha em 2 minutos) - Gerar um evento que faça o pai
+    querer voltar (filho responde + notificação ou acesso ao painel)</p>
+    <p>A notificação push não está no MVP atual. O substituto provisório
+    é o comportamento natural: o pai mostra o app para o filho, o filho
+    responde a missão, o pai retorna para aprovar. Esse ciclo manual é o
+    loop mínimo viável.</p>
+    <hr />
+    <h2 id="referência-às-decisões-já-tomadas">6. Referência às decisões
+    já tomadas</h2>
+    <h3 id="o-que-o-comitê-recebe-como-dado-não-reabrir">O que o comitê
+    recebe como dado (não reabrir)</h3>
+    <table>
+    <colgroup>
+    <col style="width: 20%" />
+    <col style="width: 23%" />
+    <col style="width: 56%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Código</th>
+    <th>Decisão</th>
+    <th>Onde está documentado</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>B1</td>
+    <td>Ambos os gatilhos de resposta emocional entram no MVP</td>
+    <td><code>decisoes_produto.md</code> 2026-04-01</td>
+    </tr>
+    <tr>
+    <td>B4</td>
+    <td>Resposta do pai em texto + 3 sugestões pré-formuladas</td>
+    <td><code>decisoes_produto.md</code> 2026-04-01</td>
+    </tr>
+    <tr>
+    <td>N1</td>
+    <td>Comentário do pai ao ajustar pontos é opcional</td>
+    <td><code>decisoes_produto.md</code> 2026-04-01</td>
+    </tr>
+    <tr>
+    <td>Perfis</td>
+    <td>Pequenino + Aventureiro no MVP; Explorador e Pro no roadmap</td>
+    <td><code>decisoes_produto.md</code> 2026-04-01</td>
+    </tr>
+    <tr>
+    <td>Estrelas de Coragem</td>
+    <td>Sistema paralelo, separado da meta semanal</td>
+    <td><code>conceito_resposta_emocional_v2.md</code></td>
+    </tr>
+    <tr>
+    <td>Vocabulário emocional</td>
+    <td>“Foi difícil” como único label negativo permitido</td>
+    <td><code>ux_decisions.md</code> 2026-04-01</td>
+    </tr>
+    <tr>
+    <td>Separação de dimensões</td>
+    <td>Sentimento (“Como você está?”) separado de dificuldade (“Como
+    foi a tarefa?”)</td>
+    <td><code>ux_decisions.md</code> 2026-04-01</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3
+    id="o-que-o-comitê-pode-questionar-e-o-que-deve-ser-a-resposta">O
+    que o comitê pode questionar e o que deve ser a resposta</h3>
+    <p><strong>“Por que não um onboarding de 1 tela?”</strong> Resposta:
+    O produto coleta dados críticos que não podem ser inferidos (nome do
+    filho, data de nascimento para definir perfil etário). A densidade
+    mínima é determinada por esses requisitos, não por escolha de
+    design.</p>
+    <p><strong>“Por que separar em 4 telas ao invés de 3?”</strong>
+    Resposta: A T4 (primeira missão) é o momento de ancoragem do hábito.
+    Misturá-la com o cadastro do filho (T3) dilui esse momento. A
+    separação é intencional — o pai termina o cadastro e imediatamente
+    cria valor, não configura mais campos.</p>
+    <p><strong>“Por que a recompensa é opcional no onboarding?”</strong>
+    Resposta: Tornar a recompensa obrigatória no onboarding criaria um
+    terceiro formulário longo (tipo de recompensa + valor + meta
+    percentual) antes do pai ter criado qualquer missão. O nudge
+    persistente no painel é o equilíbrio entre não bloquear o primeiro
+    uso e garantir que a configuração aconteça.</p>
+    <hr />
+    <h2 id="justificativas-de-design-por-decisão">7. Justificativas de
+    design por decisão</h2>
+    <h3 id="por-que-separar-o-cadastro-do-pai-do-cadastro-do-filho">Por
+    que separar o cadastro do pai do cadastro do filho</h3>
+    <p><strong>Pedagogia (Vygotsky):</strong> O conceito de Zona de
+    Desenvolvimento Proximal se aplica ao pai como aprendiz do produto.
+    O pai que acabou de criar sua conta está no início da curva de
+    aprendizado. Pedir que ele preencha dados do filho imediatamente —
+    antes de entender para quê — é ignorar essa curva.</p>
+    <p><strong>UX (auditoria P1-07):</strong> Formulários percebidos
+    como “longos” têm taxa de abandono substancialmente maior que
+    formulários segmentados em etapas com progresso visível. Mesmo que o
+    número total de campos seja idêntico.</p>
+    <p><strong>Realidade do usuário (“pai cansado às 22h”):</strong> Um
+    formulário com indicador “Passo 1 de 3” é psicologicamente mais
+    fácil de completar do que um formulário sem fim visível, mesmo que
+    ambos tenham o mesmo número de campos.</p>
+    <h3
+    id="por-que-o-perfil-etário-é-detectado-automaticamente-pela-data-de-nascimento">Por
+    que o perfil etário é detectado automaticamente pela data de
+    nascimento</h3>
+    <p><strong>Pedagogia (Dweck — mindset de crescimento):</strong> O
+    pai que precisa “escolher um perfil” para o filho enfrenta uma
+    decisão desnecessária. Ele não sabe o que “Perfil Aventureiro”
+    significa antes de usar o produto. A detecção automática remove a
+    fricção e garante que a criança começa com a experiência adequada ao
+    seu desenvolvimento.</p>
+    <p><strong>UX:</strong> Reduz 1 decision point no fluxo. Cada
+    decision point tem uma taxa de abandono associada.</p>
+    <h3 id="por-que-templates-de-missão-na-t4">Por que templates de
+    missão na T4</h3>
+    <p><strong>Pedagogia (Duckworth — grit e hábito):</strong> A
+    formação de hábito é facilitada pela concretude. Um pai que cria a
+    primeira missão a partir de um template (em vez de uma tela em
+    branco) tem maior probabilidade de criar a segunda e a terceira. A
+    tela em branco ativa ansiedade de escolha; o template ativa a
+    ação.</p>
+    <p><strong>Realidade do usuário:</strong> Um pai às 22h não quer
+    criar uma missão do zero. Ele quer validar que o produto funciona.
+    Os templates servem como prova de conceito imediata.</p>
+    <hr />
+    <h2 id="gaps-ainda-em-aberto-para-o-comitê">Gaps ainda em aberto
+    (para o comitê)</h2>
+    <ol type="1">
+    <li><p><strong>Onboarding do filho (Pequenino):</strong> A spec
+    descreve o comportamento esperado (mascote aponta, animação gestual,
+    sem texto), mas não especifica a ferramenta de implementação nem os
+    assets de animação. Depende da decisão de ferramenta de prototipagem
+    (tarefa 1.4).</p></li>
+    <li><p><strong>Notificação de retorno em 48h:</strong> O loop de
+    ancoragem depende de uma notificação push que não está no MVP atual.
+    O substituto manual (pai mostra para o filho) funciona para early
+    adopters, mas não escala. A decisão sobre PWA/notificações está em
+    sprint dedicada posterior.</p></li>
+    <li><p><strong>Múltiplos filhos no onboarding:</strong> Esta spec
+    assume que o onboarding registra apenas o primeiro filho. Se o pai
+    tiver 2+ filhos, os filhos adicionais entram pelo painel. A
+    experiência do pai com 3 filhos no onboarding não foi
+    especificada.</p></li>
+    <li><p><strong>Recuperação de abandono em T2b (SMS):</strong> O
+    cenário de “SMS não chegou” precisa de um fluxo de recuperação claro
+    — o estado atual trata isso mas sem a clareza necessária para o
+    público não-técnico.</p></li>
+    </ol>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

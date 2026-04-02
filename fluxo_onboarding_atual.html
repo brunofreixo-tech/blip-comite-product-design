@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fluxo de Onboarding Atual — Mapa
+Completo — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Fluxo de Onboarding Atual — Mapa
+Completo</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1 id="fluxo-de-onboarding-atual-mapa-completo">Fluxo de Onboarding
+    Atual — Mapa Completo</h1>
+    <p><strong>Data:</strong> 2026-04-02 <strong>Elaborado por:</strong>
+    <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    <strong>Sprint:</strong> Sprint 1 — Comitê de Product Design
+    <strong>Escopo:</strong> Do primeiro acesso à URL até a primeira
+    missão criada para o filho</p>
+    <hr />
+    <h2 id="legenda">Legenda</h2>
+    <ul>
+    <li><strong>Toques</strong>: número mínimo de interações discretas
+    (tap, preenchimento de campo, scroll forçado) para avançar</li>
+    <li><strong>Ponto de saída</strong>: o usuário pode abandonar o
+    fluxo neste step e o progresso se perde parcialmente ou
+    totalmente</li>
+    <li><strong>Campos obrigatórios</strong>: marcados com (*) na
+    interface atual</li>
+    </ul>
+    <hr />
+    <h2 id="mapa-do-fluxo">Mapa do Fluxo</h2>
+    <h3 id="step-0-acesso-à-url-tela-de-login">Step 0 — Acesso à URL /
+    Tela de Login</h3>
+    <p><strong>Tela:</strong> <code>/login</code> <strong>O que o
+    usuário precisa fazer:</strong> Ver a tela inicial, perceber que não
+    tem conta, localizar e clicar no link “Criar conta”. <strong>Campos
+    obrigatórios:</strong> Nenhum neste step. <strong>Toques
+    mínimos:</strong> 1 (tap em “Criar conta” ou navegar para
+    <code>/register</code>) <strong>Ponto de saída:</strong> Sim — o
+    usuário que não entende o produto abandona aqui sem nenhum dado
+    perdido.</p>
+    <hr />
+    <h3 id="step-1-cadastro-do-pai-parte-1-dados-do-responsável">Step 1
+    — Cadastro do Pai (Parte 1): Dados do Responsável</h3>
+    <p><strong>Tela:</strong> <code>/register</code> — seção “Dados do
+    Responsável” <strong>O que o usuário precisa fazer:</strong>
+    Preencher nome completo, celular (com formatação), senha (6-8
+    caracteres). Email é opcional mas aparece no formulário. Selecionar
+    quantidade de filhos via dropdown. <strong>Campos
+    obrigatórios:</strong> Nome completo (<em>), Celular (</em>), Senha
+    (*) <strong>Campos opcionais visíveis:</strong> Email <strong>Toques
+    mínimos:</strong> 5 (tap em cada campo: nome, celular, senha + tap
+    no dropdown + seleção de quantidade) <strong>Ponto de
+    saída:</strong> Sim — o formulário não salva rascunho. Qualquer
+    fechamento da aba perde tudo.</p>
+    <p><strong>Problemas conhecidos (auditoria UX P1-07):</strong> -
+    Formulário longo sem indicador de progresso - Seção de filhos
+    aparece na mesma tela, criando impressão de formulário infinito -
+    Botão de submit visível no final da página, fora do viewport inicial
+    em mobile</p>
+    <hr />
+    <h3 id="step-2-cadastro-do-pai-parte-2-dados-do-filho">Step 2 —
+    Cadastro do Pai (Parte 2): Dados do Filho</h3>
+    <p><strong>Tela:</strong> <code>/register</code> — seção “Dados dos
+    Filhos” (mesma tela, abaixo via scroll) <strong>O que o usuário
+    precisa fazer:</strong> Para cada filho cadastrado: preencher nome
+    completo, apelido, data de nascimento, selecionar avatar (grid de
+    ícones). Celular do filho é opcional. <strong>Campos obrigatórios
+    por filho:</strong> Nome completo (<em>), Apelido (</em>), Data de
+    Nascimento (*) <strong>Campos opcionais visíveis:</strong> Celular
+    do filho <strong>Toques mínimos:</strong> 7 por filho (3 campos de
+    texto + tap no campo de data + navegação do calendário + tap no
+    avatar desejado + 1 scroll para chegar ao botão) <strong>Total com 1
+    filho:</strong> 7 toques neste step <strong>Ponto de saída:</strong>
+    Sim — mesma vulnerabilidade do Step 1. Todo o progresso se
+    perde.</p>
+    <p><strong>Problema adicional:</strong> O pai precisa aceitar a
+    Política de Privacidade via checkbox antes de submeter — esse
+    elemento fica entre a seção de dados do pai e a de filhos, em
+    posição não intuitiva.</p>
+    <hr />
+    <h3 id="step-3-aceite-de-termos-e-criação-da-conta">Step 3 — Aceite
+    de Termos e Criação da Conta</h3>
+    <p><strong>Tela:</strong> <code>/register</code> — fim do formulário
+    <strong>O que o usuário precisa fazer:</strong> Marcar o checkbox de
+    aceite de Políticas de Privacidade e Termos de Uso. Clicar em “Criar
+    Conta”. <strong>Campos obrigatórios:</strong> Checkbox de aceite (*)
+    <strong>Toques mínimos:</strong> 2 (tap no checkbox + tap em “Criar
+    Conta”) <strong>Ponto de saída:</strong> Sim — nenhum salvo
+    parcial.</p>
+    <hr />
+    <h3 id="step-4-verificação-do-telefone">Step 4 — Verificação do
+    Telefone</h3>
+    <p><strong>Tela:</strong> <code>/verify-phone</code> <strong>O que o
+    usuário precisa fazer:</strong> Aguardar o SMS chegar, digitar o
+    código de verificação de 6 dígitos. Se o SMS não chegar, encontrar o
+    botão de reenvio. <strong>Campos obrigatórios:</strong> Código SMS
+    de 6 dígitos (*) <strong>Toques mínimos:</strong> 7 (6 dígitos + tap
+    em confirmar, ou tap em campo único + 6 dígitos + submit)
+    <strong>Ponto de saída:</strong> Alto risco — se o SMS não chegar em
+    menos de 60 segundos, ou se o usuário não entende o que acontece
+    depois de clicar em “Criar Conta”, a taxa de abandono aqui é
+    alta.</p>
+    <p><strong>Nota:</strong> Este é o único step fora do controle do
+    usuário — depende de infraestrutura de SMS. Nenhum progresso foi
+    persistido em banco até este step ser concluído.</p>
+    <hr />
+    <h3 id="step-5-primeiro-acesso-ao-painel-do-pai">Step 5 — Primeiro
+    Acesso ao Painel do Pai</h3>
+    <p><strong>Tela:</strong> <code>/</code> (Index — painel do pai)
+    <strong>O que o usuário precisa fazer:</strong> Compreender o que
+    está vendo. O tour de onboarding dispara automaticamente (se
+    implementado com <code>tourData.ts</code>). O pai precisa: clicar em
+    avançar em cada tooltip do tour (4-6 tooltips) ou fechar o tour e
+    explorar sozinho. <strong>Campos obrigatórios:</strong> Nenhum
+    <strong>Toques mínimos:</strong> 4-6 (avançar pelos tooltips do
+    tour) ou 1 (fechar o tour) <strong>Ponto de saída:</strong> Sim — se
+    o pai fecha o tour sem entender como criar missões, pode não
+    voltar.</p>
+    <p><strong>Problema conhecido (auditoria UX P0-04):</strong> O
+    header ocupa ~30% do viewport em mobile antes de qualquer conteúdo.
+    O painel exibe imediatamente o PendingReviewsPanel colapsado e cards
+    de progresso — sem nenhuma missão criada, tudo aparece vazio ou em
+    zero, sem direcionamento claro do próximo passo.</p>
+    <hr />
+    <h3 id="step-6-configurações-iniciais-metas-e-recompensas">Step 6 —
+    Configurações Iniciais (Metas e Recompensas)</h3>
+    <p><strong>Tela:</strong> <code>/settings</code> <strong>O que o
+    usuário precisa fazer:</strong> Definir meta semanal do filho
+    (percentual), meta mensal, tipo de recompensa (semanada em R$,
+    prêmio ou experiência), valor da recompensa, regras das tarefas
+    (janela de resposta em dias, pontos por humor, etc.). <strong>Campos
+    obrigatórios pelo produto:</strong> Tecnicamente opcionais — o app
+    funciona com os defaults. Mas sem recompensa configurada, a proposta
+    de valor central não existe para o filho. <strong>Toques
+    mínimos:</strong> 10-15 (navegar para Settings + configurar meta
+    semanal + meta mensal + tipo de recompensa + valor +
+    confirmar/salvar para cada filho) <strong>Ponto de saída:</strong>
+    Alto risco — o pai que não entende que isso é necessário pula essa
+    tela e fica sem recompensa configurada.</p>
+    <p><strong>Problema conhecido (auditoria UX P0-06):</strong> A tela
+    apresenta 15-20 campos editáveis (parâmetros técnicos como
+    <code>auto_lock_time</code>, <code>honesty_threshold_percent</code>,
+    metas semanais/mensais por filho e por semana) em uma única tela com
+    scroll, sem hierarquia visual clara. É a tela com maior potencial de
+    paralisia de escolha em todo o produto.</p>
+    <hr />
+    <h3 id="step-7-criação-da-primeira-missão">Step 7 — Criação da
+    Primeira Missão</h3>
+    <p><strong>Tela:</strong> <code>/</code> (Index) — modal ou inline
+    de criação de tarefa <strong>O que o usuário precisa fazer:</strong>
+    Acessar a interface de criação de tarefa para um filho, preencher
+    título, selecionar data, definir pontos base, peso e horário (se
+    desejar), confirmar. <strong>Campos obrigatórios:</strong> Título
+    (<em>), Data (</em>), Filho (*) <strong>Toques mínimos:</strong> 6
+    (abrir modal de nova tarefa + título + data + filho + peso ou pontos
+    + confirmar) <strong>Ponto de saída:</strong> Baixo — o pai já
+    chegou até aqui. Mas se o modal de criação for confuso, pode salvar
+    uma tarefa com configuração errada.</p>
+    <hr />
+    <h2 id="contagem-total">Contagem Total</h2>
+    <table>
+    <colgroup>
+    <col style="width: 50%" />
+    <col style="width: 50%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Dimensão</th>
+    <th>Valor</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Total de steps</td>
+    <td>7 (Step 0 a Step 7, excluindo Step 0 que é pré-onboarding)</td>
+    </tr>
+    <tr>
+    <td>Total de telas distintas</td>
+    <td>5 (<code>/login</code>, <code>/register</code>,
+    <code>/verify-phone</code>, <code>/</code>,
+    <code>/settings</code>)</td>
+    </tr>
+    <tr>
+    <td>Total de toques mínimos (caminho feliz)</td>
+    <td>43 toques</td>
+    </tr>
+    <tr>
+    <td>Steps com risco de abandono total (progresso perdido)</td>
+    <td>4 (Steps 1, 2, 3, 4)</td>
+    </tr>
+    <tr>
+    <td>Steps com risco de abandono com progresso salvo</td>
+    <td>1 (Step 5: conta existe mas nunca usa)</td>
+    </tr>
+    <tr>
+    <td>Steps em que o usuário depende de infraestrutura externa</td>
+    <td>1 (Step 4: SMS)</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Caminho mínimo até a primeira missão criada: 43 toques em
+    5 telas diferentes.</strong></p>
+    <hr />
+    <h2 id="seção-os-3-maiores-pontos-de-abandono">Seção: Os 3 Maiores
+    Pontos de Abandono</h2>
+    <h3
+    id="ponto-de-abandono-1-step-12-formulário-de-cadastro-longo-e-sem-divisão">Ponto
+    de Abandono 1 — Step 1+2: Formulário de cadastro longo e sem
+    divisão</h3>
+    <p><strong>Step do fluxo:</strong> Steps 1 e 2 (formulário
+    <code>/register</code>) <strong>O que o usuário precisa fazer
+    naquele momento:</strong> Preencher dados do responsável (nome,
+    celular, senha) e, na mesma tela, os dados de cada filho (nome,
+    apelido, data de nascimento, avatar) — tudo em um formulário único,
+    com scroll. <strong>Por que é fricção:</strong> - O formulário não
+    comunica quantas etapas faltam. O pai vê um formulário longo, rola
+    para baixo, descobre mais campos para os filhos, rola mais, descobre
+    o botão de submit no final. - A percepção cognitiva é de “formulário
+    interminável” — o efeito de desânimo progressivo documentado na
+    auditoria UX como P1-07. - Nenhum dado é salvo parcialmente. Se o
+    pai for interrompido (criança chama, telefona, etc.) e sair da aba,
+    começa do zero. - Em mobile, o grid de seleção de avatar (10
+    colunas) é pequeno e exige atenção motora fina — interação não
+    adequada para quem está em pé, com sono, iluminação baixa.</p>
+    <p><strong>Custo emocional de abandonar aqui:</strong> O pai perde
+    todo o progresso do cadastro. A conta não existe. Ao voltar ao app,
+    o ciclo começa do zero — campos vazios, mesma sensação de
+    comprimento. A cada re-tentativa sem sucesso, a percepção de “o app
+    é complicado” se consolida.</p>
+    <hr />
+    <h3 id="ponto-de-abandono-2-step-4-verificação-por-sms">Ponto de
+    Abandono 2 — Step 4: Verificação por SMS</h3>
+    <p><strong>Step do fluxo:</strong> Step 4 (tela
+    <code>/verify-phone</code>) <strong>O que o usuário precisa fazer
+    naquele momento:</strong> Aguardar um SMS chegar, digitar um código
+    de 6 dígitos, submeter. <strong>Por que é fricção:</strong> -
+    Dependência de infraestrutura externa: se o SMS demora mais de 30-60
+    segundos, ou cai em spam, o pai fica parado sem nada para fazer — e
+    sem feedback claro de “aguarde”. - O fluxo de cadastro todo — todos
+    os dados preenchidos nos Steps 1, 2, 3 — já foi enviado ao backend.
+    Mas o pai não sabe disso. Para ele, a conta pode ou não ter sido
+    criada. A tela de verificação não reforça que o progresso está
+    salvo. - Pais brasileiros que nunca passaram por verificação por SMS
+    em outros apps (parcela relevante do público-alvo: famílias em
+    cidades menores) podem não entender o conceito de “código temporário
+    por SMS”.</p>
+    <p><strong>Custo emocional de abandonar aqui:</strong> O pai
+    preencheu tudo, esperou, desistiu de esperar o SMS. A conta foi
+    criada no backend — ele não sabe. Na próxima vez que tentar se
+    cadastrar, vai receber “Já existe uma conta com esse telefone” sem
+    entender por quê. O tratamento de erro atual expõe essa situação,
+    mas o fluxo de recuperação (link para “Entrar” ou “Recuperar senha”)
+    exige mais navegação para um pai já frustrado.</p>
+    <hr />
+    <h3
+    id="ponto-de-abandono-3-step-6-tela-de-configurações-densa">Ponto de
+    Abandono 3 — Step 6: Tela de Configurações densa</h3>
+    <p><strong>Step do fluxo:</strong> Step 6 (tela
+    <code>/settings</code>) <strong>O que o usuário precisa fazer
+    naquele momento:</strong> Configurar metas semanais, metas mensais,
+    recompensas e regras das tarefas para cada filho — tudo em uma única
+    tela com 15-20 campos editáveis, sem hierarquia clara entre
+    “essencial” e “avançado”. <strong>Por que é fricção:</strong> - O
+    pai que acabou de criar a conta, às 22h, com sono, acessa a tela de
+    configurações e vê campos como
+    <code>honesty_threshold_percent</code> e <code>auto_lock_time</code>
+    lado a lado com “Qual é a recompensa do seu filho esse mês?”. A
+    mistura entre configuração de produto (recompensa) e configuração
+    técnica (threshold) gera confusão sobre o que é importante. - A tela
+    de Settings é apresentada como opcional pelo fluxo — não há nudge
+    claro na tela principal dizendo “configure a recompensa antes de
+    criar a primeira missão”. O pai pode criar missões sem ter
+    configurado nada e só perceber que a recompensa não está definida
+    quando o filho perguntar o que vai ganhar. - A auditoria UX P0-06
+    documenta o problema: paralisia de escolha causada pela apresentação
+    simultânea de 15-20 controles sem priorização.</p>
+    <p><strong>Custo emocional de abandonar aqui:</strong> Diferente dos
+    dois pontos anteriores, o abandono aqui não perde a conta — ela já
+    existe. Mas o pai que pula essa tela cria missões sem recompensa
+    definida, o que compromete o ciclo completo do produto (missão →
+    pontuação → recompensa). A criança que não vê para o que está
+    acumulando pontos perde motivação na semana 2. O pai percebe isso e
+    culpa o produto de não funcionar, quando na verdade o produto nunca
+    foi configurado.</p>
+    <hr />
+    <h2 id="observações-para-o-comitê">Observações para o Comitê</h2>
+    <ol type="1">
+    <li><p><strong>O fluxo atual tem 43 toques mínimos até a primeira
+    missão.</strong> Para referência: o onboarding do Duolingo tem ~7
+    toques até o usuário terminar a primeira lição. A diferença não é
+    acidental — é a diferença entre um produto voltado ao usuário casual
+    e um produto que ainda carrega a mentalidade de configuração
+    técnica.</p></li>
+    <li><p><strong>Três dos quatro steps com risco de abandono total
+    estão no início do fluxo.</strong> Isso significa que, ao final do
+    cadastro, a taxa de pais que chegam à criação da primeira missão
+    deve ser significativamente menor que a taxa de início do
+    formulário.</p></li>
+    <li><p><strong>O produto não tem nenhum mecanismo de recuperação de
+    abandono nos Steps 1-3.</strong> Não há e-mail de recuperação de
+    rascunho, não há WhatsApp de retomada, não há notificação push. O
+    que começou e não terminou, simplesmente não existe.</p></li>
+    </ol>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

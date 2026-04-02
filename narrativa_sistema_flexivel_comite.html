@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Missões Configuráveis — Resposta a Ivan
+Zhao — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Sistema de Missões Configuráveis —
+Resposta a Ivan Zhao</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1
+    id="sistema-de-missões-configuráveis-resposta-a-ivan-zhao">Sistema
+    de Missões Configuráveis — Resposta a Ivan Zhao</h1>
+    <p><strong>Data:</strong> 2026-04-02 <strong>Elaborado por:</strong>
+    <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    <strong>Sprint:</strong> Sprint 2 — Comitê de Product Design
+    <strong>Destinatário principal:</strong> Ivan Zhao (membro do
+    comitê, líder de OBJ 02) <strong>Pergunta respondida:</strong> “Como
+    o modelo de missões configuráveis pelos pais equilibra estrutura e
+    liberdade?”</p>
+    <hr />
+    <h2 id="o-que-o-pai-pode-configurar">1. O que o pai pode
+    configurar</h2>
+    <p>O modelo atual dá ao pai controle completo sobre o conteúdo e as
+    condições de cada missão. A seguir, a lista completa de parâmetros
+    configuráveis hoje:</p>
+    <p><strong>Sobre a missão em si:</strong> - Título — texto livre,
+    qualquer nome - Emoji — ícone visual que representa a missão - Data
+    — data específica ou recorrência semanal - Horário agendado —
+    <code>scheduled_time</code>, define a ordem de aparecimento no
+    dia</p>
+    <p><strong>Sobre a pontuação:</strong> - Pontos base
+    (<code>base_points</code>) — valor de referência da missão - Peso
+    (<code>weight</code>) — multiplicador que define a importância
+    relativa entre missões - Pontos por carinha feliz
+    (<code>points_happy</code>) — o que o filho ganha se se sentiu bem -
+    Pontos por carinha neutra (<code>points_medium</code>) — valor
+    intermediário - Pontos por carinha triste (<code>points_sad</code>)
+    — valor mínimo, quando foi difícil</p>
+    <p><strong>Sobre o prazo de resposta:</strong> - Janela de resposta
+    em dias (<code>unlock_window_days</code>) — por quantos dias após a
+    data a criança pode ainda responder - Horário de encerramento
+    automático (<code>auto_lock_time</code>) — hora exata em que a
+    janela fecha - Permissão de edição após revisão parental
+    (<code>child_can_edit_after_parent</code>) — se o filho pode
+    reeditar após o pai aprovar</p>
+    <p><strong>Sobre as metas:</strong> - Meta semanal por filho
+    (percentual do máximo possível) - Meta mensal por filho - Tipo de
+    recompensa semanal (semanada em R$, prêmio físico ou experiência) -
+    Valor ou título da recompensa - Meta de honestidade — percentual
+    mínimo de tarefas com autoavaliação de humor - Bônus por honestidade
+    — pontos extras ao atingir a meta de autoavaliação</p>
+    <p><strong>Sobre o threshold de ajuste:</strong> - Limiar de
+    honestidade (<code>honesty_threshold_percent</code>) — percentual de
+    autoavaliações abaixo do qual o pai recebe alerta</p>
+    <hr />
+    <h2 id="o-que-é-fixo-no-produto-e-por-quê">2. O que é fixo no
+    produto — e por quê</h2>
+    <p>Nem tudo pode ser configurado. As escolhas fixas são decisões
+    pedagógicas, não omissões técnicas.</p>
+    <p><strong>Fixo: a direção da avaliação é sempre filho → pai →
+    fechamento</strong> O filho age primeiro, o pai revisa depois. Não é
+    possível inverter o fluxo. Motivo: autonomia do filho é o
+    comportamento que se quer incentivar; dar ao pai a opção de
+    “pré-aprovar” antes da criança agir desfaz a estrutura de agência
+    infantil.</p>
+    <p><strong>Fixo: as Estrelas de Coragem são separadas da meta
+    semanal</strong> O pai não pode optar por incluir os pontos de
+    reflexão emocional no total de pontos da semana. Motivo: decisão
+    unânime do Comitê Pedagógico (Montessori + Dweck + Duckworth). Se a
+    reflexão impactar a recompensa, crianças mais velhas usarão o fluxo
+    emocional como estratégia de recuperação de pontos — corrompendo o
+    comportamento que se quer desenvolver.</p>
+    <p><strong>Fixo: o teto de reflexões com estrelas é 3 por
+    semana</strong> O pai não pode aumentar esse limite. Motivo:
+    anti-gamificação deliberada. Sem teto, a reflexão emocional vira
+    meta em si, não prática.</p>
+    <p><strong>Fixo: a faixa etária do filho determina a
+    interface</strong> O pai não escolhe a interface da criança — o
+    produto detecta automaticamente pelo <code>birth_date</code>.
+    Motivo: o pai que não conhece os perfis não sabe o que escolher; a
+    detecção automática garante a experiência adequada sem exigir que o
+    pai entenda o sistema antes de usá-lo.</p>
+    <p><strong>Fixo: o fluxo do Gatilho B inclui contexto antes da
+    reflexão</strong> Quando o pai corrige pontos para baixo, a criança
+    sempre vê o contexto do ajuste antes de ser convidada a refletir. O
+    pai não pode suprimir essa etapa. Motivo: sem contexto, a criança
+    entra em estado de alerta — o oposto do necessário para reflexão
+    genuína (recomendação de Daniela Freixo, Psicologia Infantil).</p>
+    <hr />
+    <h2 id="o-que-o-filho-pode-customizar-por-faixa-etária">3. O que o
+    filho pode customizar por faixa etária</h2>
+    <p>O produto hoje é orientado ao pai como configurador e ao filho
+    como executor. A customização pelo filho é limitada e cresce com a
+    faixa etária — andaime progressivo.</p>
+    <p><strong>Pequenino (4–6 anos):</strong> - Nada é customizável pelo
+    filho. A interface é inteiramente definida pelo pai e pelo produto.
+    - O filho responde com 1 toque: emoji de humor e botão de conclusão.
+    - Razão: esta faixa não tem autonomia executiva para escolha de
+    interface. A previsibilidade é o que gera segurança.</p>
+    <p><strong>Explorador (7–9 anos) — fora do MVP v1, mas
+    especificado:</strong> - Pode escolher entre 3 opções de reflexão
+    emocional pré-definidas (botões) ou escala visual 1–5. - Pode usar
+    “Quero escrever” como alternativa em certas respostas. - A escolha
+    de como responder é real, mas dentro de um menu curado pelo
+    produto.</p>
+    <p><strong>Aventureiro (10–12 anos) — perfil MVP:</strong> - Pode
+    escolher entre botões de resposta ou campo de texto livre para
+    reflexões emocionais. - Pode usar “Não quero comentar” como opção
+    explícita e não punitiva. - O campo de texto torna a voz do filho
+    mais presente na conversa pai-filho.</p>
+    <p><strong>Pro (13–14 anos) — fora do MVP v1, mas
+    especificado:</strong> - Campo de texto livre como padrão para
+    reflexões. - Botão “Não quero comentar” — sem pressão, sem
+    consequência. - Interface quase neutra, sem mascote, linguagem
+    próxima do adulto.</p>
+    <hr />
+    <h2 id="a-tensão-pedagógica-montessori-vs.-controle-parental">4. A
+    tensão pedagógica — Montessori vs. controle parental</h2>
+    <p>Esta é a tensão real do produto e vale nomear diretamente.</p>
+    <p><strong>O que Montessori pede:</strong> a criança escolhe suas
+    próprias tarefas, define seu próprio ritmo, aprende pela
+    consequência natural das suas escolhas — não pela aprovação externa.
+    O ambiente preparado é estruturado, mas a agência é da criança.</p>
+    <p><strong>O que o Blip faz hoje:</strong> o pai controla 100% do
+    conteúdo das missões. A criança executa. O pai aprova. A recompensa
+    é definida pelo pai. A criança tem voz no fluxo emocional, mas não
+    na construção das missões em si.</p>
+    <p><strong>Por que essa tensão não é um erro de produto:</strong> o
+    público-alvo do Blip é a família brasileira com crianças em idade
+    escolar, em contexto onde pai e mãe precisam de uma ferramenta de
+    organização familiar — não de um ambiente Montessori puro. O Blip
+    não substitui a escola. Ele organiza o que o pai já faz de forma
+    manual, com planilhas ou na memória, e devolve visibilidade e
+    consistência para toda a família.</p>
+    <p><strong>Quando o Modo Confiança entra no roadmap:</strong> o Modo
+    Confiança — onde o filho cria suas próprias missões — não está no
+    MVP. A decisão de produto é que estrutura parental primeiro cria o
+    hábito; autonomia vem depois, quando o hábito existe. A sequência
+    é:</p>
+    <ol type="1">
+    <li><strong>Semanas 1–4:</strong> pai configura tudo, filho executa.
+    A rotina se instala.</li>
+    <li><strong>Semana 5+:</strong> pai vê histórico, ajusta missões,
+    cria dialogo com o filho sobre o que foi difícil.</li>
+    <li><strong>Quando o filho tem 10+ anos e o produto tem histórico de
+    4+ semanas:</strong> o filho pode sugerir missões (visíveis ao pai
+    como rascunho para aprovação).</li>
+    <li><strong>Roadmap:</strong> filho cria missões que entram
+    automaticamente após revisão parental uma vez por semana — Modo
+    Confiança.</li>
+    </ol>
+    <p><strong>Critério de entrada no roadmap:</strong> o Modo Confiança
+    entra quando o produto tiver (a) tela de histórico semanal estável,
+    (b) métricas reais de taxa de conclusão por perfil etário, e (c)
+    dados que indiquem que famílias chegam à semana 4 com regularidade.
+    Sem esses dados, a feature seria construída para um usuário
+    hipotético.</p>
+    <hr />
+    <h2 id="por-que-não-liberar-tudo-agora-o-argumento-de-produto">5.
+    Por que não liberar tudo agora — o argumento de produto</h2>
+    <p>A pergunta implícita de Ivan Zhao é: “por que não dar mais
+    autonomia desde o início?”</p>
+    <p>A resposta não é técnica. É de comportamento.</p>
+    <p><strong>A estrutura no início cria o hábito.</strong> Um filho
+    que começa com 5 missões definidas pelo pai e as completa por 3
+    semanas consecutivas desenvolveu uma rotina. Um filho que começa com
+    liberdade total de definir suas próprias missões raramente cria
+    missões difíceis, raramente cria missões para os dias em que não
+    quer fazer nada, e desiste quando a rotina fica inconveniente.</p>
+    <p>A pesquisa de Duckworth sobre grit é clara: hábito requer
+    repetição antes de autonomia. O pai que estrutura as primeiras
+    semanas não está limitando o filho — está instalando o andaime que
+    permite que a autonomia posterior seja real, não apenas nominal.</p>
+    <p><strong>O produto não é o fim. É o início.</strong> O Blip não
+    quer que a criança use o app para sempre com o pai definindo cada
+    missão. O objetivo é que, em 3–6 meses, a rotina exista sem o app
+    precisar estruturá-la. O Modo Confiança é o passo na direção de “a
+    criança sabe o que fazer porque internalizou o hábito” — mas esse
+    passo só é sustentável depois que o hábito existe.</p>
+    <p><strong>Liberar tudo agora criaria abandono mais rápido.</strong>
+    Um produto que dá total liberdade antes do hábito estar formado cria
+    a ilusão de engajamento no onboarding (a criança cria missões
+    fáceis, completa, se sente bem) e abandono na semana 3 (quando as
+    missões fáceis se repetem e perdem valor, e não há estrutura para
+    criar missões que desafiem). Isso é o padrão de apps de hábito que
+    falham: muita liberdade cedo demais.</p>
+    <hr />
+    <h2 id="síntese-para-o-comitê">Síntese para o comitê</h2>
+    <table>
+    <colgroup>
+    <col style="width: 40%" />
+    <col style="width: 24%" />
+    <col style="width: 36%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Dimensão</th>
+    <th>Hoje</th>
+    <th>Roadmap</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Quem cria as missões</td>
+    <td>Pai</td>
+    <td>Pai + Filho (Modo Confiança, 10+ anos)</td>
+    </tr>
+    <tr>
+    <td>Quem define a pontuação</td>
+    <td>Pai</td>
+    <td>Pai (com histórico como referência)</td>
+    </tr>
+    <tr>
+    <td>Quem define a recompensa</td>
+    <td>Pai</td>
+    <td>Pai (com sugestão do filho visível)</td>
+    </tr>
+    <tr>
+    <td>Interface da criança</td>
+    <td>Detectada automaticamente por faixa etária</td>
+    <td>Idem, com mais opções de personalização</td>
+    </tr>
+    <tr>
+    <td>Reflexão emocional</td>
+    <td>Filho responde dentro de formato estruturado</td>
+    <td>Idem, texto livre cresce com faixa etária</td>
+    </tr>
+    <tr>
+    <td>Encerramento semanal</td>
+    <td>Snapshot automático silencioso</td>
+    <td>Tela de resumo com celebração explícita</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>O modelo atual está mais perto do polo “estrutura” do que do polo
+    “liberdade”. Essa não é uma limitação técnica — é uma escolha de
+    sequência. Estrutura primeiro, autonomia depois. O roadmap está
+    mapeado. O critério de transição está definido.</p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

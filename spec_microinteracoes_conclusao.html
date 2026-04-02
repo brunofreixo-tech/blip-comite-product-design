@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spec — Micro-interações de Conclusão de Tarefa por Perfil
+Etário — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Spec — Micro-interações de
+Conclusão de Tarefa por Perfil Etário</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1
+    id="spec-micro-interações-de-conclusão-de-tarefa-por-perfil-etário">Spec
+    — Micro-interações de Conclusão de Tarefa por Perfil Etário</h1>
+    <p><strong>Data:</strong> 2026-04-02 <strong>Sprint:</strong> Sprint
+    2 — Comitê de Product Design <strong>Responsável:</strong> <span
+    class="citation"
+    data-cites="agent-ux-missao-da-semana">@agent-ux-missao-da-semana</span>
+    <strong>Status:</strong> Pronto para avaliação do comitê — não
+    implementar <strong>Dependências de decisão:</strong> B1 (DECIDIDO —
+    ambos os gatilhos), B4 (DECIDIDO — texto + sugestões), N1 (DECIDIDO
+    — comentário opcional)</p>
+    <hr />
+    <h2 id="contexto-e-base-para-este-documento">Contexto e base para
+    este documento</h2>
+    <p>Este documento especifica as micro-interações do <strong>momento
+    de conclusão de tarefa</strong> e dos <strong>fluxos emocionais
+    pós-conclusão</strong> para os 4 perfis etários do Blip.</p>
+    <p>Baseia-se em: - <code>conceito_resposta_emocional_v2.md</code> —
+    Estrelas de Coragem, Gatilhos A e B, framing por faixa etária -
+    <code>decisoes_produto.md</code> — B1, B4, N1 - Auditoria UX
+    (<code>auditoria-ux-web-2026-03-30.md</code>) — especificamente
+    P0-03 (ausência de feedback de conclusão) -
+    <code>celebrationUtils.ts</code> e <code>childAgeProfile.ts</code> —
+    base de mensagens e temas já implementados</p>
+    <p><strong>Perfis e faixas:</strong> | Perfil | Faixa | Tema beta |
+    |——–|——-|———–| | Pequenino | 4-6 anos | jardim_magico | | Explorador
+    | 7-9 anos | floresta_aventura | | Aventureiro | 10-12 anos |
+    espaco_infinito | | Pro | 13+ anos | neon_gaming |</p>
+    <p><strong>Nota sobre o Pequenino e os Gatilhos A/B:</strong> O
+    perfil Pequenino (4-6 anos) está fora do fluxo de reflexão emocional
+    dos Gatilhos A e B. A carga cognitiva de processar uma correção e
+    articular uma resposta reflexiva está além do estágio de
+    desenvolvimento desta faixa. As seções de Gatilho A e B para o
+    Pequenino são omitidas.</p>
+    <hr />
+    <h2 id="parte-1-momento-de-conclusão-normal">Parte 1 — Momento de
+    conclusão normal</h2>
+    <p>A conclusão normal ocorre quando a criança seleciona um humor
+    (reação) na tarefa e confirma. O status passa de
+    <code>pending</code> para <code>awaiting_review</code>.</p>
+    <hr />
+    <h3 id="perfil-pequenino-4-6-anos">1.1 Perfil Pequenino (4-6
+    anos)</h3>
+    <p><strong>Premissa:</strong> sem texto obrigatório, tudo visual e
+    sonoro. A criança não lê bem — a experiência precisa ser
+    autoexplicativa pelo movimento e pela cor.</p>
+    <p><strong>Sequência de animação:</strong></p>
+    <ol type="1">
+    <li><strong>Tap no botão de humor (0ms)</strong>
+    <ul>
+    <li>O botão selecionado executa <code>scale: 1 → 1.4 → 1.2</code> em
+    200ms (spring, não ease)</li>
+    <li>Cor do botão pulsa para o amarelo-ouro <code>#FBBF24</code> por
+    100ms antes de estabilizar</li>
+    <li>Duração total: 300ms</li>
+    </ul></li>
+    <li><strong>Explosão de confete (300ms após tap)</strong>
+    <ul>
+    <li>Confete em 3 cores da paleta Pequenino: <code>#F97316</code>
+    (laranja), <code>#FBBF24</code> (ouro), <code>#10B981</code>
+    (verde)</li>
+    <li>80 partículas, spread 70°, duração 1.200ms</li>
+    <li>Origem: centro do botão selecionado, não do topo da tela</li>
+    <li>Implementação: <code>canvas-confetti</code> com
+    <code>origin</code> calculado pelo offset do botão</li>
+    </ul></li>
+    <li><strong>Mascote Blip — pose missao-completa (400ms após
+    tap)</strong>
+    <ul>
+    <li>Mascote aparece no centro-inferior da tela (sobrepõe
+    conteúdo)</li>
+    <li>Tamanho: 110px (regra do design system para posição home)</li>
+    <li>Animação de entrada: <code>slide-up</code> de 40px em 250ms com
+    <code>ease-out</code></li>
+    <li>Permanece por 1.800ms</li>
+    <li>Saída: <code>fade-out</code> em 300ms</li>
+    </ul></li>
+    <li><strong>Mensagem de celebração (600ms após tap)</strong>
+    <ul>
+    <li>Texto: “Arrasou!” (fonte Rounded, bold, text-3xl, cor
+    branca)</li>
+    <li>Fundo: pill <code>#F97316</code> com
+    <code>border-radius: 24px</code>,
+    <code>padding: 12px 24px</code></li>
+    <li>Animação: <code>bounce-in</code> em 200ms</li>
+    <li>Posição: acima do mascote</li>
+    <li>Duração: mesma que o mascote (1.800ms de visibilidade)</li>
+    </ul></li>
+    <li><strong>Pontos ganhos (800ms após tap)</strong>
+    <ul>
+    <li>Badge circular <code>#FBBF24</code>, texto <code>+X</code> em
+    bold text-2xl, cor <code>#1A1040</code></li>
+    <li>Animação: surge do centro do botão, flutua para cima 60px,
+    <code>fade-out</code> simultâneo</li>
+    <li>Duração total da animação: 1.000ms</li>
+    </ul></li>
+    <li><strong>Transição final (2.500ms após tap)</strong>
+    <ul>
+    <li>Tela retorna ao estado normal — nenhum passo adicional para o
+    Pequenino</li>
+    <li>O card da tarefa transita para estado
+    <code>awaiting_review</code> com ícone de relogio e cor suave
+    <code>#FED7AA</code></li>
+    <li>Não inicia fluxo emocional — Pequenino está fora do escopo de
+    reflexão</li>
+    </ul></li>
+    </ol>
+    <p><strong>Duração total da micro-interação:</strong> 2.500ms</p>
+    <p><strong>Tom de voz:</strong> “Arrasou!” — sem exclamação dupla,
+    sem “Parabéns!”, sem “Muito bem!”. A fonte é o que carrega a
+    energia, não o texto.</p>
+    <p><strong>Notas para o comitê:</strong> - A explosão de confete
+    intencional resolve o P0-03 para esta faixa sem nenhuma palavra - O
+    mascote na pose de missao-completa reforça o vínculo emocional com o
+    personagem - A ausência de texto instrucional é deliberada — Gardner
+    (Inteligências Múltiplas): visual e cinestésico first</p>
+    <hr />
+    <h3 id="perfil-explorador-7-9-anos">1.2 Perfil Explorador (7-9
+    anos)</h3>
+    <p><strong>Premissa:</strong> lê, mas quer movimento e recompensa
+    visível. A celebração é menor que a do Pequenino — mais contida,
+    mais “conquistada”. O mascote ainda aparece.</p>
+    <p><strong>Sequência de animação:</strong></p>
+    <ol type="1">
+    <li><strong>Tap no botão de humor (0ms)</strong>
+    <ul>
+    <li><code>scale: 1 → 1.25 → 1.1</code> em 180ms</li>
+    <li>Ring de confirmação: borda <code>#10B981</code> (mint go) anima
+    <code>ring-0 → ring-4</code> em 150ms</li>
+    </ul></li>
+    <li><strong>Confete leve (200ms após tap)</strong>
+    <ul>
+    <li>Confete em 2 cores: <code>#10B981</code> e
+    <code>#FBBF24</code></li>
+    <li>35 partículas, spread 50°, duração 900ms</li>
+    <li>Menor que o Pequenino — não é festa, é conquista</li>
+    </ul></li>
+    <li><strong>Mascote Blip — pose missao-completa (300ms após
+    tap)</strong>
+    <ul>
+    <li>Tamanho: 76px (regra do design system para drawer/nav)</li>
+    <li>Posição: canto inferior-direito, não no centro</li>
+    <li>Animação de entrada: <code>slide-up</code> 30px em 200ms</li>
+    <li>Permanece por 1.500ms</li>
+    <li>Saída: <code>fade-out</code> 200ms</li>
+    </ul></li>
+    <li><strong>Mensagem de celebração (400ms após tap)</strong>
+    <ul>
+    <li>Texto: “Missão enviada!” (text-xl, bold, cor
+    <code>#064E3B</code>)</li>
+    <li>Fundo: <code>#A8E6CF</code> (verde claro),
+    <code>border-radius: 12px</code>,
+    <code>padding: 8px 16px</code></li>
+    <li>Animação: <code>fade-in + slide-right</code> 150ms</li>
+    <li>Posição: inline, abaixo do card da tarefa (não sobrepõe)</li>
+    </ul></li>
+    <li><strong>Pontos ganhos (500ms após tap)</strong>
+    <ul>
+    <li>Badge <code>+X pontos</code> em <code>#FBBF24</code>, texto bold
+    text-lg</li>
+    <li>Flutua para cima 40px em 800ms com <code>fade-out</code></li>
+    </ul></li>
+    <li><strong>Transição final (2.000ms após tap)</strong>
+    <ul>
+    <li>Card da tarefa transita para <code>awaiting_review</code></li>
+    <li>Label: “Missão enviada! Aguardando revisão” (texto atual já
+    implementado — mantém)</li>
+    </ul></li>
+    </ol>
+    <p><strong>Duração total da micro-interação:</strong> 2.000ms</p>
+    <p><strong>Tom de voz:</strong> “Missão enviada!” — linguagem de
+    expedição/descoberta. Consistente com o tema floresta_aventura. Não
+    usa “Parabéns” nem “Incrível”.</p>
+    <hr />
+    <h3 id="perfil-aventureiro-10-12-anos">1.3 Perfil Aventureiro (10-12
+    anos)</h3>
+    <p><strong>Premissa:</strong> a linguagem de RPG/XP é o que engaja.
+    A criança quer sentir que está progredindo em um sistema. A
+    celebração é focada no ganho, não no afeto.</p>
+    <p><strong>Sequência de animação:</strong></p>
+    <ol type="1">
+    <li><p><strong>Tap no botão de humor (0ms)</strong></p>
+    <ul>
+    <li><code>scale: 1 → 1.15 → 1.0</code> em 150ms (mais rápido, mais
+    “snappy”)</li>
+    <li>Glow sutil: <code>box-shadow: 0 0 12px #4F46E5</code> animado em
+    200ms, some em 400ms</li>
+    </ul></li>
+    <li><p><strong>Flash de XP (100ms após tap)</strong></p>
+    <ul>
+    <li>Fundo do card pisca brevemente para <code>#1E1B4B</code> por
+    80ms e retorna</li>
+    <li>Efeito “hit flash” — linguagem visual de jogo</li>
+    </ul></li>
+    <li><p><strong>Badge de XP ganho (150ms após tap)</strong></p>
+    <ul>
+    <li>Texto: “+X XP” em bold text-2xl, cor <code>#FBBF24</code> (gold
+    win)</li>
+    <li>Fundo: <code>#1E1B4B</code>, <code>border-radius: 8px</code>,
+    <code>padding: 6px 12px</code></li>
+    <li>Aparece no topo-direito do card</li>
+    <li>Animação: <code>scale: 0.5 → 1.1 → 1.0</code> em 250ms (pop de
+    jogo)</li>
+    <li>Flutua para cima 50px em 1.000ms com <code>fade-out</code></li>
+    </ul></li>
+    <li><p><strong>Mensagem inline (300ms após tap)</strong></p>
+    <ul>
+    <li>Texto: “Missão concluída! +X XP” (text-base, bold, cor
+    <code>#FBBF24</code>)</li>
+    <li>Aparece como substituição temporária do status do card</li>
+    <li>Permanece por 1.500ms, então transita para o status real</li>
+    </ul></li>
+    <li><p><strong>Sem mascote</strong> — o design system (regra Pro)
+    proíbe mascote em micro-interações. A regra é estendida para o
+    Aventureiro aqui porque o mascote quebraria a linguagem do tema
+    espaco_infinito.</p></li>
+    <li><p><strong>Barra de XP (500ms após tap)</strong></p>
+    <ul>
+    <li>Se a barra de XP estiver visível no topo da tela, ela anima um
+    incremento suave</li>
+    <li>Fill de <code>#4F46E5 → #6366F1</code> avança proporcionalmente,
+    duração 600ms</li>
+    <li>Detalhe: a barra não é implementada no MVP — este passo é
+    contingente à tarefa 2.3</li>
+    </ul></li>
+    </ol>
+    <p><strong>Duração total da micro-interação:</strong> 1.800ms</p>
+    <p><strong>Tom de voz:</strong> “+X XP! Missão concluída!” —
+    linguagem de jogo. Sem emoji obrigatório na micro-interação (apenas
+    no celebrationUtils já implementado). Sem “Você mandou bem!”.</p>
+    <hr />
+    <h3 id="perfil-pro-13-anos">1.4 Perfil Pro (13+ anos)</h3>
+    <p><strong>Premissa:</strong> nada excessivo. A celebração existe,
+    mas é sutil — um sinal de que a ação foi registrada, não uma festa.
+    Feedback háptico substituiria muito do visual aqui (futuro).</p>
+    <p><strong>Sequência de animação:</strong></p>
+    <ol type="1">
+    <li><p><strong>Tap no botão de humor (0ms)</strong></p>
+    <ul>
+    <li><code>scale: 1 → 1.05 → 1.0</code> em 120ms</li>
+    <li>Borda do botão transita de <code>border-gray-600</code> para
+    <code>border-emerald-500</code> em 150ms</li>
+    </ul></li>
+    <li><p><strong>Check de confirmação (100ms após tap)</strong></p>
+    <ul>
+    <li>Ícone <code>✓</code> aparece no canto superior-direito do
+    card</li>
+    <li>Cor: <code>#10B981</code> (mint go)</li>
+    <li>Animação: <code>stroke-dashoffset</code> draw de 0 → comprimento
+    total em 300ms (efeito de “desenhando o check”)</li>
+    <li>Permanece visível como indicador de status</li>
+    </ul></li>
+    <li><p><strong>Mensagem discreta (200ms após tap)</strong></p>
+    <ul>
+    <li>Texto: “Registrado. Aguardando revisão.” (text-sm,
+    <code>text-gray-400</code>)</li>
+    <li>Aparece inline no card, sem animação além de
+    <code>fade-in</code> 200ms</li>
+    </ul></li>
+    <li><p><strong>Pontos (300ms após tap)</strong></p>
+    <ul>
+    <li>Badge <code>+X</code> em <code>text-emerald-400</code>, text-sm,
+    sem fundo</li>
+    <li>Sem animação de flutuação — apenas aparece e permanece como
+    parte do status</li>
+    </ul></li>
+    <li><p><strong>Sem confete. Sem mascote. Sem som.</strong></p></li>
+    <li><p><strong>Transição final (600ms após tap)</strong></p>
+    <ul>
+    <li>Card transita suavemente para estado
+    <code>awaiting_review</code></li>
+    <li>Status final: “Concluido” (tom já aprovado no design
+    system)</li>
+    </ul></li>
+    </ol>
+    <p><strong>Duração total da micro-interação:</strong> 600ms</p>
+    <p><strong>Tom de voz:</strong> “Registrado.” — quase neutro,
+    funcional. Respeita a identidade do Pro que não quer ser tratado
+    como criança.</p>
+    <hr />
+    <h2
+    id="parte-2-gatilho-a-autoavaliação-emocional-criança-inicia">Parte
+    2 — Gatilho A: Autoavaliação emocional (criança inicia)</h2>
+    <h3 id="o-que-dispara-o-gatilho-a">O que dispara o Gatilho A</h3>
+    <p>A criança seleciona o humor <strong>negativo</strong> (reação 😢
+    ou equivalente triste) ao responder a tarefa. O fluxo aparece
+    <strong>imediatamente após a confirmação do humor</strong>, na mesma
+    sessão. O Gatilho A é para Explorador, Aventureiro e Pro — Pequenino
+    está fora.</p>
+    <p><strong>Ponto de design crítico:</strong> o Gatilho A não
+    interrompe a micro-interação de conclusão. A sequência é:
+    micro-interação de conclusão → pausa breve (300ms) → card de Gatilho
+    A aparece. A criança já celebrou a conclusão antes de ser convidada
+    a refletir.</p>
+    <hr />
+    <h3 id="explorador-com-gatilho-a-7-9-anos">2.1 Explorador com
+    Gatilho A (7-9 anos)</h3>
+    <p><strong>Componente:</strong> bottom sheet (não modal — não
+    bloqueia toda a tela)</p>
+    <p><strong>Entrada (300ms após conclusão da
+    micro-interação):</strong> - Bottom sheet desliza de baixo com
+    <code>slide-up</code> 300ms, <code>ease-out</code> - Handle visível
+    no topo (acessibilidade: pode fechar deslizando para baixo) - Fundo:
+    <code>#F8F7FF</code> (off white), borda superior
+    <code>border-t-2 border-emerald-300</code></p>
+    <p><strong>Conteúdo do card:</strong></p>
+    <pre><code>[Mascote Blip — pose curiosidade, 76px, centralizado no topo do sheet]
+
+&quot;Você disse que foi difícil.&quot;
+&quot;Tudo bem! O Blip quer saber mais.&quot;
+&quot;Como você se sentiu depois?&quot;
+
+[Botão 1] 💪 Fiz o melhor que pude
+[Botão 2] 🔄 Da próxima vez vou tentar diferente
+[Botão 3] 🙋 Da próxima vez peço ajuda
+[Botão 4] [Escala visual 1-5 com ícones de expressão]
+
+[Link secundário: &quot;Não quero responder agora&quot;]</code></pre>
+    <p><strong>Especificação dos botões:</strong> - Tamanho:
+    <code>w-full</code>, <code>min-h: 52px</code>,
+    <code>border-radius: 12px</code> - Fundo: <code>#F8F7FF</code> com
+    borda <code>border border-emerald-300</code> - Selecionado: fundo
+    <code>#10B981</code>, texto branco - Fonte: text-base, bold - Sem
+    ícone de confirmação separado — o tap no botão já é a
+    confirmação</p>
+    <p><strong>Escala visual 1-5 (4a opção — Gardner):</strong> - 5
+    faces em linha horizontal, 40px cada - Expressões: 😞 😕 😐 🙂 😊
+    (da esquerda para direita: difícil → fácil) - Toque em uma face
+    seleciona com ring <code>#FBBF24</code> - Label: “Qual foi a
+    dificuldade?” acima das faces, text-sm,
+    <code>text-gray-500</code></p>
+    <p><strong>“Não quero responder agora”:</strong> -
+    <code>text-sm</code>, <code>text-gray-400</code>, sublinhado,
+    posição centralizada no rodapé do sheet - Não usa “Pular” — mais
+    respeitoso com a autonomia da criança - Ao tocar: sheet fecha com
+    <code>slide-down</code> 250ms, tarefa permanece marcada como
+    concluída sem registro emocional</p>
+    <p><strong>Após seleção:</strong> - Botão selecionado fica com fundo
+    <code>#10B981</code>, escala <code>1 → 1.05 → 1.0</code> - Após
+    300ms, sheet fecha automaticamente - Tela principal: badge discreto
+    “O Blip guardou sua resposta!” (design system: tom Explorador)</p>
+    <p><strong>Estrelas de Coragem — exibição pós-resposta:</strong> -
+    Aparecem após o sheet fechar (não durante a seleção) - Componente
+    temporário no centro da tela: estrela <code>#FBBF24</code> com
+    <code>scale: 0 → 1.2 → 1.0</code> em 400ms - Texto abaixo: “Estrela
+    de Coragem conquistada!” - Duração: 1.500ms, then
+    <code>fade-out</code> 300ms - Nota: estrelas aparecem apenas após o
+    pai visualizar a resposta (mecanismo anti-gamificação do v2). Para o
+    comitê: a UI exibe a estrela imediatamente como feedback, mas o
+    sistema só efetiva o ponto quando o pai confirma leitura. Esse
+    detalhe técnico não é visível para a criança.</p>
+    <hr />
+    <h3 id="aventureiro-com-gatilho-a-10-12-anos">2.2 Aventureiro com
+    Gatilho A (10-12 anos)</h3>
+    <p><strong>Componente:</strong> bottom sheet (mesma estrutura,
+    visual diferente)</p>
+    <p><strong>Entrada:</strong> igual ao Explorador — bottom sheet após
+    300ms</p>
+    <p><strong>Conteúdo do card:</strong></p>
+    <pre><code>[Sem mascote em destaque — apenas ícone pequeno 32px no canto]
+
+&quot;Missão difícil. Isso acontece com os melhores.&quot;
+&quot;O que rolou?&quot;
+
+[Botão 1] 💪 Fiz o melhor que pude
+[Botão 2] 🔄 Da próxima vez vou tentar diferente
+[Botão 3] 🙋 Da próxima vez peço ajuda
+
+[Botão secundário &quot;Quero escrever&quot; — visível mas menor]
+[Link: &quot;Não quero comentar&quot;]</code></pre>
+    <p><strong>Especificação dos botões:</strong> - Fundo:
+    <code>#1E1B4B</code> (deep night) - Texto: <code>#F8F7FF</code> (off
+    white) - Borda: <code>border border-indigo-500</code> - Selecionado:
+    fundo <code>#4F46E5</code>, borda <code>#6366F1</code></p>
+    <p><strong>Botão “Quero escrever” (opção secundária —
+    Vygotsky):</strong> - Visual: outline button, menor
+    (<code>min-h: 44px</code>), fundo transparente, borda
+    <code>#4F46E5</code> - Ao tocar: botões de opção desaparecem e um
+    <code>textarea</code> aparece com <code>fade-in</code> -
+    <code>textarea</code>: fundo <code>#1E1B4B</code>, texto
+    <code>#F8F7FF</code>, <code>border: 1px solid #4F46E5</code>,
+    <code>border-radius: 8px</code> - Placeholder: “O que aconteceu?
+    (máx. 200 caracteres)” - Counter de caracteres discreto no canto
+    inferior-direito: text-xs <code>text-gray-400</code> - Botão
+    “Enviar” abaixo: fundo <code>#4F46E5</code>, texto branco</p>
+    <p><strong>Estrelas de Coragem:</strong> - Badge de estrela
+    <code>#FBBF24</code> surge no canto superior-direito do sheet antes
+    de fechar - Texto: “+1 Estrela de Coragem” em text-sm - Animação:
+    <code>pop</code> 300ms, permanece 1.000ms</p>
+    <hr />
+    <h3 id="pro-com-gatilho-a-13-anos">2.3 Pro com Gatilho A (13+
+    anos)</h3>
+    <p><strong>Componente:</strong> inline (não bottom sheet — aparece
+    dentro do card da tarefa, expandindo-o)</p>
+    <p><strong>Entrada (300ms após conclusão):</strong> - O card da
+    tarefa expande verticalmente com <code>ease-in-out</code> 250ms -
+    Sem overlay, sem modal — tudo inline</p>
+    <p><strong>Conteúdo expandido:</strong></p>
+    <pre><code>&quot;Você marcou essa missão como difícil. O que impediu?&quot;
+
+[Área de texto — padrão para Pro]
+Placeholder: &quot;Opcional — máx. 200 caracteres&quot;
+
+[3 botões de opção rápida como alternativa:]
+[💪 Fiz o melhor] [🔄 Tento diferente] [🙋 Peço ajuda]
+
+[Botão primário: &quot;Registrar&quot;] [Link: &quot;Não quero comentar&quot;]</code></pre>
+    <p><strong>Visual:</strong> - Fundo: <code>#1A1040</code> (deep
+    night) - Texto: <code>#F8F7FF</code> - textarea:
+    <code>bg-gray-900</code>, <code>border-gray-700</code>,
+    <code>text-gray-200</code> - Botões de opção: chips
+    <code>border-gray-600</code>, selecionado: <code>bg-gray-700</code>
+    - “Registrar”: <code>bg-emerald-600</code>, text-sm</p>
+    <p><strong>Estrelas de Coragem para o Pro:</strong> - Sem animação
+    exuberante — feedback textual discreto - Após envio: linha de texto
+    “+ 1 Estrela de Coragem — visível no seu perfil” em text-xs
+    <code>text-gray-400</code> - Não há popup, não há animação de
+    estrela</p>
+    <hr />
+    <h2
+    id="parte-3-gatilho-b-resposta-após-feedback-negativo-do-pai">Parte
+    3 — Gatilho B: Resposta após feedback negativo do pai</h2>
+    <h3 id="o-que-dispara-o-gatilho-b">O que dispara o Gatilho B</h3>
+    <p>O pai reduz os pontos finais da tarefa no painel de revisão
+    (<code>final_points &lt; base_points</code>). <strong>Na próxima
+    sessão da criança</strong>, o fluxo aparece — não na mesma sessão. O
+    sistema detecta o estado pendente ao carregar a ChildHome.</p>
+    <p><strong>Ponto de design crítico:</strong> o Gatilho B tem
+    <strong>duas etapas obrigatórias</strong> antes da reflexão: - Etapa
+    1: mostrar o que foi ajustado + comentário do pai (se houver) -
+    Etapa 2: convidar a reflexão</p>
+    <p>A linguagem nunca posiciona o ajuste como punição. Sempre
+    posiciona pai e filho do mesmo lado.</p>
+    <hr />
+    <h3 id="explorador-com-gatilho-b-7-9-anos">3.1 Explorador com
+    Gatilho B (7-9 anos)</h3>
+    <p><strong>Entrada:</strong> ao carregar a ChildHome, se há Gatilho
+    B pendente, um banner no topo da tela aparece antes de qualquer
+    outra ação.</p>
+    <p><strong>Banner de entrada:</strong> - Fundo: <code>#FED7AA</code>
+    (warm peach), ícone do mascote 40px à esquerda - Texto: “O Blip tem
+    uma mensagem pra você sobre uma missão!” - Botão: “Ver” — fundo
+    <code>#F97316</code>, texto branco - Sem mencionar “ajuste” ou
+    “pontos” no banner</p>
+    <p><strong>Etapa 1 — Contexto (bottom sheet):</strong></p>
+    <pre><code>[Mascote Blip — pose curiosidade, 76px]
+
+&quot;Vamos conversar sobre a missão [nome da tarefa]&quot;
+
+[Card da tarefa original com:]
+  - Nome da tarefa
+  - Pontos originais: X
+  - Pontos finais: Y  ← exibidos juntos, sem destaque dramático
+  [Comentário do pai, se houver — em caixa separada, fundo suave]
+  [Se não houver comentário: nenhum espaço vazio — silêncio é natural]
+
+[Botão: &quot;Entendi — quero contar o que aconteceu&quot;]
+[Link: &quot;Já vi, obrigado&quot; — fecha o fluxo]</code></pre>
+    <p><strong>Pontos na Etapa 1:</strong> exibidos como “X → Y pontos”
+    sem semântica de perda. Não usar “pontos perdidos” nem “pontos
+    reduzidos”. Usar apenas os números lado a lado.</p>
+    <p><strong>Etapa 2 — Reflexão (mesmo bottom sheet, conteúdo
+    substitui):</strong></p>
+    <pre><code>[Mascote Blip — pose curiosidade, mantido]
+
+&quot;Como você se sentiu?&quot;
+
+[Mesmos 4 botões do Gatilho A:]
+[💪 Fiz o melhor que pude]
+[🔄 Da próxima vez vou tentar diferente]
+[🙋 Da próxima vez peço ajuda]
+[Escala visual 1-5]
+
+[Link: &quot;Não quero responder agora&quot;]</code></pre>
+    <p><strong>Transição entre Etapa 1 e Etapa 2:</strong> conteúdo do
+    sheet faz <code>cross-fade</code> 250ms (não fecha e reabre).</p>
+    <p><strong>Estrelas de Coragem:</strong> idêntico ao Gatilho A para
+    o Explorador.</p>
+    <hr />
+    <h3 id="aventureiro-com-gatilho-b-10-12-anos">3.2 Aventureiro com
+    Gatilho B (10-12 anos)</h3>
+    <p><strong>Entrada:</strong> banner de notificação no topo da
+    ChildHome.</p>
+    <p><strong>Banner:</strong> - Fundo: <code>#1E1B4B</code>, ícone de
+    mensagem <code>#4F46E5</code> - Texto: “Você tem uma mensagem sobre
+    uma missão” - Botão: “Ver” — <code>bg-indigo-600</code></p>
+    <p><strong>Etapa 1 — Contexto (bottom sheet, tema
+    espaco_infinito):</strong></p>
+    <pre><code>[Ícone pequeno 32px — sem mascote em destaque]
+
+&quot;Vamos conversar sobre essa missão.&quot;
+&quot;Você pode contar o que achou.&quot;
+
+[Card da tarefa:]
+  - Nome + emoji da tarefa
+  - &quot;Pontos registrados: Y&quot; (apenas o valor final, sem comparação dramática)
+  [Comentário do pai em caixa:]
+    Fundo: #1E1B4B, borda: border-indigo-500
+    Texto do comentário em #F8F7FF
+    Prefixo: &quot;Mensagem:&quot; — sem &quot;Seu pai disse&quot;
+
+[Botão: &quot;Quero responder&quot;]
+[Link: &quot;Já vi — tudo bem&quot;]</code></pre>
+    <p><strong>Nota sobre “Pontos registrados: Y” (sem mostrar o
+    original):</strong> para o Aventureiro, mostrar a comparação X → Y
+    pode ativar a resposta de injustiça antes da reflexão. A decisão de
+    mostrar apenas o valor final é intencional e alinhada com a
+    recomendação de Daniela Freixo. O comitê pode questionar isso — a
+    justificativa é que a criança de 10-12 anos é mais sensível à
+    comparação numérica que a de 7-9 anos.</p>
+    <p><strong>Etapa 2 — Reflexão:</strong> idêntica ao Gatilho A do
+    Aventureiro.</p>
+    <hr />
+    <h3 id="pro-com-gatilho-b-13-anos">3.3 Pro com Gatilho B (13+
+    anos)</h3>
+    <p><strong>Entrada:</strong> badge discreto no header da ChildHome —
+    não banner expandido.</p>
+    <p><strong>Badge:</strong> - Ícone de chat <code>#10B981</code>,
+    tamanho 20px, no canto superior-direito - Texto ao lado: “1
+    mensagem” em text-sm <code>text-gray-300</code> - Ao tocar: expande
+    o card específico da tarefa afetada (inline, não sheet)</p>
+    <p><strong>Etapa 1 — Contexto (inline no card da
+    tarefa):</strong></p>
+    <pre><code>&quot;Pontuação ajustada pelo responsável.&quot;
+
+[Linha: &quot;Registrado: Y pontos&quot;]
+[Comentário do pai, se houver — texto simples, sem caixa especial]
+
+[Botão: &quot;Registrar minha visão&quot;]
+[Botão secundário: &quot;OK, entendido&quot;]</code></pre>
+    <p><strong>Etapa 2 — Reflexão (inline, expande o card):</strong></p>
+    <pre><code>&quot;Quer registrar sua visão?&quot;
+
+[campo de texto padrão — placeholder: &quot;Opcional — máx. 200 caracteres&quot;]
+
+[3 chips de opção rápida:]
+[Fiz o melhor] [Tento diferente] [Peço ajuda da próxima vez]
+
+[Botão: &quot;Enviar&quot;] [Link: &quot;Não quero comentar&quot;]</code></pre>
+    <p><strong>Tom de voz Pro:</strong> neutro, funcional. “Pontuação
+    ajustada pelo responsável” — sem emotividade. “Quer registrar sua
+    visão?” — dá agência sem exigir. “Não quero comentar” — respeita a
+    decisão de não expressar sem marcar isso como desvio.</p>
+    <hr />
+    <h2 id="parte-4-vocabulário-de-sentimentos-por-perfil">Parte 4 —
+    Vocabulário de sentimentos por perfil</h2>
+    <h3 id="etiquetas-aprovadas-dos-botões-de-reflexão">4.1 Etiquetas
+    aprovadas dos botões de reflexão</h3>
+    <table>
+    <colgroup>
+    <col style="width: 12%" />
+    <col style="width: 30%" />
+    <col style="width: 37%" />
+    <col style="width: 19%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Opção</th>
+    <th>Explorador (7-9)</th>
+    <th>Aventureiro (10-12)</th>
+    <th>Pro (13+)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>1</td>
+    <td>💪 Fiz o melhor que pude</td>
+    <td>💪 Fiz o melhor que pude</td>
+    <td>Fiz o melhor que pude</td>
+    </tr>
+    <tr>
+    <td>2</td>
+    <td>🔄 Da próxima vez vou tentar diferente</td>
+    <td>🔄 Da próxima vez vou tentar diferente</td>
+    <td>Da próxima vez tento diferente</td>
+    </tr>
+    <tr>
+    <td>3</td>
+    <td>🙋 Da próxima vez peço ajuda</td>
+    <td>🙋 Da próxima vez peço ajuda</td>
+    <td>Da próxima vez peço ajuda</td>
+    </tr>
+    <tr>
+    <td>4</td>
+    <td>Escala visual 1-5 (Gardner)</td>
+    <td>“Quero escrever” (Vygotsky)</td>
+    <td>Campo de texto livre</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Regra de emoji:</strong> Explorador usa emoji obrigatório
+    nos labels. Aventureiro usa emoji. Pro omite emoji — texto puro.</p>
+    <p><strong>“Não quero responder” vs “Pular”:</strong> nunca usar
+    “Pular” em nenhum perfil. “Pular” implica obrigação que está sendo
+    evitada. “Não quero responder agora” (Explorador) e “Não quero
+    comentar” (Aventureiro e Pro) preservam a agência da criança.</p>
+    <hr />
+    <h2 id="parte-5-estrelas-de-coragem-posicionamento-e-exibição">Parte
+    5 — Estrelas de Coragem: posicionamento e exibição</h2>
+    <h3 id="o-que-é-uma-estrela-de-coragem">5.1 O que é uma Estrela de
+    Coragem</h3>
+    <p>Sistema paralelo, separado da meta semanal. Gerado pelo ato de
+    responder — não pelo conteúdo da resposta. Máximo 3 por semana com
+    estrelas efetivadas. Efetivação depende do pai visualizar a resposta
+    (mecanismo anti-gamificação).</p>
+    <h3 id="exibição-imediata-vs.-efetivada">5.2 Exibição imediata
+    vs. efetivada</h3>
+    <p>Para a micro-interação de conclusão do fluxo emocional: -
+    <strong>Exibição imediata:</strong> a animação de estrela aparece
+    como feedback positivo ao enviar a resposta - <strong>Efetivação
+    real:</strong> acontece quando o pai confirma leitura (backend) - A
+    criança não vê essa distinção — a UX promete a estrela e a
+    entrega</p>
+    <h3 id="especificação-de-animação-por-perfil">5.3 Especificação de
+    animação por perfil</h3>
+    <table>
+    <colgroup>
+    <col style="width: 22%" />
+    <col style="width: 27%" />
+    <col style="width: 25%" />
+    <col style="width: 25%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Perfil</th>
+    <th>Animação</th>
+    <th>Posição</th>
+    <th>Duração</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Explorador</td>
+    <td>Estrela <code>#FBBF24</code> <code>scale: 0 → 1.2 → 1.0</code>,
+    glow suave</td>
+    <td>Centro da tela, sobrepõe</td>
+    <td>1.500ms</td>
+    </tr>
+    <tr>
+    <td>Aventureiro</td>
+    <td>Badge <code>+1 Estrela de Coragem</code> no canto do sheet,
+    <code>pop</code> 300ms</td>
+    <td>Canto superior-direito do sheet</td>
+    <td>1.000ms</td>
+    </tr>
+    <tr>
+    <td>Pro</td>
+    <td>Texto “+1 Estrela de Coragem — visível no perfil”,
+    <code>fade-in</code></td>
+    <td>Inline, abaixo do botão Enviar</td>
+    <td>Permanente</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="o-que-acontece-ao-pularnão-responder">5.4 O que acontece ao
+    pular/não responder</h3>
+    <ul>
+    <li>Nenhuma estrela (esperado)</li>
+    <li>Nenhuma mensagem negativa sobre a ausência de estrela</li>
+    <li>A contagem de estrelas na tela de perfil permanece
+    inalterada</li>
+    <li>O link “Não quero responder agora” ou “Não quero comentar” fecha
+    o fluxo sem deixar rastro visual de “erro”</li>
+    </ul>
+    <hr />
+    <h2 id="parte-6-estados-de-transição-e-edge-cases">Parte 6 — Estados
+    de transição e edge cases</h2>
+    <h3 id="múltiplos-gatilhos-b-pendentes">6.1 Múltiplos Gatilhos B
+    pendentes</h3>
+    <p>Se a criança tem 2 ou mais tarefas com Gatilho B pendente ao
+    abrir o app: - Exibir apenas 1 por vez — não empilhar sheets ou
+    cards - Ao concluir o primeiro, o segundo aparece com o banner
+    novamente - Badge no header mostra o número total: “2 mensagens”</p>
+    <h3 id="criança-ignora-o-gatilho-b-sistematicamente">6.2 Criança
+    ignora o Gatilho B sistematicamente</h3>
+    <p>Se a criança escolhe “Não quero responder agora” 3 vezes na mesma
+    tarefa: - O fluxo daquela tarefa é arquivado silenciosamente -
+    Nenhuma mensagem de “você perdeu a chance” ou similar - O pai vê no
+    painel que a criança optou por não responder (sem julgamento de
+    valor)</p>
+    <h3 id="sem-internet-durante-o-fluxo-emocional">6.3 Sem internet
+    durante o fluxo emocional</h3>
+    <ul>
+    <li>O botão de confirmação exibe um estado de loading por no máximo
+    3s</li>
+    <li>Se falhar: mensagem discreta “Não conseguimos salvar agora.
+    Tente de novo.” (texto Explorador/Aventureiro) ou “Erro ao salvar.
+    Tente novamente.” (Pro)</li>
+    <li>Nenhum dado é perdido — o estado fica pendente localmente e
+    reenvia quando a conexão retorna (implementação de queue — escopo do
+    Arquiteto)</li>
+    </ul>
+    <h3 id="aprovação-do-pai-enquanto-a-criança-está-online">6.4
+    Aprovação do pai enquanto a criança está online</h3>
+    <p>Quando o pai aprova enquanto o filho está na ChildHome: -
+    Micro-interação de aprovação já especificada em
+    <code>celebrationUtils.ts</code>
+    (<code>getApprovalCelebrationMessage</code>) - O fluxo emocional dos
+    Gatilhos A/B é independente da aprovação — não há sobreposição de
+    estados na mesma sessão</p>
+    <hr />
+    <h2 id="resumo-por-perfil">Resumo por perfil</h2>
+    <table style="width:100%;">
+    <colgroup>
+    <col style="width: 19%" />
+    <col style="width: 21%" />
+    <col style="width: 23%" />
+    <col style="width: 25%" />
+    <col style="width: 9%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Dimensão</th>
+    <th>Pequenino</th>
+    <th>Explorador</th>
+    <th>Aventureiro</th>
+    <th>Pro</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Conclusão: confete</td>
+    <td>Sim — 80 partículas</td>
+    <td>Sim — 35 partículas</td>
+    <td>Não</td>
+    <td>Não</td>
+    </tr>
+    <tr>
+    <td>Conclusão: mascote</td>
+    <td>Sim — 110px centro</td>
+    <td>Sim — 76px canto</td>
+    <td>Não</td>
+    <td>Não</td>
+    </tr>
+    <tr>
+    <td>Conclusão: duração</td>
+    <td>2.500ms</td>
+    <td>2.000ms</td>
+    <td>1.800ms</td>
+    <td>600ms</td>
+    </tr>
+    <tr>
+    <td>Conclusão: pontos</td>
+    <td>Badge flutuante ouro</td>
+    <td>Badge flutuante ouro</td>
+    <td>XP pop animado</td>
+    <td>Texto estático</td>
+    </tr>
+    <tr>
+    <td>Gatilho A</td>
+    <td>Não aplicável</td>
+    <td>Bottom sheet</td>
+    <td>Bottom sheet</td>
+    <td>Inline</td>
+    </tr>
+    <tr>
+    <td>Gatilho B</td>
+    <td>Não aplicável</td>
+    <td>Bottom sheet 2 etapas</td>
+    <td>Bottom sheet 2 etapas</td>
+    <td>Inline 2 etapas</td>
+    </tr>
+    <tr>
+    <td>Estrelas de Coragem</td>
+    <td>Não aplicável</td>
+    <td>Animação central</td>
+    <td>Badge no sheet</td>
+    <td>Texto inline</td>
+    </tr>
+    <tr>
+    <td>“Não responder”</td>
+    <td>—</td>
+    <td>“Não quero responder agora”</td>
+    <td>“Não quero comentar”</td>
+    <td>“Não quero comentar”</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2
+    id="componentes-a-criar-ou-modificar-mapeamento-para-o-executor">Componentes
+    a criar ou modificar (mapeamento para o Executor)</h2>
+    <table>
+    <colgroup>
+    <col style="width: 34%" />
+    <col style="width: 17%" />
+    <col style="width: 48%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Componente</th>
+    <th>Ação</th>
+    <th>Arquivo sugerido</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>TaskButton.tsx</code></td>
+    <td>Adicionar animações de conclusão por perfil</td>
+    <td>existente</td>
+    </tr>
+    <tr>
+    <td><code>TaskCard.tsx</code></td>
+    <td>Adicionar micro-interação de flash + XP pop</td>
+    <td>existente</td>
+    </tr>
+    <tr>
+    <td><code>Celebration.tsx</code></td>
+    <td>Especializar por perfil (já existe, expandir)</td>
+    <td>existente</td>
+    </tr>
+    <tr>
+    <td><code>EmotionalReflectionSheet</code></td>
+    <td>Criar do zero</td>
+    <td><code>src/components/EmotionalReflectionSheet.tsx</code></td>
+    </tr>
+    <tr>
+    <td><code>GatilhoBBanner</code></td>
+    <td>Criar do zero</td>
+    <td><code>src/components/GatilhoBBanner.tsx</code></td>
+    </tr>
+    <tr>
+    <td><code>CourageStarBadge</code></td>
+    <td>Criar do zero</td>
+    <td><code>src/components/CourageStarBadge.tsx</code></td>
+    </tr>
+    <tr>
+    <td><code>ChildHome.tsx</code></td>
+    <td>Adicionar detecção de Gatilho B pendente ao carregar</td>
+    <td>existente</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <p><em>Documento produzido por <span class="citation"
+    data-cites="agent-ux-missao-da-semana">@agent-ux-missao-da-semana</span>
+    — Sprint 2 do Comitê de Product Design. Para avaliação do comitê —
+    não implementar sem aprovação de Bruno.</em></p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

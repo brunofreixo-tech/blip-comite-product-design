@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Onboarding do Blip — Narrativa para o Comitê de Product
+Design — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">O Onboarding do Blip — Narrativa
+para o Comitê de Product Design</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1
+    id="o-onboarding-do-blip-narrativa-para-o-comitê-de-product-design">O
+    Onboarding do Blip — Narrativa para o Comitê de Product Design</h1>
+    <p><strong>Para:</strong> Comitê de Product Design (OBJ 01 —
+    Primeiros 15 Minutos) <strong>Destinatário principal:</strong> Mig
+    Reyes <strong>Data:</strong> 2026-04-02 <strong>Apresentado
+    por:</strong> Bruno Freixo</p>
+    <hr />
+    <h2 id="o-que-o-blip-promete-nos-primeiros-15-minutos">O que o Blip
+    promete nos primeiros 15 minutos</h2>
+    <p>Um pai chega ao Blip às 22h. Está cansado. Amanhã é segunda-feira
+    e o filho precisa de rotina. Em 15 minutos, esse pai quer saber que,
+    quando o filho acordar, já existe uma missão esperando por ele.</p>
+    <p>Esse é o teste do onboarding. Não “o pai entendeu o produto”. É:
+    o filho acorda segunda-feira e tem algo para fazer. Se isso
+    aconteceu, o onboarding funcionou.</p>
+    <hr />
+    <h2 id="o-que-o-fluxo-atual-faz-bem">O que o fluxo atual faz
+    bem</h2>
+    <p>O tour de onboarding existe e dispara automaticamente no primeiro
+    acesso de cada tela. A separação de perfis pai/filho com senha e
+    lockout por tentativas está implementada. O componente de celebração
+    com confete real existe. A base técnica permite construir uma boa
+    experiência. O problema não é o que foi construído — é o que o
+    usuário precisa atravessar antes de chegar lá.</p>
+    <hr />
+    <h2 id="o-que-sabemos-que-precisa-melhorar">O que sabemos que
+    precisa melhorar</h2>
+    <p><strong>O formulário não tem fim visível.</strong> Cadastro do
+    responsável e do filho estão na mesma tela, em scroll contínuo.
+    Nenhum dado é salvo durante o preenchimento. Se o pai for
+    interrompido, começa do zero.</p>
+    <p><strong>A verificação por SMS é um muro.</strong> Se o SMS
+    demora, se o pai não entende o que é um “código de verificação”, o
+    cadastro de 5 minutos parece ter sumido. Se ele tentar se cadastrar
+    novamente, recebe “já existe uma conta com esse telefone” sem
+    entender por quê.</p>
+    <p><strong>A configuração de recompensa está no lugar
+    errado.</strong> A proposta de valor central do produto — a
+    recompensa do filho — está enterrada em uma tela de Settings com
+    15-20 campos misturados. Um pai que pulou essa tela criou missões
+    para um filho que não sabe o que vai ganhar. Na segunda semana, o
+    filho perde a motivação. O pai acha que o produto não funciona.</p>
+    <hr />
+    <h2 id="o-que-estamos-propondo">O que estamos propondo</h2>
+    <p>Quatro telas. Uma missão criada ao final.</p>
+    <p><strong>T1 — Boas-vindas:</strong> mascote Blip, proposta de
+    valor em uma frase, dois botões. Nada mais.</p>
+    <p><strong>T2 — Cadastro do pai em dois steps com indicador de
+    progresso:</strong> dados básicos (nome + celular + senha) e
+    verificação por SMS. O pai sabe onde está e quanto falta.</p>
+    <p><strong>T3 — Primeiro filho:</strong> nome, apelido, data de
+    nascimento — o produto detecta automaticamente o perfil etário
+    (Pequenino ou Aventureiro). Sem dropdown de seleção de perfil. O pai
+    não precisa entender o sistema de perfis para começar.</p>
+    <p><strong>T4 — Primeira missão:</strong> 3 templates sugeridos pelo
+    Blip, adequados ao perfil etário detectado. O pai aceita um com um
+    toque, ou customiza. Ao confirmar: tela de conclusão com o nome do
+    filho, a missão e a data de amanhã.</p>
+    <p>A configuração de recompensa vira uma T5 opcional — com nudge
+    persistente no painel do pai até ser completada. Não bloqueia o
+    primeiro uso. O app não esquece que ela precisa acontecer.</p>
+    <p>O cadastro do filho foi separado do cadastro do pai
+    deliberadamente: o pai precisa ter a conta verificada antes de
+    cadastrar o filho, e precisa entender minimamente o produto antes de
+    apresentar o filho a ele. Esse princípio — novo conhecimento
+    ancorado no que o usuário já entende — é o que Vygotsky chama de
+    Zona de Desenvolvimento Proximal, e é o motivo pelo qual a separação
+    reduz o abandono mesmo que o número total de campos seja o
+    mesmo.</p>
+    <hr />
+    <h2 id="métricas-alvo">Métricas-alvo</h2>
+    <p><strong>80% dos pais que iniciam o cadastro criam pelo menos 1
+    missão.</strong> O fluxo revisado remove os dois maiores gargalos:
+    formulário longo e configuração densa antes da primeira missão.</p>
+    <p><strong>60% dos pais que criaram a primeira missão voltam em
+    48h.</strong> Esse número depende de o filho ter respondido à missão
+    — o que por sua vez depende de o onboarding do filho ser simples o
+    suficiente para uma criança de 6 anos completar sozinha em 2
+    minutos.</p>
+    <p>Referência de benchmark: apps de parentalidade como BusyKid e
+    OurHome reportam taxas de ativação de 70-75% para onboardings com 4
+    steps ou menos, contra 40-50% para onboardings com 6+ steps ou
+    configuração obrigatória antes do primeiro uso.</p>
+    <hr />
+    <h2 id="o-que-ainda-não-foi-resolvido">O que ainda não foi
+    resolvido</h2>
+    <p><strong>Notificações push:</strong> o loop de retorno em 48h
+    depende de o pai mostrar o app para o filho manualmente. Funciona
+    para early adopters, não escala. Sprint de PWA está no roadmap após
+    o fluxo core estabilizar.</p>
+    <p><strong>Onboarding visual do filho (Pequenino):</strong> descrito
+    em comportamento (mascote aponta, sem texto, celebração exagerada),
+    mas não existe como protótipo aprovado. Depende do SVG oficial do
+    mascote ser finalizado.</p>
+    <p><strong>Famílias com 2+ filhos:</strong> o onboarding registra
+    apenas o primeiro filho. A experiência do pai com múltiplos filhos
+    no fluxo revisado ainda precisa ser especificada.</p>
+    <p><strong>Recuperação de abandono no SMS:</strong> o cenário “SMS
+    não chegou + pai tenta se cadastrar de novo” tem tratamento de erro
+    atual, mas sem fluxo de recuperação adequado para o usuário
+    não-técnico.</p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Índice de Apresentação — Comitê de Product
+Design — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Índice de Apresentação — Comitê de
+Product Design</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1 id="índice-de-apresentação-comitê-de-product-design">Índice de
+    Apresentação — Comitê de Product Design</h1>
+    <p><strong>Data:</strong> 2026-04-02 <strong>Elaborado por:</strong>
+    <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    <strong>Sprint:</strong> Sprint 3 — Consolidação final
+    <strong>Formato:</strong> Assíncrono (leitura prévia + sessão de
+    discussão). Não é demo ao vivo.</p>
+    <hr />
+    <h2 id="mapa-completo-de-artefatos-por-objetivo">Mapa completo de
+    artefatos por objetivo</h2>
+    <h3 id="obj-01-primeiros-15-minutos-onboarding">OBJ 01 — Primeiros
+    15 Minutos (Onboarding)</h3>
+    <p><strong>Líder no comitê:</strong> Mig Reyes <strong>Questão
+    central:</strong> “O pai cansado às 22h consegue criar uma missão
+    antes de dormir?”</p>
+    <table>
+    <colgroup>
+    <col style="width: 20%" />
+    <col style="width: 10%" />
+    <col style="width: 40%" />
+    <col style="width: 29%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Documento</th>
+    <th>Tipo</th>
+    <th>Destinatário principal</th>
+    <th>Momento de uso</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>fluxo_onboarding_atual.md</code></td>
+    <td>Leitura prévia</td>
+    <td>Mig Reyes, Fabricio Teixeira</td>
+    <td>Antes da sessão — contexto de onde estamos</td>
+    </tr>
+    <tr>
+    <td><code>spec_onboarding_revisado.md</code></td>
+    <td>Leitura prévia</td>
+    <td>Mig Reyes, Ryan Sims</td>
+    <td>Antes da sessão — a proposta</td>
+    </tr>
+    <tr>
+    <td><code>narrativa_onboarding_comite.md</code></td>
+    <td>Abertura OBJ 01</td>
+    <td>Todos</td>
+    <td>Abre o bloco OBJ 01 na sessão</td>
+    </tr>
+    <tr>
+    <td>Protótipo navegável (link em
+    <code>spec_onboarding_revisado.md</code>)</td>
+    <td>Interativo</td>
+    <td>Mig Reyes, Ryan Sims</td>
+    <td>Durante a sessão — demonstração do fluxo revisado</td>
+    </tr>
+    <tr>
+    <td><code>calculo_tempo_setup.md</code></td>
+    <td>Referência</td>
+    <td>Reid Hoffman, Fabricio Teixeira</td>
+    <td>Quando questionado sobre “quanto tempo leva?”</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h3 id="obj-02-loop-semanal-retenção-e-micro-interação">OBJ 02 —
+    Loop Semanal (Retenção e Micro-interação)</h3>
+    <p><strong>Líder no comitê:</strong> Ivan Zhao <strong>Questão
+    central:</strong> “O que mantém a família abrindo o app toda
+    semana?”</p>
+    <table>
+    <colgroup>
+    <col style="width: 20%" />
+    <col style="width: 10%" />
+    <col style="width: 40%" />
+    <col style="width: 29%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Documento</th>
+    <th>Tipo</th>
+    <th>Destinatário principal</th>
+    <th>Momento de uso</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>loop_semanal_atual.md</code></td>
+    <td>Leitura prévia</td>
+    <td>Ivan Zhao, Jason Oberfest</td>
+    <td>Antes da sessão — contexto de onde estamos</td>
+    </tr>
+    <tr>
+    <td><code>spec_microinteracoes_conclusao.md</code></td>
+    <td>Leitura prévia</td>
+    <td>Ryan Sims, Alex Zhu</td>
+    <td>Antes da sessão — micro-interações por perfil</td>
+    </tr>
+    <tr>
+    <td><code>spec_childhome_perfis.md</code></td>
+    <td>Leitura prévia + referência durante</td>
+    <td>Alex Zhu, Ryan Sims</td>
+    <td>Antes da sessão; citado durante OBJ 02 ao discutir perfis
+    etários</td>
+    </tr>
+    <tr>
+    <td><code>narrativa_sistema_flexivel_comite.md</code></td>
+    <td>Abertura OBJ 02</td>
+    <td>Ivan Zhao</td>
+    <td>Abre o bloco OBJ 02 na sessão</td>
+    </tr>
+    <tr>
+    <td><code>spec_resumo_semanal_pai.md</code></td>
+    <td>Referência</td>
+    <td>Ivan Zhao, Jason Oberfest</td>
+    <td>Durante OBJ 02 ao discutir encerramento do ciclo semanal</td>
+    </tr>
+    <tr>
+    <td><code>conceito_resposta_emocional_v2.md</code></td>
+    <td>Referência</td>
+    <td>Andy Puddicombe, Alex Zhu</td>
+    <td>Durante OBJ 02 quando o tema de Estrelas de Coragem surgir</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h3
+    id="obj-03-crescimento-com-as-famílias-identidade-anti-padrões-e-dados">OBJ
+    03 — Crescimento com as Famílias (Identidade, Anti-padrões e
+    Dados)</h3>
+    <p><strong>Destinatários:</strong> Reid Hoffman, Nir Eyal, Andy
+    Puddicombe <strong>Questão central:</strong> “Como o Blip cresce de
+    forma saudável e validada?”</p>
+    <table>
+    <colgroup>
+    <col style="width: 20%" />
+    <col style="width: 10%" />
+    <col style="width: 40%" />
+    <col style="width: 29%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Documento</th>
+    <th>Tipo</th>
+    <th>Destinatário principal</th>
+    <th>Momento de uso</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>identidade_blip_comite.md</code></td>
+    <td>Leitura prévia</td>
+    <td>Ryan Sims, Andy Puddicombe</td>
+    <td>Antes da sessão; abre o bloco OBJ 03</td>
+    </tr>
+    <tr>
+    <td><code>antipadroes_comite.md</code></td>
+    <td>Leitura prévia + discussão</td>
+    <td>Nir Eyal, Andy Puddicombe</td>
+    <td>Antes da sessão; central no bloco OBJ 03</td>
+    </tr>
+    <tr>
+    <td><code>metricas_ux_comite.md</code></td>
+    <td>Referência</td>
+    <td>Reid Hoffman</td>
+    <td>Durante OBJ 03 na agenda de “Iteração com dados”</td>
+    </tr>
+    <tr>
+    <td><code>gaps_abertos.md</code></td>
+    <td>Fechamento</td>
+    <td>Todos</td>
+    <td>Último documento apresentado — antes das perguntas abertas</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="sequência-recomendada-da-sessão">Sequência recomendada da
+    sessão</h2>
+    <p><strong>Duração estimada total:</strong> 2h30 (com buffer)</p>
+    <pre><code>[00:00 – 00:10]  Abertura (Bruno)
+   ↓
+[00:10 – 00:50]  OBJ 01 — Onboarding
+   ↓
+[00:50 – 01:30]  OBJ 02 — Loop Semanal
+   ↓
+[01:30 – 02:00]  OBJ 03 — Identidade, Anti-padrões e Dados
+   ↓
+[02:00 – 02:15]  Gaps abertos (declaração honesta)
+   ↓
+[02:15 – 02:30]  Perguntas abertas e próximos passos</code></pre>
+    <hr />
+    <h2 id="detalhamento-por-bloco">Detalhamento por bloco</h2>
+    <h3 id="abertura-10-min">Abertura (10 min)</h3>
+    <p><strong>Quem apresenta:</strong> Bruno Freixo <strong>O que
+    cobrir:</strong> - O que o Blip é em uma frase - O que o comitê está
+    avaliando (não é pitch de investimento — é revisão de design de
+    produto) - Os 3 OBJs da agenda e o que cada um responde - Declaração
+    antecipada dos gaps abertos: “vamos nomear o que ainda não
+    resolvemos antes de vocês perguntarem”</p>
+    <p><strong>Documento de apoio:</strong> nenhum — fala direta.</p>
+    <hr />
+    <h3 id="obj-01-primeiros-15-minutos-40-min">OBJ 01 — Primeiros 15
+    Minutos (40 min)</h3>
+    <p><strong>Quem apresenta:</strong> Bruno Freixo <strong>Blocos
+    internos:</strong></p>
+    <table>
+    <colgroup>
+    <col style="width: 21%" />
+    <col style="width: 21%" />
+    <col style="width: 57%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Tempo</th>
+    <th>O que</th>
+    <th>Documento de apoio</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>5 min</td>
+    <td>Onde estamos: fluxo atual, 43 toques, 3 pontos de abandono</td>
+    <td><code>fluxo_onboarding_atual.md</code> (leitura prévia)</td>
+    </tr>
+    <tr>
+    <td>10 min</td>
+    <td>A proposta: 4 telas, o que mudou e por quê</td>
+    <td><code>narrativa_onboarding_comite.md</code></td>
+    </tr>
+    <tr>
+    <td>15 min</td>
+    <td>Demonstração: protótipo navegável do fluxo revisado</td>
+    <td>Protótipo (link em
+    <code>spec_onboarding_revisado.md</code>)</td>
+    </tr>
+    <tr>
+    <td>10 min</td>
+    <td>Perguntas do comitê sobre OBJ 01</td>
+    <td>—</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Questões que Mig Reyes provavelmente vai
+    levantar:</strong> - “Por que 4 telas e não 3?” - “O que acontece se
+    o pai abandona no SMS?” - “Como o filho descobre o app pela primeira
+    vez?”</p>
+    <p><strong>Respostas preparadas:</strong> em
+    <code>spec_onboarding_revisado.md</code>, seção 6 (“O que o comitê
+    pode questionar”).</p>
+    <hr />
+    <h3 id="obj-02-loop-semanal-40-min">OBJ 02 — Loop Semanal (40
+    min)</h3>
+    <p><strong>Quem apresenta:</strong> Bruno Freixo <strong>Blocos
+    internos:</strong></p>
+    <table>
+    <colgroup>
+    <col style="width: 21%" />
+    <col style="width: 21%" />
+    <col style="width: 57%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Tempo</th>
+    <th>O que</th>
+    <th>Documento de apoio</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>8 min</td>
+    <td>O loop atual: onde quebra e por quê</td>
+    <td><code>loop_semanal_atual.md</code> (leitura prévia)</td>
+    </tr>
+    <tr>
+    <td>12 min</td>
+    <td>Micro-interações por perfil etário</td>
+    <td><code>spec_microinteracoes_conclusao.md</code> (leitura
+    prévia)</td>
+    </tr>
+    <tr>
+    <td>10 min</td>
+    <td>ChildHome por perfil: hierarquia, progresso, Estrelas de
+    Coragem</td>
+    <td><code>spec_childhome_perfis.md</code> (leitura prévia)</td>
+    </tr>
+    <tr>
+    <td>5 min</td>
+    <td>Resumo semanal do pai: o fechamento do ciclo</td>
+    <td><code>spec_resumo_semanal_pai.md</code></td>
+    </tr>
+    <tr>
+    <td>5 min</td>
+    <td>Perguntas do comitê sobre OBJ 02</td>
+    <td>—</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Questões que Ivan Zhao provavelmente vai
+    levantar:</strong> - “Por que o pai controla 100% das missões?” -
+    “Quando o filho cria suas próprias missões?”</p>
+    <p><strong>Resposta preparada:</strong>
+    <code>narrativa_sistema_flexivel_comite.md</code> — resposta
+    completa, incluindo tensão pedagógica Montessori vs. controle
+    parental e critério de entrada do Modo Confiança no roadmap.</p>
+    <p><strong>Questões que Alex Zhu provavelmente vai
+    levantar:</strong> - “A faixa 10–12 anos não vai se sentir
+    infantilizada pelo mascote?” - “O fluxo emocional funciona com
+    pré-adolescentes?”</p>
+    <p><strong>Resposta preparada:</strong>
+    <code>spec_childhome_perfis.md</code> (perfil Aventureiro, mascote
+    ausente nas micro-interações) +
+    <code>conceito_resposta_emocional_v2.md</code> (seção Aventureiro
+    10–12).</p>
+    <hr />
+    <h3 id="obj-03-crescimento-saudável-30-min">OBJ 03 — Crescimento
+    Saudável (30 min)</h3>
+    <p><strong>Quem apresenta:</strong> Bruno Freixo <strong>Blocos
+    internos:</strong></p>
+    <table>
+    <colgroup>
+    <col style="width: 21%" />
+    <col style="width: 21%" />
+    <col style="width: 57%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Tempo</th>
+    <th>O que</th>
+    <th>Documento de apoio</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>8 min</td>
+    <td>Identidade Blip: paleta, tipografia, mascote, tom</td>
+    <td><code>identidade_blip_comite.md</code></td>
+    </tr>
+    <tr>
+    <td>12 min</td>
+    <td>Anti-padrões: o que descartamos e por quê, tensão com Nir
+    Eyal</td>
+    <td><code>antipadroes_comite.md</code></td>
+    </tr>
+    <tr>
+    <td>10 min</td>
+    <td>Métricas de UX: o que medimos, o que falta, metas de
+    referência</td>
+    <td><code>metricas_ux_comite.md</code></td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Questões que Nir Eyal provavelmente vai
+    levantar:</strong> - “Por que não usar variable reward? O Hooked
+    funciona.” - “Sem streak punitivo, como você garante retenção?”</p>
+    <p><strong>Resposta preparada:</strong>
+    <code>antipadroes_comite.md</code>, seção 3 (“Confronto direto: Nir
+    Eyal vs. Comitê Pedagógico”).</p>
+    <hr />
+    <h3 id="gaps-abertos-15-min">Gaps abertos (15 min)</h3>
+    <p><strong>Quem apresenta:</strong> Bruno Freixo <strong>O que
+    cobrir:</strong> leitura guiada dos 6 gaps declarados em
+    <code>gaps_abertos.md</code>, com posicionamento de cada um: - O que
+    é deliberado vs. o que é limitação de recurso - Critério de
+    resolução de cada gap - Qual gap tem maior risco se não for
+    resolvido antes do lançamento</p>
+    <hr />
+    <h3 id="perguntas-abertas-e-próximos-passos-15-min">Perguntas
+    abertas e próximos passos (15 min)</h3>
+    <p><strong>Sem documento de apoio — discussão aberta.</strong></p>
+    <p><strong>O que Bruno deve ter pronto:</strong> - Lista de decisões
+    que o comitê pode desbloquear ou validar durante a sessão - Critério
+    de “aprovado para seguir”: o que o produto precisa do comitê para
+    avançar para implementação</p>
+    <hr />
+    <h2 id="artefatos-interativos-vs.-documentais">Artefatos interativos
+    vs. documentais</h2>
+    <table>
+    <colgroup>
+    <col style="width: 35%" />
+    <col style="width: 21%" />
+    <col style="width: 42%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Artefato</th>
+    <th>Tipo</th>
+    <th>Disponível</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Protótipo navegável do onboarding revisado</td>
+    <td>Interativo — demo durante sessão</td>
+    <td>Sim (link em <code>spec_onboarding_revisado.md</code>)</td>
+    </tr>
+    <tr>
+    <td><code>fluxo_onboarding_atual.md</code></td>
+    <td>Documento — leitura prévia</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>spec_onboarding_revisado.md</code></td>
+    <td>Documento — leitura prévia</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>narrativa_onboarding_comite.md</code></td>
+    <td>Documento — apresentado na sessão</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>loop_semanal_atual.md</code></td>
+    <td>Documento — leitura prévia</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>spec_microinteracoes_conclusao.md</code></td>
+    <td>Documento — leitura prévia</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>spec_childhome_perfis.md</code></td>
+    <td>Documento — leitura prévia</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>narrativa_sistema_flexivel_comite.md</code></td>
+    <td>Documento — apresentado na sessão</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>spec_resumo_semanal_pai.md</code></td>
+    <td>Documento — referência durante sessão</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>identidade_blip_comite.md</code></td>
+    <td>Documento — apresentado na sessão</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>antipadroes_comite.md</code></td>
+    <td>Documento — leitura prévia + discussão</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>metricas_ux_comite.md</code></td>
+    <td>Documento — referência durante sessão</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>gaps_abertos.md</code></td>
+    <td>Documento — apresentado ao final</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>conceito_resposta_emocional_v2.md</code></td>
+    <td>Documento — referência</td>
+    <td>Sim</td>
+    </tr>
+    <tr>
+    <td><code>calculo_tempo_setup.md</code></td>
+    <td>Documento — referência</td>
+    <td>Sim</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="distribuição-de-leitura-prévia-por-membro">Distribuição de
+    leitura prévia por membro</h2>
+    <p>Para reduzir o tempo de sessão e maximizar a qualidade das
+    discussões, os membros do comitê recebem leitura prévia
+    personalizada:</p>
+    <table>
+    <colgroup>
+    <col style="width: 13%" />
+    <col style="width: 44%" />
+    <col style="width: 41%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Membro</th>
+    <th>Leitura prévia obrigatória</th>
+    <th>Leitura prévia opcional</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><strong>Mig Reyes</strong> (OBJ 01, primeiros minutos)</td>
+    <td><code>fluxo_onboarding_atual.md</code>,
+    <code>spec_onboarding_revisado.md</code>,
+    <code>narrativa_onboarding_comite.md</code></td>
+    <td><code>spec_childhome_perfis.md</code></td>
+    </tr>
+    <tr>
+    <td><strong>Fabricio Teixeira</strong> (fricção e consistência de
+    UX)</td>
+    <td><code>fluxo_onboarding_atual.md</code>,
+    <code>spec_microinteracoes_conclusao.md</code></td>
+    <td><code>spec_resumo_semanal_pai.md</code></td>
+    </tr>
+    <tr>
+    <td><strong>Ryan Sims</strong> (craft visual)</td>
+    <td><code>identidade_blip_comite.md</code>,
+    <code>spec_childhome_perfis.md</code></td>
+    <td><code>spec_microinteracoes_conclusao.md</code></td>
+    </tr>
+    <tr>
+    <td><strong>Ivan Zhao</strong> (sistema de missões, OBJ 02)</td>
+    <td><code>narrativa_sistema_flexivel_comite.md</code>,
+    <code>loop_semanal_atual.md</code></td>
+    <td><code>spec_resumo_semanal_pai.md</code></td>
+    </tr>
+    <tr>
+    <td><strong>Alex Zhu</strong> (faixa 10–12 anos)</td>
+    <td><code>spec_childhome_perfis.md</code> (seção Aventureiro),
+    <code>conceito_resposta_emocional_v2.md</code></td>
+    <td><code>spec_microinteracoes_conclusao.md</code></td>
+    </tr>
+    <tr>
+    <td><strong>Jason Oberfest</strong> (retenção como rotina)</td>
+    <td><code>loop_semanal_atual.md</code>,
+    <code>spec_resumo_semanal_pai.md</code></td>
+    <td><code>metricas_ux_comite.md</code></td>
+    </tr>
+    <tr>
+    <td><strong>Nir Eyal</strong> (anti-padrões)</td>
+    <td><code>antipadroes_comite.md</code></td>
+    <td><code>conceito_resposta_emocional_v2.md</code></td>
+    </tr>
+    <tr>
+    <td><strong>Andy Puddicombe</strong> (calma, não-ansiogênico)</td>
+    <td><code>antipadroes_comite.md</code>,
+    <code>identidade_blip_comite.md</code></td>
+    <td><code>spec_microinteracoes_conclusao.md</code></td>
+    </tr>
+    <tr>
+    <td><strong>Reid Hoffman</strong> (validação antes de escalar)</td>
+    <td><code>metricas_ux_comite.md</code>,
+    <code>gaps_abertos.md</code></td>
+    <td><code>narrativa_sistema_flexivel_comite.md</code></td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <p><em>Documento produzido por <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    — Sprint 3 do Comitê de Product Design.</em></p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaps Abertos — Material para o Comitê de Product
+Design — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Gaps Abertos — Material para o
+Comitê de Product Design</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1 id="gaps-abertos-material-para-o-comitê-de-product-design">Gaps
+    Abertos — Material para o Comitê de Product Design</h1>
+    <p><strong>Para:</strong> Comitê de Product Design — apresentado ao
+    final da sessão <strong>Destinatário principal:</strong> Todos os
+    membros <strong>Data:</strong> 2026-04-02 <strong>Elaborado
+    por:</strong> <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    <strong>Sprint:</strong> Sprint 3 — Consolidação final</p>
+    <hr />
+    <h2 id="por-que-declarar-os-gaps-antes-de-ser-questionado">Por que
+    declarar os gaps antes de ser questionado</h2>
+    <p>O comitê vai encontrar esses gaps de qualquer forma. A diferença
+    entre ser questionado e antecipar é a diferença entre “o produto não
+    pensou nisso” e “o produto pensou nisso e decidiu deliberadamente
+    que não era o momento”.</p>
+    <p>Cada gap a seguir tem: o que é, por que foi adiado (escolha
+    deliberada, não omissão), critério de resolução e risco se não for
+    resolvido.</p>
+    <hr />
+    <h2
+    id="gap-1-especialista-em-produto-infantil-psicologia-do-desenvolvimento-714-anos">Gap
+    1 — Especialista em produto infantil (psicologia do desenvolvimento
+    7–14 anos)</h2>
+    <p><strong>O que é:</strong> O time atual não inclui nenhum
+    especialista em psicologia do desenvolvimento infantil com
+    experiência em produto digital. As decisões pedagógicas foram
+    tomadas com base nos consultores do Comitê Pedagógico Blip (Daniela
+    Freixo, Dweck, Duckworth, Vygotsky, Gardner, Brown — via frameworks
+    e recomendações), mas não há um especialista no time que valide
+    decisões de produto em tempo real.</p>
+    <p><strong>Por que foi adiado:</strong> A fase atual é de definição
+    de produto, não de validação clínica. O Comitê Pedagógico operou
+    como advisory board externo para decisões estruturais. O custo de
+    ter um especialista interno na fase de spec é desproporcionalmente
+    alto em relação ao benefício — que é maior na fase de validação com
+    usuários reais.</p>
+    <p><strong>Critério de resolução:</strong> Contratar ou estabelecer
+    parceria contínua com especialista em psicologia do desenvolvimento
+    7–14 anos antes do lançamento beta fechado. O especialista deve
+    revisar o fluxo de Estrelas de Coragem e os Gatilhos A/B antes de
+    serem expostos a crianças reais.</p>
+    <p><strong>Risco se não for resolvido:</strong> Os textos de
+    reflexão emocional (“Como você se sentiu?”, “Da próxima vez peço
+    ajuda”) foram validados por frameworks — mas não por um especialista
+    com experiência clínica em crianças brasileiras em contexto digital.
+    Se algum texto criar resposta emocional não esperada em uma faixa
+    etária específica, o produto pode causar dano não intencional. Esse
+    risco é baixo com os guardrails implementados, mas não é zero.</p>
+    <hr />
+    <h2 id="gap-2-modo-confiança-filho-cria-suas-próprias-missões">Gap 2
+    — Modo Confiança (filho cria suas próprias missões)</h2>
+    <p><strong>O que é:</strong> O Modo Confiança é a feature em que o
+    filho (10+ anos) pode criar suas próprias missões, visíveis ao pai
+    como rascunhos para aprovação. É a manifestação mais direta do
+    princípio de autonomia progressiva (Montessori, Duckworth).</p>
+    <p><strong>Por que foi adiado:</strong> Decisão de sequência:
+    estrutura parental primeiro, autonomia depois. A autonomia sem
+    hábito instalado cria abandono precoce — a criança que cria as
+    próprias missões na semana 1 tende a criar missões fáceis,
+    completá-las rapidamente e perder o interesse quando o desafio não
+    aumenta. O critério explícito foi definido em
+    <code>decisoes_produto.md</code> (2026-04-02).</p>
+    <p><strong>Critério de resolução:</strong> Os três critérios
+    precisam ser satisfeitos simultaneamente: (a) tela de histórico
+    semanal estável e em produção; (b) métricas reais de taxa de
+    conclusão por perfil etário com pelo menos 4 semanas de dados; (c)
+    dados que indiquem que famílias chegam à semana 4 com regularidade
+    (mínimo 30% de retenção).</p>
+    <p><strong>Risco se não for resolvido (a tempo):</strong> Ivan Zhao
+    vai perguntar sobre isso. A resposta está preparada em
+    <code>narrativa_sistema_flexivel_comite.md</code>. O risco de não
+    ter a feature não é de produto — é de posicionamento competitivo.
+    Apps concorrentes que oferecem autonomia ao filho desde o início
+    podem parecer mais “modernos”. A resposta do Blip é que autonomia
+    sem hábito é falsa autonomia — e que o produto vai chegar lá com
+    dados reais que justificam a transição.</p>
+    <hr />
+    <h2 id="gap-3-métricas-de-retenção-semanas-412-não-validadas">Gap 3
+    — Métricas de retenção semanas 4–12 não validadas</h2>
+    <p><strong>O que é:</strong> As metas de referência apresentadas no
+    documento <code>metricas_ux_comite.md</code> (80% onboarding, 60%
+    retorno em 48h, 70% aprovação em 24h, etc.) são estimativas baseadas
+    em benchmarks de mercado. Nenhuma delas foi validada com usuários
+    reais do Blip.</p>
+    <p><strong>Por que foi adiado:</strong> O produto não tem usuários
+    reais em produção com histórico de 4+ semanas. É impossível medir
+    retenção semana 12 antes de existirem famílias que usaram o produto
+    por 12 semanas.</p>
+    <p><strong>Critério de resolução:</strong> Conduzir beta fechado com
+    20–50 famílias por 8 semanas mínimas. Medir M1–M7 do
+    <code>metricas_ux_comite.md</code>. Comparar com metas de
+    referência. Ajustar o produto onde as metas não forem atingidas.
+    Repetir antes de qualquer escala de aquisição.</p>
+    <p><strong>Risco se não for resolvido:</strong> Reid Hoffman vai
+    pedir esses números. A resposta atual (“são estimativas analíticas”)
+    é honesta mas limitante para qualquer argumento de escala. O risco
+    não é de produto — é de credibilidade em conversas de crescimento.
+    Resolver requer tempo (8 semanas de beta), não só trabalho
+    técnico.</p>
+    <hr />
+    <h2 id="gap-4-dpo-especializado-em-menores-lgpd-coppa">Gap 4 — DPO
+    especializado em menores (LGPD / COPPA)</h2>
+    <p><strong>O que é:</strong> O produto coleta dados de crianças
+    (nome, data de nascimento, progresso de tarefas, respostas
+    emocionais). A LGPD brasileira tem regras específicas para dados de
+    menores (Art. 14), e a COPPA americana é relevante se o produto for
+    lançado internacionalmente. Um DPO (Data Protection Officer)
+    especializado em dados de menores não está no time.</p>
+    <p><strong>Por que foi adiado:</strong> A consultoria jurídica está
+    em andamento com advogados (decisão N2 de Bruno, registrada em
+    <code>decisoes_produto.md</code>, 2026-04-01). O processo jurídico
+    cobre: due diligence da marca Blip vs. Blippi (Moonbug/Disney),
+    proteção de dados de menores (LGPD/COPPA), e o mascote
+    (Stitch/Disney). As duas frentes caminham em paralelo.</p>
+    <p><strong>Critério de resolução:</strong> Parecer jurídico completo
+    antes do lançamento público. O parecer precisa cobrir: (a)
+    consentimento do responsável para dados do menor; (b) retenção e
+    exclusão de dados da criança; (c) transferências internacionais se o
+    produto expandir; (d) categorias de dados sensíveis (respostas
+    emocionais da criança).</p>
+    <p><strong>Risco se não for resolvido:</strong> Risco regulatório
+    ativo. Uma notificação da ANPD (Autoridade Nacional de Proteção de
+    Dados) após o lançamento público seria custosa em reputação e tempo
+    de produto. O risco é conhecido, está sendo tratado
+    profissionalmente, e não bloqueia o desenvolvimento — mas não pode
+    ser deixado para depois do lançamento.</p>
+    <hr />
+    <h2 id="gap-5-decisão-técnica-realtime-vs.-polling-supabase">Gap 5 —
+    Decisão técnica: realtime vs. polling (Supabase)</h2>
+    <p><strong>O que é:</strong> O produto hoje usa polling para que o
+    filho veja a aprovação do pai — a tela de ChildHome verifica
+    periodicamente se houve aprovação. A feature de “celebração quando o
+    pai aprova enquanto o filho está online”
+    (<code>getApprovalCelebrationMessage</code> em
+    <code>celebrationUtils.ts</code>) depende dessa decisão: com
+    polling, a criança vê a aprovação com atraso de segundos a minutos;
+    com Realtime (Supabase Realtime), a aprovação aparece
+    instantaneamente.</p>
+    <p><strong>Por que foi adiado:</strong> Supabase Realtime tem custo
+    de infraestrutura distinto do polling. A decisão envolve o Arquiteto
+    e impacta todas as features em tempo real do produto (aprovação,
+    Gatilho B, resumo semanal). Tomar a decisão antes de ter um caso de
+    uso concreto de tempo real é otimização prematura. O débito está
+    registrado em <code>areas_frageis.md</code>.</p>
+    <p><strong>Critério de resolução:</strong> A decisão entra no
+    roadmap quando: (a) a feature de celebração pós-aprovação tiver
+    feedback de usuários indicando que o atraso de polling quebra a
+    experiência; ou (b) a feature de Estrelas de Coragem (pai confirma
+    leitura da resposta emocional → filho recebe a estrela) exigir
+    Realtime para funcionar de forma aceitável.</p>
+    <p><strong>Risco se não for resolvido:</strong> A experiência de
+    “pai aprova enquanto filho está esperando” fica degradada com
+    polling. Para o MVP beta, é aceitável. Para escala, a latência de
+    polling pode ser percebida como “o app travou”. O risco é de UX, não
+    de dado incorreto.</p>
+    <hr />
+    <h2 id="gap-6-teste-de-usabilidade-com-pais-reais">Gap 6 — Teste de
+    usabilidade com pais reais</h2>
+    <p><strong>O que é:</strong> Os documentos de spec, os números de
+    tempo de setup e as estimativas de taxa de conclusão de onboarding
+    foram produzidos por análise analítica do produto (inspeção de
+    código, benchmarks de formulário, princípios de UX). Nenhum pai real
+    foi observado usando o produto.</p>
+    <p><strong>Por que foi adiado:</strong> O produto ainda não tem o
+    onboarding revisado implementado. Testar o fluxo atual (43 toques,
+    formulário único) confirmaria o que a auditoria UX já identificou. O
+    momento correto para teste de usabilidade é após o onboarding
+    revisado estar implementado — testar o que vai mudar, não o que já
+    foi diagnosticado.</p>
+    <p><strong>Critério de resolução:</strong> Conduzir 5 sessões de
+    teste de usabilidade (protocolo think-aloud, ~45 min por sessão) com
+    pais do público-alvo (família brasileira, crianças em idade escolar)
+    após o onboarding revisado estar implementado. Validar
+    especialmente: (a) tempo até primeira missão, (b) clareza da
+    verificação por SMS, (c) momento de ancoragem da primeira
+    missão.</p>
+    <p><strong>Risco se não for resolvido:</strong> Todos os números de
+    onboarding apresentados ao comitê são estimativas analíticas —
+    incluindo “menos de 15 minutos para o primeiro filho”. Se esses
+    números estiverem errados por fator de 2 (o que é possível para
+    usuários não-técnicos com pouca familiaridade com apps de
+    formulário), as metas de M2 (tempo até 1ª missão) e M1 (taxa de
+    conclusão de onboarding) podem ser sistematicamente otimistas. O
+    risco é de credibilidade nos materiais de pitch e de surpresa
+    desagradável no beta.</p>
+    <hr />
+    <h2 id="resumo-dos-gaps-por-urgência">Resumo dos gaps por
+    urgência</h2>
+    <table>
+    <colgroup>
+    <col style="width: 10%" />
+    <col style="width: 20%" />
+    <col style="width: 42%" />
+    <col style="width: 26%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Gap</th>
+    <th>Urgência</th>
+    <th>Bloqueia lançamento?</th>
+    <th>Quem resolve</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>G1 — Especialista produto infantil</td>
+    <td>Alta</td>
+    <td>Sim (antes do beta com crianças reais)</td>
+    <td>Bruno — contratação ou parceria</td>
+    </tr>
+    <tr>
+    <td>G2 — Modo Confiança</td>
+    <td>Baixa</td>
+    <td>Não</td>
+    <td>PO — critério de entrada definido, aguarda dados</td>
+    </tr>
+    <tr>
+    <td>G3 — Métricas retenção 4–12</td>
+    <td>Alta (processo em andamento)</td>
+    <td>Não para lançamento, sim para escala</td>
+    <td>Equipe — beta fechado de 8 semanas</td>
+    </tr>
+    <tr>
+    <td>G4 — DPO / LGPD menores</td>
+    <td>Alta</td>
+    <td>Sim (antes do lançamento público)</td>
+    <td>Bruno — processo jurídico em andamento</td>
+    </tr>
+    <tr>
+    <td>G5 — Realtime vs. polling</td>
+    <td>Média</td>
+    <td>Não</td>
+    <td>Arquiteto — critério de entrada definido</td>
+    </tr>
+    <tr>
+    <td>G6 — Teste usabilidade pais reais</td>
+    <td>Alta</td>
+    <td>Não para beta, sim para versão pública</td>
+    <td>Bruno + equipe de UX — após onboarding revisado
+    implementado</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <p><em>Documento produzido por <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    — Sprint 3 do Comitê de Product Design. Apresentado ao final da
+    sessão como declaração de transparência.</em></p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

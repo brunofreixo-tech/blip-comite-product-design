@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spec — ChildHome Diferenciada por Perfil
+Etário — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Spec — ChildHome Diferenciada por
+Perfil Etário</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1 id="spec-childhome-diferenciada-por-perfil-etário">Spec —
+    ChildHome Diferenciada por Perfil Etário</h1>
+    <p><strong>Data:</strong> 2026-04-02 <strong>Sprint:</strong> Sprint
+    2 — Comitê de Product Design <strong>Responsável:</strong> <span
+    class="citation"
+    data-cites="agent-ux-missao-da-semana">@agent-ux-missao-da-semana</span>
+    <strong>Status:</strong> Pronto para avaliação do comitê — não
+    implementar <strong>Coautoria técnica:</strong> requer validação do
+    Arquiteto (seção de componentes e dados)</p>
+    <hr />
+    <h2 id="contexto-e-base-para-este-documento">Contexto e base para
+    este documento</h2>
+    <p>Este documento especifica a diferenciação de interface da
+    ChildHome para os 4 perfis etários do Blip. A ChildHome atual
+    (<code>src/pages/ChildHome.tsx</code>) usa a mesma estrutura visual
+    para todos os perfis, com apenas variação de cor/gradiente do tema —
+    o problema P0-01 da auditoria UX de 30/03.</p>
+    <p><strong>Problema central (P0-01):</strong> “A tela da criança é
+    visualmente idêntica à do pai. A criança não entende o que deve
+    fazer ao abrir o app. A ação principal está enterrada abaixo de dois
+    cards de métricas que existem para o pai, não para ela.”</p>
+    <p><strong>O que este documento resolve:</strong> - P0-01 —
+    Hierarquia visual diferente por perfil - P1-01 — Estado vazio
+    motivador - P1-02 — Progresso semanal com representação de
+    consistência - P1-06 — Recompensa visível para a criança</p>
+    <p><strong>Decisão de produto vigente:</strong> MVP começa com
+    Pequenino e Aventureiro. Explorador e Pro são especificados aqui
+    para o comitê mas não entram na primeira sprint de
+    implementação.</p>
+    <p><strong>Base de código existente:</strong> -
+    <code>src/lib/childAgeProfile.ts</code> —
+    <code>getAgeProfile()</code>, <code>getThemeTokens()</code>, tokens
+    por tema - <code>src/lib/celebrationUtils.ts</code> — mensagens de
+    celebração por faixa - <code>src/components/Celebration.tsx</code> —
+    componente de celebração (existe, pode ser especializado) -
+    <code>src/components/MonthlyProgressBar.tsx</code> — barra de
+    progresso mensal (existe, pode ser reutilizada para pais) -
+    <code>src/components/WeekDaysAccordion.tsx</code> — accordion de
+    tarefas por dia (existe) - <code>src/components/TaskCard.tsx</code>
+    — card de tarefa individual (existe)</p>
+    <hr />
+    <h2 id="princípios-transversais">Princípios transversais</h2>
+    <h3 id="hierarquia-de-ação-por-faixa-etária">Hierarquia de ação por
+    faixa etária</h3>
+    <p>A ChildHome deve responder à pergunta “o que eu faço agora?”
+    imediatamente ao abrir. A ordem dos elementos na tela deve refletir
+    a urgência de ação, não a importância analítica:</p>
+    <table>
+    <thead>
+    <tr>
+    <th>Perfil</th>
+    <th>Pergunta central</th>
+    <th>Elemento mais importante</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Pequenino</td>
+    <td>“O que tem pra mim hoje?”</td>
+    <td>Tarefa do dia — botão grande</td>
+    </tr>
+    <tr>
+    <td>Explorador</td>
+    <td>“Qual missão eu tenho?”</td>
+    <td>Lista de missões ativas</td>
+    </tr>
+    <tr>
+    <td>Aventureiro</td>
+    <td>“Quanto XP estou ganhando?”</td>
+    <td>Barra de XP + missões</td>
+    </tr>
+    <tr>
+    <td>Pro</td>
+    <td>“O que falta completar hoje?”</td>
+    <td>Lista densa com status</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3
+    id="estrelas-de-coragem-isolamento-visual-decisão-b1-b3">Estrelas de
+    Coragem — isolamento visual (Decisão B1 + B3)</h3>
+    <p>As Estrelas de Coragem são <strong>sempre isoladas
+    visualmente</strong> da meta semanal. Em nenhum perfil elas aparecem
+    na mesma seção, barra ou card que os pontos de tarefas. Isso não é
+    escolha estética — é requisito pedagógico aprovado pelo Comitê
+    Pedagógico (Montessori + Dweck + Duckworth).</p>
+    <h3 id="mascote-blip-por-perfil">Mascote Blip por perfil</h3>
+    <table>
+    <thead>
+    <tr>
+    <th>Perfil</th>
+    <th>Uso do mascote</th>
+    <th>Tamanho</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Pequenino</td>
+    <td>Central, frequente, reage</td>
+    <td>110px</td>
+    </tr>
+    <tr>
+    <td>Explorador</td>
+    <td>Presente mas não central</td>
+    <td>76px</td>
+    </tr>
+    <tr>
+    <td>Aventureiro</td>
+    <td>Apenas em metas grandes</td>
+    <td>56px (notificação)</td>
+    </tr>
+    <tr>
+    <td>Pro</td>
+    <td>Não aparece em micro-interações</td>
+    <td>—</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="perfil-1-pequenino-4-6-anos">Perfil 1 — Pequenino (4-6
+    anos)</h2>
+    <h3 id="layout-e-hierarquia-above-the-fold">Layout e hierarquia
+    above the fold</h3>
+    <p>Tela projetada para uma criança que não lê bem e que precisa
+    saber o que fazer com 1-2 toques. Sem textos de análise. Sem
+    porcentagens. Sem números de pontos no topo.</p>
+    <p><strong>Ordem dos elementos (de cima para baixo):</strong></p>
+    <pre><code>┌─────────────────────────────────────┐
+│  [Oi, [nome]! 🌸]    [Avatar 56px]  │  ← saudação + avatar, fundo laranja gradiente
+│  Jardim Mágico                       │  ← tagline temática, text-sm
+├─────────────────────────────────────┤
+│                                      │
+│  [Mascote Blip — pose principal]     │  ← 110px, centralizado
+│  &quot;O que você quer fazer hoje?&quot;       │  ← text-2xl, bold, centralizado
+│                                      │
+├─────────────────────────────────────┤
+│  MISSÕES DE HOJE                     │  ← label text-sm uppercase, cor tema
+│                                      │
+│  [Tarefa 1 — card grande, emoji 64px]│  ← card expandido, botões de humor grandes
+│  [Tarefa 2 — card grande, emoji 64px]│
+│                                      │
+├─────────────────────────────────────┤
+│  [Barra de progresso — mascote anda] │  ← progresso semanal, SEM número
+│  &quot;Você está indo bem!&quot;               │
+├─────────────────────────────────────┤
+│  [Estrelas de Coragem — isoladas]    │  ← seção separada, somente se houver estrelas
+└─────────────────────────────────────┘</code></pre>
+    <p><strong>Above the fold (sem scroll):</strong> - Saudação + avatar
+    - Mascote com frase de boas-vindas - Primeira tarefa do dia (a mais
+    urgente ou a primeira pendente)</p>
+    <p><strong>Densidade:</strong> 1-2 tarefas visíveis sem scroll. Mais
+    que isso sobrecarrega visualmente para esta faixa.</p>
+    <h3 id="progresso-semanal-barra-com-mascote-andando">Progresso
+    semanal — barra com mascote andando</h3>
+    <p><strong>Não usar número absoluto nem porcentagem.</strong> A
+    criança de 4-6 anos não tem senso numérico suficiente para
+    interpretar “68% da meta”. Use representação visual de jornada.</p>
+    <p><strong>Componente:
+    <code>WeeklyProgressPequenino</code></strong></p>
+    <pre><code>Estrada colorida com 5 marcos (representando os dias da semana):
+  [Marco Seg] [Marco Ter] [Marco Qua] [Marco Qui] [Marco Sex]
+  ●──────────●──────────●──────────○──────────○
+                          ↑
+                    [Mascote Blip 40px andando]
+
+Marcos concluídos: círculo sólido `#10B981`, com estrela pequenininha
+Marcos pendentes: círculo vazio `#FED7AA`
+Mascote: posicionado sobre o último marco concluído, animado (bob suave 2s loop)</code></pre>
+    <p>Sem labels de dia. Sem porcentagem. A jornada visual é
+    autoexplicativa.</p>
+    <p><strong>Mensagem contextual:</strong> - 0-1 marcos: “Vamos
+    começar a aventura!” - 2-3 marcos: “Você está indo bem!” - 4-5
+    marcos: “Quase chegou lá!” - 5 marcos (completo): “Semana
+    incrível!”</p>
+    <h3 id="estado-vazio-sem-missões-cadastradas">Estado vazio (sem
+    missões cadastradas)</h3>
+    <p><strong>Componente:
+    <code>EmptyDayStatePequenino</code></strong></p>
+    <pre><code>[Mascote Blip — pose curiosidade, 110px]
+&quot;O Blip está esperando...&quot;
+&quot;Sua missão de hoje ainda vai chegar!&quot;
+
+[Nenhum botão — apenas informação]</code></pre>
+    <p>Fundo: <code>#FED7AA</code> (warm peach), suave. Sem texto
+    técnico como “Nenhuma tarefa cadastrada”. Nunca.</p>
+    <h3 id="estrelas-de-coragem-no-layout">Estrelas de Coragem no
+    layout</h3>
+    <p>Nota: Pequenino está fora do fluxo emocional (Gatilhos A/B). Mas
+    pode ter estrelas se o sistema for expandido. Para o MVP, esta seção
+    não aparece para o Pequenino.</p>
+    <p>Se no futuro for implementado: seção ao final da tela com título
+    “Suas Estrelas” e estrelas grandes <code>#FBBF24</code> contadas
+    visualmente (não número — 3 estrelas = 3 ícones).</p>
+    <h3 id="componentes-existentes-reutilizados">Componentes existentes
+    reutilizados</h3>
+    <table>
+    <colgroup>
+    <col style="width: 22%" />
+    <col style="width: 35%" />
+    <col style="width: 41%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Componente</th>
+    <th>Uso para Pequenino</th>
+    <th>Modificação necessária</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>WeekDaysAccordion.tsx</code></td>
+    <td>Não reutilizar — accordion pressupõe leitura</td>
+    <td>Criar alternativa plana</td>
+    </tr>
+    <tr>
+    <td><code>TaskCard.tsx</code></td>
+    <td>Reutilizar com variante <code>perfil="pequenino"</code></td>
+    <td>Botões de humor maiores (min 72px), emoji 64px</td>
+    </tr>
+    <tr>
+    <td><code>TaskButton.tsx</code></td>
+    <td>Reutilizar</td>
+    <td>Área de toque aumentada</td>
+    </tr>
+    <tr>
+    <td><code>Celebration.tsx</code></td>
+    <td>Reutilizar</td>
+    <td>Já diferencia por faixa via
+    <code>getCelebrationMessage</code></td>
+    </tr>
+    <tr>
+    <td><code>MonthlyProgressBar.tsx</code></td>
+    <td>Não reutilizar para criança</td>
+    <td>Componente novo <code>WeeklyProgressPequenino</code></td>
+    </tr>
+    <tr>
+    <td><code>Header.tsx</code></td>
+    <td>Reutilizar com variante simplificada</td>
+    <td>Remover ícones de navegação adultos</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="perfil-2-explorador-7-9-anos">Perfil 2 — Explorador (7-9
+    anos)</h2>
+    <h3 id="layout-e-hierarquia-above-the-fold-1">Layout e hierarquia
+    above the fold</h3>
+    <p>A criança já lê. Quer saber da missão e do progresso. O mascote
+    ainda aparece mas não domina a tela.</p>
+    <p><strong>Ordem dos elementos:</strong></p>
+    <pre><code>┌─────────────────────────────────────┐
+│  [Oi, [nome]! 🌲]   [Mascote 56px]  │  ← saudação + mascote menor
+│  Explorador da Floresta              │  ← tagline, text-sm
+├─────────────────────────────────────┤
+│  MISSÕES DE HOJE                     │
+│                                      │
+│  [Tarefa 1 — card padrão]            │
+│  [Tarefa 2 — card padrão]            │
+│  [Tarefa 3 — card padrão]            │
+│                                      │
+├─────────────────────────────────────┤
+│  [Mapa de progresso semanal]         │  ← representação por zonas, sem número
+├─────────────────────────────────────┤
+│  [Recompensa da semana — visual]     │  ← P1-06: representação visual da meta
+├─────────────────────────────────────┤
+│  ── ── ── ── ── ── ── ── ──          │  ← divisor sutil
+│  [Estrelas de Coragem — isoladas]    │
+└─────────────────────────────────────┘</code></pre>
+    <p><strong>Above the fold (sem scroll):</strong> - Saudação +
+    mascote - 2-3 tarefas do dia</p>
+    <p><strong>Densidade:</strong> 3 tarefas visíveis sem scroll.</p>
+    <h3 id="progresso-semanal-mapa-de-zonas">Progresso semanal — mapa de
+    zonas</h3>
+    <p><strong>Componente:
+    <code>WeeklyProgressExplorador</code></strong></p>
+    <p>Mapa visual com 3 zonas que representam progressão semanal:</p>
+    <pre><code>[Zona Início] → [Zona Meio] → [Zona Chegada]
+   🌱              🌳              🏆
+  (0-30%)        (31-70%)        (71-100%)
+
+Personagem do Blip aparece na zona atual com animação de &quot;exploração&quot; (bob lento)</code></pre>
+    <p>Não usa porcentagem explícita. A posição do personagem no mapa é
+    o indicador. Ao completar missões, o personagem “caminha” para a
+    próxima zona.</p>
+    <p><strong>Mensagem por zona:</strong> - Zona Início: “A aventura
+    começou!” - Zona Meio: “No coração da floresta!” - Zona Chegada:
+    “Quase no topo!”</p>
+    <h3 id="recompensa-da-semana-componente-visual">Recompensa da semana
+    — componente visual</h3>
+    <p><strong>Componente: <code>RewardPreviewExplorador</code></strong>
+    — resolve P1-06.</p>
+    <pre><code>┌──────────────────────────────────┐
+│  🎁  Recompensa da semana        │
+│                                  │
+│  [Imagem/emoji grande da meta]   │
+│  &quot;Semanada: R$ 15,00&quot;            │
+│                                  │
+│  [Barra de progresso colorida]   │
+│  &quot;Faltam 2 dias! Continue assim.&quot;│
+└──────────────────────────────────┘</code></pre>
+    <ul>
+    <li>Para recompensa em dinheiro: ícone de cofrinho
+    <code>#FBBF24</code> que “enche” proporcionalmente</li>
+    <li>Para prêmio/experiência: imagem do prêmio ou emoji
+    representativo (60px)</li>
+    <li>Mensagem contextual muda por dias restantes e progresso
+    atual</li>
+    </ul>
+    <h3 id="estado-vazio">Estado vazio</h3>
+    <pre><code>[Mascote Blip — pose curiosidade, 76px]
+&quot;A floresta está quieta hoje.&quot;
+&quot;Nenhuma missão por enquanto — aproveite para descansar!&quot;</code></pre>
+    <h3 id="estrelas-de-coragem-no-layout-1">Estrelas de Coragem no
+    layout</h3>
+    <p>Seção ao final da tela, com divisor visual claro separando da
+    meta semanal.</p>
+    <pre><code>┌──────────────────────────────────┐
+│  ⭐ Suas Estrelas de Coragem     │
+│                                  │
+│  [3 estrelas douradas]  3 / ∞    │
+│  &quot;Você ganhou 3 estrelas         │
+│   esta semana por ser corajoso!&quot; │
+└──────────────────────────────────┘</code></pre>
+    <ul>
+    <li>Estrelas exibidas como ícones individuais <code>#FBBF24</code>,
+    24px cada</li>
+    <li>Bônus de consistência (3 ou mais na semana): badge especial
+    “Semana de Coragem”</li>
+    <li>Explicitamente fora da seção de metas — label diferente, fundo
+    <code>#FED7AA</code> suave para distinguir</li>
+    </ul>
+    <h3 id="componentes-existentes-reutilizados-1">Componentes
+    existentes reutilizados</h3>
+    <table>
+    <colgroup>
+    <col style="width: 21%" />
+    <col style="width: 36%" />
+    <col style="width: 41%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Componente</th>
+    <th>Uso para Explorador</th>
+    <th>Modificação necessária</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>WeekDaysAccordion.tsx</code></td>
+    <td>Sim — criança já lê</td>
+    <td>Manter, com estilo floresta_aventura</td>
+    </tr>
+    <tr>
+    <td><code>TaskCard.tsx</code></td>
+    <td>Sim</td>
+    <td>Variante <code>perfil="explorador"</code>, emoji 48px</td>
+    </tr>
+    <tr>
+    <td><code>Celebration.tsx</code></td>
+    <td>Sim</td>
+    <td>Já diferencia</td>
+    </tr>
+    <tr>
+    <td><code>MonthlyProgressBar.tsx</code></td>
+    <td>Não para criança</td>
+    <td>Componente novo <code>WeeklyProgressExplorador</code></td>
+    </tr>
+    <tr>
+    <td><code>Header.tsx</code></td>
+    <td>Sim com variante</td>
+    <td>Simplificar navegação</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="perfil-3-aventureiro-10-12-anos">Perfil 3 — Aventureiro
+    (10-12 anos)</h2>
+    <h3 id="layout-e-hierarquia-above-the-fold-2">Layout e hierarquia
+    above the fold</h3>
+    <p>A linguagem de RPG/XP domina. O progresso é numérico mas
+    gamificado. O mascote aparece apenas em contextos de celebração, não
+    no layout padrão.</p>
+    <p><strong>Ordem dos elementos:</strong></p>
+    <pre><code>┌─────────────────────────────────────┐
+│  [Avatar emoji]  Nível 4 Aventureiro│  ← identidade + nível, fundo deep night
+│  🚀 Espaço Infinito                  │  ← tagline temática
+├─────────────────────────────────────┤
+│  [XP BAR]  ████████░░  420/500 XP   │  ← barra de XP com números, nível atual e próximo
+│  Nível 4 → Nível 5: faltam 80 XP    │
+├─────────────────────────────────────┤
+│  MISSÕES ATIVAS                      │
+│                                      │
+│  [Tarefa 1 — card RPG]               │
+│  [Tarefa 2 — card RPG]               │
+│  [Tarefa 3 — card RPG]               │
+│  [Tarefa 4 — card RPG]               │
+│                                      │
+├─────────────────────────────────────┤
+│  [Recompensa — card compacto]        │
+├─────────────────────────────────────┤
+│  ── ── ── ── ── ── ── ── ──          │
+│  [Estrelas de Coragem — isoladas]    │
+└─────────────────────────────────────┘</code></pre>
+    <p><strong>Above the fold (sem scroll):</strong> - Header com
+    identidade e nível - Barra de XP - 2-3 missões</p>
+    <p><strong>Densidade:</strong> 4 tarefas visíveis sem scroll (card
+    mais compacto).</p>
+    <h3 id="progresso-semanal-xp-bar-com-nível">Progresso semanal — XP
+    bar com nível</h3>
+    <p><strong>Componente: <code>XPBarAventureiro</code></strong></p>
+    <pre><code>Nível X  [████████████░░░░░░░░]  Nível X+1
+          ← XP atual / XP próximo nível</code></pre>
+    <ul>
+    <li>Fundo da barra: <code>#1E1B4B</code></li>
+    <li>Fill da barra: gradiente <code>#4F46E5 → #6366F1</code></li>
+    <li>Animação: ao carregar, fill “avança” de 0 até o valor atual em
+    600ms (ease-out)</li>
+    <li>XP do nível = soma de pontos da semana atual</li>
+    <li>Nível calculado como <code>floor(pontos_total / 100)</code> ou
+    fórmula equivalente — escopo do Arquiteto definir a curva</li>
+    </ul>
+    <p><strong>Nota para o comitê:</strong> o sistema de níveis não
+    existe no banco hoje. A XP bar pode ser implementada como
+    “representação dos pontos semanais” mapeada para um nível visual sem
+    mudança de dados — é uma camada de apresentação, não um novo modelo
+    de dados.</p>
+    <h3 id="card-de-tarefa-variante-rpg">Card de tarefa — variante
+    RPG</h3>
+    <pre><code>┌──────────────────────────────────┐
+│  🗡️  [Emoji tarefa]  +50 XP     │
+│  Nome da tarefa                  │
+│  Prazo: hoje 18h  [Status badge] │
+└──────────────────────────────────┘</code></pre>
+    <ul>
+    <li>Fundo: <code>#1E1B4B</code></li>
+    <li>Borda: <code>border border-indigo-500</code></li>
+    <li>XP exibido como badge <code>#FBBF24</code> no canto
+    superior-direito</li>
+    <li>Status: chip colorido (pendente = <code>#4F46E5</code>,
+    concluída = <code>#10B981</code>, atrasada =
+    <code>#EF4444</code>)</li>
+    </ul>
+    <h3 id="recompensa-semanal-card-compacto">Recompensa semanal — card
+    compacto</h3>
+    <p>Para o Aventureiro, a recompensa é um card compacto sem imagem
+    grande — mais contextual, menos “kid”:</p>
+    <pre><code>┌──────────────────────────────────┐
+│  🎯 Meta da semana               │
+│  [Barra de progresso fina]       │
+│  Semanada R$ 15 • Faltam 2 dias  │
+└──────────────────────────────────┘</code></pre>
+    <h3 id="estado-vazio-1">Estado vazio</h3>
+    <pre><code>[Sem missões]
+
+&quot;Nenhuma missão ativa no momento.&quot;
+&quot;Aguardando novas missões do responsável.&quot;
+
+[Sem mascote — texto puro com ícone de radar 🛸]</code></pre>
+    <h3 id="estrelas-de-coragem-no-layout-2">Estrelas de Coragem no
+    layout</h3>
+    <pre><code>┌──────────────────────────────────┐
+│  ⭐ Estrelas de Coragem          │  ← fundo sutil diferente do tema principal
+│                                  │
+│  ★ ★ ★ ☆ ☆  3 esta semana       │
+│  &quot;Bônus de consistência próximo&quot; │  ← se estiver com 2 de 3
+└──────────────────────────────────┘</code></pre>
+    <ul>
+    <li>5 estrelas em linha (tipo rating): preenchidas
+    <code>#FBBF24</code>, vazias <code>#374151</code></li>
+    <li>Label de contexto motivacional sem pressão</li>
+    </ul>
+    <h3 id="componentes-existentes-reutilizados-2">Componentes
+    existentes reutilizados</h3>
+    <table>
+    <colgroup>
+    <col style="width: 21%" />
+    <col style="width: 37%" />
+    <col style="width: 41%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Componente</th>
+    <th>Uso para Aventureiro</th>
+    <th>Modificação necessária</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>WeekDaysAccordion.tsx</code></td>
+    <td>Sim, adaptado</td>
+    <td>Visual dark theme, sem fundo claro</td>
+    </tr>
+    <tr>
+    <td><code>TaskCard.tsx</code></td>
+    <td>Sim com variante RPG</td>
+    <td>Badge de XP, tema escuro</td>
+    </tr>
+    <tr>
+    <td><code>Celebration.tsx</code></td>
+    <td>Sim</td>
+    <td>Já diferencia</td>
+    </tr>
+    <tr>
+    <td><code>MonthlyProgressBar.tsx</code></td>
+    <td>Não para criança</td>
+    <td>Componente novo <code>XPBarAventureiro</code></td>
+    </tr>
+    <tr>
+    <td><code>Header.tsx</code></td>
+    <td>Sim com variante</td>
+    <td>Adicionar display de nível</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="perfil-4-pro-13-anos">Perfil 4 — Pro (13+ anos)</h2>
+    <h3 id="layout-e-hierarquia-above-the-fold-3">Layout e hierarquia
+    above the fold</h3>
+    <p>Interface funcional, densa, quase adulta. Sem lúdico. O usuário
+    Pro quer controle e informação — não entretenimento.</p>
+    <p><strong>Ordem dos elementos:</strong></p>
+    <pre><code>┌─────────────────────────────────────┐
+│  [Nome]            [Streak: 7 dias] │  ← header minimalista, sem gradiente chamativo
+│  Neon Gaming                         │
+├─────────────────────────────────────┤
+│  [Gráfico de linha semanal — mini]  │  ← 7 pontos (seg-dom), altura dos pontos = score
+│  Esta semana vs. semana passada      │
+├─────────────────────────────────────┤
+│  HOJE                                │
+│  [Tarefa 1]  ● pendente              │
+│  [Tarefa 2]  ● concluída             │
+│  [Tarefa 3]  ● atrasada              │
+│                                      │
+│  ANTERIORES                          │
+│  [Tarefa 4 — ontem, concluída]       │
+│  [Tarefa 5 — ontem, atrasada]        │
+│                                      │
+├─────────────────────────────────────┤
+│  [Meta semanal — barra discreta]     │
+│  [Recompensa — linha de texto]       │
+├─────────────────────────────────────┤
+│  [Estrelas de Coragem — compactas]   │
+└─────────────────────────────────────┘</code></pre>
+    <p><strong>Above the fold (sem scroll):</strong> - Header com streak
+    - Mini gráfico semanal - Tarefas de hoje (lista densa)</p>
+    <p><strong>Densidade:</strong> 5-6 tarefas visíveis sem scroll.</p>
+    <h3 id="progresso-semanal-gráfico-de-linha-discreto">Progresso
+    semanal — gráfico de linha discreto</h3>
+    <p><strong>Componente: <code>WeeklyLineChartPro</code></strong></p>
+    <p>Gráfico mínimo: 7 colunas (seg-dom), altura proporcional ao score
+    do dia. Sem eixo Y visível. Sem números nos pontos.</p>
+    <pre><code>Seg  Ter  Qua  Qui  Sex  Sab  Dom
+ ▓    ▓    ▓    ▓    ░    ░    ░
+100  80   95   70    —    —    —</code></pre>
+    <ul>
+    <li>Barras preenchidas: dias com tarefa concluída</li>
+    <li>Barras vazias: dias futuros ou sem tarefas</li>
+    <li>Barra vermelha: dia com tarefa atrasada</li>
+    <li>Alturas relativas entre si, não absolutas</li>
+    <li>Implementação: Recharts (já na stack) com configuração mínima,
+    sem legendas</li>
+    </ul>
+    <p><strong>Nota:</strong> este gráfico é a representação de
+    consistência que resolve P1-02 para o Pro — mais sofisticado que um
+    contador de streak, mais informativo que uma barra única.</p>
+    <h3 id="card-de-tarefa-variante-minimalista">Card de tarefa —
+    variante minimalista</h3>
+    <pre><code>[Tarefa 1]   ● pendente          [+40 pts]
+[Tarefa 2]   ✓ concluída         [+50 pts]
+[Tarefa 3]   ! atrasada          [—]</code></pre>
+    <ul>
+    <li>Lista densa tipo to-do</li>
+    <li>Sem fundo de card separado — linhas com separador sutil
+    <code>border-b border-gray-800</code></li>
+    <li>Status como dot colorido: <code>#F97316</code> (pendente),
+    <code>#10B981</code> (concluída), <code>#EF4444</code>
+    (atrasada)</li>
+    <li>Pontos à direita, text-sm <code>text-gray-400</code></li>
+    </ul>
+    <h3 id="recompensa-semanal-linha-de-texto">Recompensa semanal —
+    linha de texto</h3>
+    <p>Sem card especial. Linha de texto no final do summary:</p>
+    <pre><code>Meta: 80% concluída — Semanada R$ 15,00 ao atingir 70%.</code></pre>
+    <p>Text-sm, <code>text-gray-400</code>, sem destaque visual.</p>
+    <h3 id="estado-vazio-2">Estado vazio</h3>
+    <pre><code>Nenhuma tarefa para hoje.</code></pre>
+    <p>Texto simples. Sem imagem, sem mascote, sem mensagem
+    motivacional. O Pro sabe o que está acontecendo.</p>
+    <h3 id="estrelas-de-coragem-no-layout-3">Estrelas de Coragem no
+    layout</h3>
+    <p>Seção compacta, fundo <code>#1A1040</code> com borda sutil:</p>
+    <pre><code>┌──────────────────────────────────┐
+│  Estrelas de Coragem    3 ⭐     │
+│  Esta semana: 3 de 3 possíveis   │
+└──────────────────────────────────┘</code></pre>
+    <ul>
+    <li>Número à direita, text-sm, <code>text-emerald-400</code></li>
+    <li>“3 de 3 possíveis” — informa o teto semanal sem prometer
+    mais</li>
+    <li>Sem animação — exibição estática</li>
+    </ul>
+    <h3 id="componentes-existentes-reutilizados-3">Componentes
+    existentes reutilizados</h3>
+    <table>
+    <colgroup>
+    <col style="width: 25%" />
+    <col style="width: 27%" />
+    <col style="width: 46%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Componente</th>
+    <th>Uso para Pro</th>
+    <th>Modificação necessária</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>WeekDaysAccordion.tsx</code></td>
+    <td>Substituir por lista densa</td>
+    <td>Criar <code>TaskListPro.tsx</code> ou adaptar
+    <code>TaskCard</code></td>
+    </tr>
+    <tr>
+    <td><code>TaskCard.tsx</code></td>
+    <td>Sim com variante minimalista</td>
+    <td>Remover padding, usar lista linear</td>
+    </tr>
+    <tr>
+    <td><code>Celebration.tsx</code></td>
+    <td>Sim</td>
+    <td>Já diferencia — mensagem discreta</td>
+    </tr>
+    <tr>
+    <td><code>MonthlyProgressBar.tsx</code></td>
+    <td>Não</td>
+    <td>Componente novo <code>WeeklyLineChartPro</code></td>
+    </tr>
+    <tr>
+    <td><code>Header.tsx</code></td>
+    <td>Sim</td>
+    <td>Adicionar streak counter</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2
+    id="mapeamento-completo-de-novos-componentes-necessários">Mapeamento
+    completo de novos componentes necessários</h2>
+    <table>
+    <colgroup>
+    <col style="width: 23%" />
+    <col style="width: 15%" />
+    <col style="width: 28%" />
+    <col style="width: 32%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Componente</th>
+    <th>Perfil</th>
+    <th>Prioridade MVP</th>
+    <th>Arquivo sugerido</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>WeeklyProgressPequenino</code></td>
+    <td>Pequenino</td>
+    <td>Alta</td>
+    <td><code>src/components/WeeklyProgressPequenino.tsx</code></td>
+    </tr>
+    <tr>
+    <td><code>EmptyDayStatePequenino</code></td>
+    <td>Pequenino</td>
+    <td>Média</td>
+    <td><code>src/components/EmptyDayState.tsx</code> (variante)</td>
+    </tr>
+    <tr>
+    <td><code>WeeklyProgressExplorador</code></td>
+    <td>Explorador</td>
+    <td>Pós-MVP</td>
+    <td><code>src/components/WeeklyProgressExplorador.tsx</code></td>
+    </tr>
+    <tr>
+    <td><code>RewardPreviewExplorador</code></td>
+    <td>Explorador</td>
+    <td>Pós-MVP</td>
+    <td><code>src/components/RewardPreview.tsx</code> (variante)</td>
+    </tr>
+    <tr>
+    <td><code>XPBarAventureiro</code></td>
+    <td>Aventureiro</td>
+    <td>Alta</td>
+    <td><code>src/components/XPBar.tsx</code></td>
+    </tr>
+    <tr>
+    <td><code>RewardPreviewAventureiro</code></td>
+    <td>Aventureiro</td>
+    <td>Alta</td>
+    <td><code>src/components/RewardPreview.tsx</code> (variante)</td>
+    </tr>
+    <tr>
+    <td><code>WeeklyLineChartPro</code></td>
+    <td>Pro</td>
+    <td>Pós-MVP</td>
+    <td><code>src/components/WeeklyLineChart.tsx</code></td>
+    </tr>
+    <tr>
+    <td><code>TaskListPro</code></td>
+    <td>Pro</td>
+    <td>Pós-MVP</td>
+    <td><code>src/components/TaskListPro.tsx</code></td>
+    </tr>
+    <tr>
+    <td><code>CourageStarsSection</code></td>
+    <td>Explorador, Aventureiro, Pro</td>
+    <td>Alta</td>
+    <td><code>src/components/CourageStarsSection.tsx</code></td>
+    </tr>
+    <tr>
+    <td><code>StreakBadge</code></td>
+    <td>Aventureiro, Pro</td>
+    <td>Média</td>
+    <td><code>src/components/StreakBadge.tsx</code></td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2
+    id="dados-necessários-do-backend-mapeamento-para-o-arquiteto">Dados
+    necessários do backend (mapeamento para o Arquiteto)</h2>
+    <table>
+    <colgroup>
+    <col style="width: 12%" />
+    <col style="width: 31%" />
+    <col style="width: 27%" />
+    <col style="width: 29%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Dado</th>
+    <th>Perfil que usa</th>
+    <th>Existe hoje?</th>
+    <th>Campo/tabela</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Pontos da semana atual por criança</td>
+    <td>Todos</td>
+    <td>Sim</td>
+    <td><code>tasks.final_points</code> + <code>tasks.date</code></td>
+    </tr>
+    <tr>
+    <td>Meta semanal percentual</td>
+    <td>Todos</td>
+    <td>Sim</td>
+    <td><code>profile_goal_settings</code></td>
+    </tr>
+    <tr>
+    <td>Recompensa semanal</td>
+    <td>Todos</td>
+    <td>Sim</td>
+    <td><code>profile_week_goals</code></td>
+    </tr>
+    <tr>
+    <td>Dias com tarefas concluídas (streak)</td>
+    <td>Aventureiro, Pro</td>
+    <td>Parcial</td>
+    <td>Derivado de <code>tasks.status</code> +
+    <code>tasks.date</code></td>
+    </tr>
+    <tr>
+    <td>XP total semanal (para nível)</td>
+    <td>Aventureiro</td>
+    <td>Sim (como pontos)</td>
+    <td><code>tasks.final_points</code> somados</td>
+    </tr>
+    <tr>
+    <td>Fórmula de nível (XP → nível)</td>
+    <td>Aventureiro</td>
+    <td>Não</td>
+    <td>Nova lógica de apresentação</td>
+    </tr>
+    <tr>
+    <td>Score por dia da semana (para gráfico)</td>
+    <td>Pro</td>
+    <td>Sim</td>
+    <td>Derivado de <code>tasks</code></td>
+    </tr>
+    <tr>
+    <td>Estrelas de Coragem acumuladas</td>
+    <td>Explorador, Aventureiro, Pro</td>
+    <td>Não</td>
+    <td>Nova tabela <code>courage_stars</code> ou campo agregado</td>
+    </tr>
+    <tr>
+    <td>Contagem de estrelas esta semana</td>
+    <td>Explorador, Aventureiro, Pro</td>
+    <td>Não</td>
+    <td>Derivado de <code>courage_stars</code> +
+    <code>week_start</code></td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="decisões-de-design-registradas">Decisões de design
+    registradas</h2>
+    <h3 id="por-que-não-usar-o-weekdaysaccordion-para-o-pequenino">Por
+    que não usar o <code>WeekDaysAccordion</code> para o Pequenino</h3>
+    <p>O <code>WeekDaysAccordion</code> pressupõe que o usuário sabe ler
+    labels de dias da semana (Seg, Ter, Qua…) e entende a estrutura de
+    accordions. Para uma criança de 4-6 anos, isso são 2 barreiras
+    cognitivas desnecessárias. A alternativa de lista plana com “missões
+    de hoje” destaca é direta e não depende de leitura ou compreensão de
+    UI pattern.</p>
+    <h3
+    id="por-que-exibir-o-progresso-semanal-de-forma-qualitativa-não-para-pequenino-e-explorador">Por
+    que exibir o progresso semanal de forma qualitativa (não %) para
+    Pequenino e Explorador</h3>
+    <p>Porcentagem é uma abstração que exige compreensão de frações e
+    proporção — habilidades que se desenvolvem entre 8-10 anos (Piaget,
+    Estágio Operatório Concreto). Para o Pequenino (4-6), usar
+    porcentagem é pedagogicamente incorreto. Para o Explorador (7-9), é
+    limítrofe — preferimos a representação de jornada que é
+    autoexplicativa.</p>
+    <h3 id="por-que-o-aventureiro-usa-xp-numérico">Por que o Aventureiro
+    usa XP numérico</h3>
+    <p>A faixa 10-12 anos já tem senso numérico consolidado e se
+    identifica com a linguagem de jogos. “420/500 XP” é mais motivador
+    que “84% da meta” porque XP tem conotação de progressão acumulada,
+    não de porcentagem de uma obrigação.</p>
+    <h3
+    id="por-que-as-estrelas-de-coragem-são-sempre-ao-final-da-tela">Por
+    que as Estrelas de Coragem são sempre ao final da tela</h3>
+    <p>Colocar as Estrelas de Coragem acima da meta semanal criaria a
+    impressão de que contribuem para a meta — o comportamento que o
+    Comitê Pedagógico explicitamente proibiu. Posicionadas ao final,
+    após um divisor visual claro, elas comunicam: “isso é uma coisa
+    diferente e especial, não é sobre pontos”.</p>
+    <hr />
+    <h2 id="questões-em-aberto-para-o-comitê-avaliar">Questões em aberto
+    para o comitê avaliar</h2>
+    <ol type="1">
+    <li><p><strong>Fórmula de nível para o Aventureiro:</strong> linear
+    (100 XP = 1 nível) ou curva? Uma curva logarítmica faz os primeiros
+    níveis subirem rápido (motivação inicial) e depois desacelera
+    (retenção a longo prazo). Isso é uma decisão de produto, não apenas
+    de UX.</p></li>
+    <li><p><strong>Streak punitivo vs. streak motivacional:</strong> o
+    P1-02 sugere streak mas sem punição por quebra. Como o app comunica
+    a quebra de streak para o Aventureiro e Pro sem criar ansiedade? O
+    Comitê Pedagógico proibiu streak punitivo — este documento não
+    especifica o comportamento de “streak quebrado”. Aguarda
+    orientação.</p></li>
+    <li><p><strong>Recompensa visual para crianças sem meta
+    configurada:</strong> se o pai não configurou recompensa semanal, o
+    componente <code>RewardPreview</code> exibe o quê? Estado vazio com
+    nudge para o pai? Ou oculto por completo?</p></li>
+    <li><p><strong>WeekDaysAccordion para Explorador:</strong> o
+    accordion de dias pode ser confuso se a criança só tem tarefas num
+    dia mas vê 7 abas. Alternativa: exibir apenas os dias com tarefas.
+    Tradeoff com a orientação temporal (a criança precisa saber que
+    amanhã tem tarefa?).</p></li>
+    </ol>
+    <hr />
+    <p><em>Documento produzido por <span class="citation"
+    data-cites="agent-ux-missao-da-semana">@agent-ux-missao-da-semana</span>
+    — Sprint 2 do Comitê de Product Design. Para avaliação do comitê e
+    validação técnica do Arquiteto — não implementar sem aprovação de
+    Bruno.</em></p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

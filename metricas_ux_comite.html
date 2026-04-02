@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Métricas de UX — Material para o Comitê de Product
+Design — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Métricas de UX — Material para o
+Comitê de Product Design</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1
+    id="métricas-de-ux-material-para-o-comitê-de-product-design">Métricas
+    de UX — Material para o Comitê de Product Design</h1>
+    <p><strong>Para:</strong> Comitê de Product Design — área “Iteração
+    com dados” <strong>Destinatário principal:</strong> Reid Hoffman
+    (validação antes de escalar) <strong>Data:</strong> 2026-04-02
+    <strong>Elaborado por:</strong> <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    + <span class="citation"
+    data-cites="agent-arquiteto-missao-da-semana">@agent-arquiteto-missao-da-semana</span>
+    <strong>Sprint:</strong> Sprint 3 — Consolidação final</p>
+    <hr />
+    <h2 id="premissa">Premissa</h2>
+    <p>Reid Hoffman é explícito em seu princípio de growth: validar
+    antes de escalar. Este documento responde à pergunta “o que o Blip
+    precisa provar antes de crescer?” com as métricas que permitem essa
+    validação — e o estado honesto de cada uma.</p>
+    <p>As métricas a seguir são as essenciais para o ciclo
+    produto-família. Não são métricas de negócio (MRR, churn, LTV) — são
+    métricas de comportamento que precedem e causam as métricas de
+    negócio.</p>
+    <hr />
+    <h2 id="tabela-de-métricas-essenciais">Tabela de métricas
+    essenciais</h2>
+    <table>
+    <colgroup>
+    <col style="width: 14%" />
+    <col style="width: 17%" />
+    <col style="width: 25%" />
+    <col style="width: 12%" />
+    <col style="width: 30%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Métrica</th>
+    <th>O que mede</th>
+    <th>Campo Supabase</th>
+    <th>Status</th>
+    <th>Meta de referência</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Taxa de conclusão de onboarding</td>
+    <td>% de pais que iniciam o cadastro e criam pelo menos 1
+    missão</td>
+    <td>—</td>
+    <td>Falta instrumentar</td>
+    <td>80%</td>
+    </tr>
+    <tr>
+    <td>Tempo até 1ª missão</td>
+    <td>Minutos entre a criação da conta verificada (após SMS) e a
+    primeira missão salva</td>
+    <td><code>profiles.created_at</code> +
+    <code>tasks.created_at</code></td>
+    <td>Existe (cálculo derivado)</td>
+    <td>&lt; 15 min (1 filho)</td>
+    </tr>
+    <tr>
+    <td>Retorno em 48h</td>
+    <td>% de pais que acessam o painel novamente dentro de 48h após
+    criar a 1ª missão</td>
+    <td>—</td>
+    <td>Falta instrumentar</td>
+    <td>60%</td>
+    </tr>
+    <tr>
+    <td>Aprovação parental em 24h</td>
+    <td>% de tarefas com status <code>awaiting_review</code> que recebem
+    aprovação do pai em até 24h</td>
+    <td><code>tasks.status</code>, <code>tasks.updated_at</code></td>
+    <td>Existe (cálculo derivado)</td>
+    <td>70%</td>
+    </tr>
+    <tr>
+    <td>Resposta da criança por dia</td>
+    <td>% de tarefas com <code>date = hoje</code> que saem de
+    <code>pending</code> por dia da semana</td>
+    <td><code>tasks.status</code>, <code>tasks.date</code></td>
+    <td>Existe (cálculo derivado)</td>
+    <td>75%</td>
+    </tr>
+    <tr>
+    <td>Ativação do fluxo emocional</td>
+    <td>% de tarefas concluídas em que a criança preenche a
+    autoavaliação de humor (<code>face</code> ou
+    <code>reaction</code>)</td>
+    <td><code>tasks.face</code>, <code>tasks.reaction</code></td>
+    <td>Existe parcialmente</td>
+    <td>40%</td>
+    </tr>
+    <tr>
+    <td>Retenção semana 4, 8, 12</td>
+    <td>% de famílias com ao menos 1 tarefa concluída por semana nas
+    semanas 4, 8 e 12 após o cadastro</td>
+    <td><code>weekly_history</code>,
+    <code>profiles.created_at</code></td>
+    <td>Existe (cálculo derivado complexo)</td>
+    <td>Validar antes de escalar (Reid Hoffman)</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="detalhamento-por-métrica">Detalhamento por métrica</h2>
+    <h3 id="m1-taxa-de-conclusão-de-onboarding">M1 — Taxa de conclusão
+    de onboarding</h3>
+    <p><strong>O que mede:</strong> quantas famílias chegam à primeira
+    missão depois de começar o cadastro. É o indicador mais direto de
+    sucesso do onboarding revisado.</p>
+    <p><strong>Como medir hoje:</strong> não existe log de funil no
+    produto. Para medir, é necessário registrar eventos em momentos
+    distintos: - <code>onboarding_started</code> — quando o pai acessa
+    <code>/register</code> - <code>account_verified</code> — quando o
+    SMS é validado com sucesso - <code>first_child_added</code> — quando
+    o primeiro filho é salvo - <code>first_mission_created</code> —
+    quando a primeira tarefa é salva</p>
+    <p><strong>O que falta criar:</strong> tabela
+    <code>analytics_events</code> com <code>event_type</code>,
+    <code>profile_id</code>, <code>created_at</code> — ou integração com
+    ferramenta de analytics externa (PostHog, Mixpanel). Nenhuma das
+    opções requer mudança no modelo de dados de produto.</p>
+    <p><strong>Meta de referência:</strong> 80%. Benchmark de apps de
+    parentalidade (BusyKid, OurHome) com onboarding de 4 steps ou menos
+    reportam 70–75%. O onboarding revisado proposto na Sprint 1 aponta
+    para atingir ou superar esse benchmark.</p>
+    <hr />
+    <h3 id="m2-tempo-até-1ª-missão">M2 — Tempo até 1ª missão</h3>
+    <p><strong>O que mede:</strong> quão rápido o produto entrega valor.
+    Um pai que cria a primeira missão em menos de 15 minutos tem
+    probabilidade substancialmente maior de retornar em 48h.</p>
+    <p><strong>Como medir hoje (cálculo derivado):</strong></p>
+    <div class="sourceCode" id="cb1"><pre
+    class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  p.<span class="kw">id</span> <span class="kw">as</span> profile_id,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">EXTRACT</span>(EPOCH <span class="kw">FROM</span> (</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MIN</span>(t.created_at) <span class="op">-</span> p.created_at</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  )) <span class="op">/</span> <span class="dv">60</span> <span class="kw">as</span> minutes_to_first_mission</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> profiles p</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> tasks t <span class="kw">ON</span> t.profile_id <span class="op">=</span> p.<span class="kw">id</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> p.<span class="kw">id</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">MIN</span>(t.created_at) <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span>;</span></code></pre></div>
+    <p><strong>Campos:</strong> <code>profiles.created_at</code>
+    (existe), <code>tasks.created_at</code> (existe).</p>
+    <p><strong>Status:</strong> existe como cálculo derivado. O query
+    pode ser executado hoje. O que falta é uma visualização recorrente
+    (dashboard ou alerta automático quando a mediana ultrapassa 20
+    minutos).</p>
+    <p><strong>Meta de referência:</strong> menos de 15 minutos para o
+    cenário simples (1 filho). Número validado por Bruno Freixo com base
+    no cálculo analítico em <code>calculo_tempo_setup.md</code> (v1.1,
+    2026-04-02). Família com 2 filhos: ~25 minutos — esse número é
+    esperado e aceitável.</p>
+    <hr />
+    <h3 id="m3-retorno-em-48h">M3 — Retorno em 48h</h3>
+    <p><strong>O que mede:</strong> se o ciclo pai-filho aconteceu. O
+    pai volta porque o filho respondeu à missão — e o filho respondeu
+    porque o pai mostrou o app para ele. Essa métrica captura se o loop
+    mínimo viável (missão criada → filho responde → pai aprova)
+    funcionou.</p>
+    <p><strong>Como medir hoje:</strong> não existe log de sessões no
+    produto. Para medir, é necessário registrar: -
+    <code>session_started</code> — cada vez que o pai abre o painel
+    autenticado</p>
+    <p><strong>O que falta criar:</strong> evento de sessão com
+    <code>profile_id</code> e <code>timestamp</code>. Derivar a métrica:
+    “para pais que criaram primeira missão em dia X, qual % voltou em
+    X+1 ou X+2?”</p>
+    <p><strong>Alternativa sem novo dado:</strong> verificar se há
+    aprovação de tarefa (<code>tasks.status = 'closed'</code>,
+    <code>tasks.updated_at</code>) nos 48h seguintes à criação da
+    primeira tarefa — aprovação implica retorno. É uma proxy menos
+    precisa, mas existente hoje.</p>
+    <p><strong>Meta de referência:</strong> 60%. O onboarding revisado
+    (Sprint 1) foi projetado especificamente para aumentar essa taxa — a
+    ancoragem da primeira missão com data para amanhã e a tela de
+    confirmação “o filho já tem missão esperando” são os mecanismos de
+    criação de antecipação que motivam o retorno.</p>
+    <hr />
+    <h3 id="m4-aprovação-parental-em-24h">M4 — Aprovação parental em
+    24h</h3>
+    <p><strong>O que mede:</strong> se o pai está ativo no ciclo. A
+    criança que conclui uma tarefa e não recebe aprovação em 48h perde o
+    fechamento emocional do ciclo — a celebração pós-aprovação que
+    motiva a próxima tarefa nunca acontece.</p>
+    <p><strong>Como medir hoje (cálculo derivado):</strong></p>
+    <div class="sourceCode" id="cb2"><pre
+    class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FILTER</span> (</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> status <span class="op">=</span> <span class="st">&#39;closed&#39;</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> updated_at <span class="op">-</span> created_at <span class="op">&lt;=</span> <span class="dt">INTERVAL</span> <span class="st">&#39;24 hours&#39;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">/</span> <span class="fu">NULLIF</span>(<span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FILTER</span> (<span class="kw">WHERE</span> status <span class="op">=</span> <span class="st">&#39;closed&#39;</span>), <span class="dv">0</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AS</span> pct_approved_within_24h</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> tasks</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> status <span class="op">=</span> <span class="st">&#39;closed&#39;</span>;</span></code></pre></div>
+    <p><strong>Campos:</strong> <code>tasks.status</code> (existe),
+    <code>tasks.updated_at</code> (existe),
+    <code>tasks.created_at</code> (existe).</p>
+    <p><strong>Status:</strong> existe como cálculo derivado. Executável
+    hoje.</p>
+    <p><strong>Meta de referência:</strong> 70%. O Quebra 3 do loop
+    semanal (documentado em <code>loop_semanal_atual.md</code>)
+    identifica aprovação tardia como um dos maiores riscos de ruptura do
+    ciclo. Se a taxa cair abaixo de 50%, o produto precisa de mecanismo
+    de aprovação com prazo automático.</p>
+    <hr />
+    <h3 id="m5-resposta-da-criança-por-dia">M5 — Resposta da criança por
+    dia</h3>
+    <p><strong>O que mede:</strong> qual dia da semana tem menor
+    engajamento do filho. Padrões por dia revelam se a criança está
+    respondendo regularmente ou apenas em alguns dias — e identificam
+    onde o loop quebra de forma previsível.</p>
+    <p><strong>Como medir hoje (cálculo derivado):</strong></p>
+    <div class="sourceCode" id="cb3"><pre
+    class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">EXTRACT</span>(DOW <span class="kw">FROM</span> <span class="dt">date</span>) <span class="kw">AS</span> day_of_week,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FILTER</span> (<span class="kw">WHERE</span> status <span class="op">!=</span> <span class="st">&#39;pending&#39;</span>) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">/</span> <span class="fu">NULLIF</span>(<span class="fu">COUNT</span>(<span class="op">*</span>), <span class="dv">0</span>) <span class="kw">AS</span> response_rate</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> tasks</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="dt">date</span> <span class="op">&gt;=</span> <span class="fu">CURRENT_DATE</span> <span class="op">-</span> <span class="dt">INTERVAL</span> <span class="st">&#39;30 days&#39;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> day_of_week</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> day_of_week;</span></code></pre></div>
+    <p><strong>Campos:</strong> <code>tasks.status</code> (existe),
+    <code>tasks.date</code> (existe).</p>
+    <p><strong>Status:</strong> existe como cálculo derivado. Executável
+    hoje.</p>
+    <p><strong>Meta de referência:</strong> 75%. Dias abaixo de 60%
+    indicam padrão de não-conclusão sistemática — pode ser dia de aula
+    intensa, dia sem rotina, ou tarefa inadequada para aquele dia.</p>
+    <hr />
+    <h3 id="m6-ativação-do-fluxo-emocional">M6 — Ativação do fluxo
+    emocional</h3>
+    <p><strong>O que mede:</strong> se a diferenciação pedagógica
+    central do Blip está sendo usada. O Blip se diferencia de apps de
+    tarefa genéricos exatamente por esta feature — se a taxa de ativação
+    for baixa, ou o fluxo tem fricção excessiva, ou o produto não
+    comunicou bem seu valor distintivo.</p>
+    <p><strong>Como medir hoje:</strong></p>
+    <p>O campo <code>tasks.face</code> existe e é preenchido pela
+    criança ao concluir. O campo <code>tasks.reaction</code> é
+    preenchido pelo pai na aprovação.</p>
+    <p>Para a autoavaliação emocional (o que este indicador mede — ação
+    da criança, não do pai):</p>
+    <div class="sourceCode" id="cb4"><pre
+    class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FILTER</span> (<span class="kw">WHERE</span> face <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span>) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">/</span> <span class="fu">NULLIF</span>(<span class="fu">COUNT</span>(<span class="op">*</span>), <span class="dv">0</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AS</span> emotional_activation_rate</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> tasks</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> status <span class="op">!=</span> <span class="st">&#39;pending&#39;</span>;</span></code></pre></div>
+    <p><strong>Status:</strong> existe como cálculo derivado. O campo
+    <code>face</code> está no schema — a taxa pode ser medida agora.</p>
+    <p><strong>Atenção:</strong> o campo <code>emotional_response</code>
+    (reflexão após Gatilho A/B) não existe ainda — é um campo novo que
+    será criado quando a feature de Estrelas de Coragem for
+    implementada. A taxa de ativação do fluxo de Estrelas de Coragem só
+    poderá ser medida após implementação.</p>
+    <p><strong>Meta de referência:</strong> 40%. Uma taxa de 40% de
+    tarefas com autoavaliação de humor preenchida indica que o fluxo
+    está integrado na rotina da criança. Taxa abaixo de 20% após 2
+    semanas de uso é sinal de que a feature não está sendo descoberta ou
+    tem fricção excessiva.</p>
+    <hr />
+    <h3 id="m7-retenção-semana-4-8-12">M7 — Retenção semana 4, 8,
+    12</h3>
+    <p><strong>O que mede:</strong> se o produto cria hábito real de
+    longo prazo. Esta é a métrica que Reid Hoffman pede antes de escalar
+    — não aquisição, não onboarding, mas retenção sustentada.</p>
+    <p><strong>Como medir hoje (cálculo derivado complexo):</strong></p>
+    <div class="sourceCode" id="cb5"><pre
+    class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Para retenção na semana 4:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  p.<span class="kw">id</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  p.created_at:<span class="ch">:DATE</span> <span class="kw">AS</span> signup_date,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> t.<span class="dt">date</span>) <span class="kw">AS</span> active_days_week_4</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> profiles p</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> tasks t <span class="kw">ON</span> t.profile_id <span class="op">=</span> p.<span class="kw">id</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> t.<span class="dt">date</span> <span class="kw">BETWEEN</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    (p.created_at <span class="op">+</span> <span class="dt">INTERVAL</span> <span class="st">&#39;21 days&#39;</span>):<span class="ch">:DATE</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (p.created_at <span class="op">+</span> <span class="dt">INTERVAL</span> <span class="st">&#39;27 days&#39;</span>):<span class="ch">:DATE</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> t.status <span class="op">!=</span> <span class="st">&#39;pending&#39;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> p.<span class="kw">id</span>, p.created_at</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> t.<span class="dt">date</span>) <span class="op">&gt;</span> <span class="dv">0</span>;</span></code></pre></div>
+    <p><strong>Campos:</strong> <code>profiles.created_at</code>
+    (existe), <code>tasks.date</code> (existe),
+    <code>tasks.status</code> (existe).</p>
+    <p><strong>Status:</strong> existe como cálculo derivado. Executável
+    hoje — mas requer que o produto tenha usuários com 4+ semanas de
+    uso. Com usuários novos, esta métrica leva 4 semanas para ter
+    dados.</p>
+    <p><strong>Meta de referência:</strong> não há benchmark interno. O
+    Resumo Executivo v2 classifica a ausência de dados de retenção
+    semanas 4–12 como risco urgente. A meta a ser definida pelo comitê —
+    Reid Hoffman sugere 30% de famílias ativas na semana 8 como
+    threshold mínimo antes de qualquer investimento em escala.</p>
+    <hr />
+    <h2 id="o-que-precisaria-ser-instrumentado-prioridade">O que
+    precisaria ser instrumentado — prioridade</h2>
+    <table>
+    <colgroup>
+    <col style="width: 36%" />
+    <col style="width: 36%" />
+    <col style="width: 27%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Prioridade</th>
+    <th>O que criar</th>
+    <th>Impacto</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Alta</td>
+    <td>Eventos de onboarding (<code>onboarding_started</code>,
+    <code>account_verified</code>,
+    <code>first_mission_created</code>)</td>
+    <td>M1 — Tax de conclusão. Sem isso, não sabemos onde o funil
+    quebra.</td>
+    </tr>
+    <tr>
+    <td>Alta</td>
+    <td>Evento de sessão autenticada (<code>session_started</code> com
+    <code>profile_id</code>)</td>
+    <td>M3 — Retorno em 48h. Sem isso, dependemos de proxy de
+    aprovação.</td>
+    </tr>
+    <tr>
+    <td>Média</td>
+    <td>Novo campo <code>tasks.emotional_response</code> e
+    <code>emotional_response_at</code></td>
+    <td>M6 (parte 2) — Ativação das Estrelas de Coragem. Aguarda
+    implementação da feature.</td>
+    </tr>
+    <tr>
+    <td>Média</td>
+    <td>Dashboard automático com as 7 métricas acima</td>
+    <td>Qualquer — hoje os queries são manuais; um dashboard recorrente
+    permite ação rápida.</td>
+    </tr>
+    <tr>
+    <td>Baixa</td>
+    <td>Integração com ferramenta externa de analytics</td>
+    <td>Torna os eventos mais robustos, mas o Supabase é suficiente para
+    os primeiros 6 meses.</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="nota-de-honestidade">Nota de honestidade</h2>
+    <p>Os números de meta acima (80%, 60%, 70%, 75%, 40%) são metas de
+    referência baseadas em benchmarks de mercado de apps de
+    parentalidade e educação infantil. Nenhum deles foi validado com
+    usuários reais do Blip.</p>
+    <p>O processo correto, na sequência recomendada pelo Comitê
+    Pedagógico e por Reid Hoffman: 1. Lançar para um grupo de 20–50
+    famílias (beta fechado) 2. Medir as métricas M1–M7 por 8 semanas 3.
+    Comparar com as metas de referência 4. Ajustar o produto onde as
+    metas não forem atingidas 5. Repetir o ciclo antes de qualquer
+    escala de aquisição</p>
+    <p>Antes desse ciclo de validação, qualquer número divulgado
+    publicamente é estimativa — e deve ser declarado como tal.</p>
+    <hr />
+    <p><em>Documento produzido por <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    — Sprint 3 do Comitê de Product Design. Para distribuição ao comitê
+    como material de referência para a agenda de “Iteração com
+    dados”.</em></p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

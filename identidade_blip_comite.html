@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identidade Blip — Material para o Comitê de Product
+Design — Blip · Comitê de Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blip-orange: #F97316; --blip-night: #1A1040; --blip-peach: #FED7AA;
+      --blip-gold: #FBBF24; --blip-mint: #10B981; --blip-violet: #A78BFA;
+      --blip-offwhite: #F8F7FF;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Fredoka', sans-serif; background: var(--blip-offwhite);
+           color: var(--blip-night); line-height: 1.7; margin: 0; }
+    /* Prose */
+    .prose h1 { font-size: 2rem; font-weight: 700; color: var(--blip-night);
+                margin: 0 0 8px; line-height: 1.2; padding-bottom: 12px;
+                border-bottom: 3px solid var(--blip-orange); }
+    .prose h2 { font-size: 1.4rem; font-weight: 600; color: var(--blip-night);
+                margin: 2rem 0 0.75rem; border-left: 4px solid var(--blip-orange);
+                padding-left: 12px; }
+    .prose h3 { font-size: 1.15rem; font-weight: 600; color: #4c1d95;
+                margin: 1.5rem 0 0.5rem; }
+    .prose h4 { font-size: 0.85rem; font-weight: 700; color: var(--blip-orange);
+                margin: 1.25rem 0 0.5rem; letter-spacing: 1px; text-transform: uppercase; }
+    .prose p  { margin-bottom: 1rem; font-size: 1rem; }
+    .prose ul, .prose ol { margin: 0.75rem 0 1rem 1.5rem; }
+    .prose li { margin-bottom: 0.4rem; }
+    .prose strong { font-weight: 700; }
+    .prose em { color: var(--blip-violet); }
+    .prose code { background: var(--blip-night); color: var(--blip-peach);
+                  padding: 2px 7px; border-radius: 4px; font-size: 0.88rem; }
+    .prose pre  { background: var(--blip-night); color: #e2e8f0; padding: 20px;
+                  border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; }
+    .prose pre code { background: none; color: inherit; padding: 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+    .prose th    { background: var(--blip-night); color: #fff; padding: 10px 14px;
+                   text-align: left; font-weight: 600; }
+    .prose td    { padding: 10px 14px; border-bottom: 1px solid var(--blip-peach); }
+    .prose tr:nth-child(even) td { background: rgba(254,215,170,0.2); }
+    .prose blockquote { border-left: 4px solid var(--blip-orange);
+                        background: rgba(249,115,22,0.06); padding: 12px 20px;
+                        border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .prose hr { border: none; border-top: 2px solid var(--blip-peach); margin: 2rem 0; }
+    /* Barra de progresso de leitura */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+                background: linear-gradient(90deg, var(--blip-orange), var(--blip-gold));
+                z-index: 9999; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav style="background:#1A1040; position:sticky; top:0; z-index:100;
+     box-shadow:0 2px 20px rgba(0,0,0,0.4); padding:0 24px;">
+  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center;
+       justify-content:space-between; height:56px; gap:16px;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <span style="font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px;
+            color:#fff; white-space:nowrap;">🎯 Blip</span>
+      <span style="color:rgba(255,255,255,0.25);">›</span>
+      <span style="font-family:'Fredoka',sans-serif; font-size:14px; font-weight:600;
+            color:rgba(255,255,255,0.7); white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis;">Identidade Blip — Material para o
+Comitê de Product Design</span>
+    </div>
+    <a href="./index.html"
+       style="flex-shrink:0; background:rgba(249,115,22,0.15);
+              border:1px solid rgba(249,115,22,0.45); color:#FED7AA;
+              font-family:'Fredoka',sans-serif; font-weight:600; font-size:13px;
+              padding:8px 18px; border-radius:20px; text-decoration:none;
+              white-space:nowrap;">
+      ← Microsite
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<main style="max-width:860px; margin:0 auto; padding:48px 24px 96px;">
+  <div class="prose">
+    <h1
+    id="identidade-blip-material-para-o-comitê-de-product-design">Identidade
+    Blip — Material para o Comitê de Product Design</h1>
+    <p><strong>Para:</strong> Comitê de Product Design
+    <strong>Destinatários principais:</strong> Ryan Sims (craft visual),
+    Andy Puddicombe (calma, não-ansiogênico) <strong>Data:</strong>
+    2026-04-02 <strong>Elaborado por:</strong> <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    <strong>Sprint:</strong> Sprint 3 — Consolidação final</p>
+    <hr />
+    <h2 id="paleta">1. Paleta</h2>
+    <p>A paleta Blip tem 6 cores. Cada cor tem papel funcional
+    específico — não são intercambiáveis por preferência estética.</p>
+    <table>
+    <colgroup>
+    <col style="width: 13%" />
+    <col style="width: 11%" />
+    <col style="width: 31%" />
+    <col style="width: 43%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Nome</th>
+    <th>Hex</th>
+    <th>Uso principal</th>
+    <th>Contexto exclusivo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Blip Orange</td>
+    <td><code>#F97316</code></td>
+    <td>Cor primária, CTAs, header, mascote</td>
+    <td>Ações principais do pai e da criança. Não usar em alertas
+    negativos.</td>
+    </tr>
+    <tr>
+    <td>Mint Go</td>
+    <td><code>#10B981</code></td>
+    <td>Progresso, confirmação, positivo</td>
+    <td>Tarefas concluídas, aprovação parental, streak positivo, estado
+    “ok”.</td>
+    </tr>
+    <tr>
+    <td>Gold Win</td>
+    <td><code>#FBBF24</code></td>
+    <td>Recompensas, XP, Estrelas de Coragem</td>
+    <td>Celebração. Pontos. Estrelas de Coragem. Não usar em estados
+    neutros.</td>
+    </tr>
+    <tr>
+    <td>Soft Violet</td>
+    <td><code>#A78BFA</code></td>
+    <td>Secundária, badges, perfil Aventureiro</td>
+    <td>Diferenciação de perfil etário 10–12 anos. Elementos de
+    progressão não urgente.</td>
+    </tr>
+    <tr>
+    <td>Deep Night</td>
+    <td><code>#1A1040</code></td>
+    <td>Contraste, fundo dark, perfil Pro</td>
+    <td>Perfil Pro (13+ anos). Dark mode. Nunca usar como cor de alerta
+    ou erro.</td>
+    </tr>
+    <tr>
+    <td>Off White</td>
+    <td><code>#F8F7FF</code></td>
+    <td>Fundos, cards, superfícies neutras</td>
+    <td>Fundo universal dos cards. Nunca branco puro — o Off White é
+    mais acolhedor.</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="cor-por-contexto-de-usuário">Cor por contexto de
+    usuário</h3>
+    <table>
+    <colgroup>
+    <col style="width: 26%" />
+    <col style="width: 36%" />
+    <col style="width: 36%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Contexto</th>
+    <th>Cor dominante</th>
+    <th>Justificativa</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Pai — painel principal</td>
+    <td>Blip Orange + Off White</td>
+    <td>Ativo, claro, fácil de escanear às 22h</td>
+    </tr>
+    <tr>
+    <td>Filho Pequenino (4–6)</td>
+    <td>Blip Orange + Gold Win</td>
+    <td>Energizante, visual, sem texto</td>
+    </tr>
+    <tr>
+    <td>Filho Explorador (7–9)</td>
+    <td>Mint Go + Gold Win</td>
+    <td>Conquista e progressão por zonas</td>
+    </tr>
+    <tr>
+    <td>Filho Aventureiro (10–12)</td>
+    <td>Soft Violet + Deep Night</td>
+    <td>RPG/XP, identidade do jogador</td>
+    </tr>
+    <tr>
+    <td>Filho Pro (13+)</td>
+    <td>Deep Night + Mint Go</td>
+    <td>Maturidade, sem lúdico excessivo</td>
+    </tr>
+    <tr>
+    <td>Alerta / erro</td>
+    <td>Vermelho <code>#EF4444</code> (fora da paleta principal)</td>
+    <td>Só para erros técnicos — nunca para avaliação de desempenho da
+    criança</td>
+    </tr>
+    <tr>
+    <td>Celebração geral</td>
+    <td>Gold Win + Blip Orange</td>
+    <td>Mascote na pose de missão-completa, confete</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="o-que-a-paleta-não-faz">O que a paleta não faz</h3>
+    <p>Nenhuma cor na paleta Blip carrega semântica negativa por si
+    mesma. O Deep Night não é “ruim” — é o tema do Pro. A ausência de
+    celebração é o sinal de “meta não atingida”, não uma cor de
+    reprovação. Esse princípio é não-negociável: o produto nunca usa cor
+    para envergonhar.</p>
+    <hr />
+    <h2 id="tipografia">2. Tipografia</h2>
+    <h3 id="fredoka-a-fonte-do-blip">Fredoka — a fonte do Blip</h3>
+    <p>A fonte principal do Blip é <strong>Fredoka</strong> (Google
+    Fonts, gratuita, licença OFL). Usada em títulos, labels de
+    interface, mensagens do mascote e texto de celebração.</p>
+    <h3 id="por-que-fredoka">Por que Fredoka</h3>
+    <p><strong>Legibilidade infantil:</strong> Formas arredondadas nas
+    letras reduzem a ambiguidade entre caracteres facilmente
+    confundíveis por crianças em processo de alfabetização (ex: “b” vs
+    “d”, “p” vs “q”). Estudos de tipografia educacional (Rello &amp;
+    Baeza-Yates, 2013) indicam que fontes arredondadas têm vantagem em
+    velocidade de leitura para crianças de 6–9 anos.</p>
+    <p><strong>Calor sem infantilização:</strong> Fredoka não é uma
+    “fonte de criança” — é uma fonte com personalidade que escala bem
+    para adultos. O pai lê o mesmo produto em Fredoka sem sentir que o
+    app foi feito apenas para a criança. Essa neutralidade etária
+    intencional diferencia o Blip de apps concorrentes (BusyKid,
+    OurHome) que usam fontes explicitamente infantis que expulsam o pai
+    da experiência visual.</p>
+    <p><strong>Peso único, alto contraste:</strong> Fredoka One tem peso
+    único, bold por definição — o que elimina ambiguidade de hierarquia
+    por peso tipográfico. A hierarquia no Blip é feita por tamanho e
+    cor, não por weight.</p>
+    <h3 id="hierarquia-de-uso">Hierarquia de uso</h3>
+    <table>
+    <colgroup>
+    <col style="width: 16%" />
+    <col style="width: 50%" />
+    <col style="width: 33%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Uso</th>
+    <th>Tamanho mínimo</th>
+    <th>Contexto</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Títulos de tela</td>
+    <td>text-2xl (24px)</td>
+    <td>Qualquer perfil</td>
+    </tr>
+    <tr>
+    <td>Labels de ação (botões)</td>
+    <td>text-lg (18px)</td>
+    <td>Qualquer perfil</td>
+    </tr>
+    <tr>
+    <td>Corpo de mensagem</td>
+    <td>text-base (16px)</td>
+    <td>Pai e Aventureiro+</td>
+    </tr>
+    <tr>
+    <td>Mensagens do mascote (Pequenino)</td>
+    <td>text-2xl (24px)</td>
+    <td>Obrigatório — criança em distância de braço</td>
+    </tr>
+    <tr>
+    <td>Texto de status (Pro)</td>
+    <td>text-sm (14px)</td>
+    <td>Exclusivo perfil Pro</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Regra de tamanho mínimo para Pequenino:</strong> nenhum
+    texto visível para o perfil 4–6 anos pode ser menor que text-xl
+    (20px). Se for menor, não deveria ser texto — deveria ser ícone.</p>
+    <hr />
+    <h2 id="mascote-blip">3. Mascote Blip</h2>
+    <h3 id="descrição">Descrição</h3>
+    <p>Ursinho laranja de cabeça grande (~55% da altura total),
+    bochechas pêssego, olhos expressivos. Sem detalhes excessivos — a
+    expressividade está nas poses, não na ornamentação.</p>
+    <p>O mascote foi avaliado com <strong>8,8/10 pelo Comitê</strong> e
+    é a âncora visual da identidade Blip para crianças até ~12 anos.</p>
+    <h3 id="os-3-estados-oficiais">Os 3 estados oficiais</h3>
+    <table style="width:100%;">
+    <colgroup>
+    <col style="width: 20%" />
+    <col style="width: 15%" />
+    <col style="width: 30%" />
+    <col style="width: 35%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Estado</th>
+    <th>Pose</th>
+    <th>Quando usar</th>
+    <th>Onde NÃO usar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><strong>Principal</strong></td>
+    <td>De pé, expressão serena, braços ao longo do corpo</td>
+    <td>Header, onboarding do pai, telas de boas-vindas, estado
+    neutro</td>
+    <td>Celebração (pose errada, dilui o impacto)</td>
+    </tr>
+    <tr>
+    <td><strong>Curiosidade</strong></td>
+    <td>Cabeça inclinada 15°, olhos levemente arregalados</td>
+    <td>Estado vazio, espera por ação, onboarding do filho Pequenino
+    apontando para a tarefa</td>
+    <td>Erros técnicos (não é o tom certo para falha)</td>
+    </tr>
+    <tr>
+    <td><strong>Missão-completa</strong></td>
+    <td>Braços erguidos acima da cabeça</td>
+    <td>Celebração de tarefa concluída, meta semanal atingida, primeiro
+    acesso do filho</td>
+    <td>Qualquer contexto não-celebrativo — dilui o impacto se usado
+    fora de contexto</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="regras-de-uso-por-perfil-etário">Regras de uso por perfil
+    etário</h3>
+    <table>
+    <colgroup>
+    <col style="width: 20%" />
+    <col style="width: 30%" />
+    <col style="width: 22%" />
+    <col style="width: 27%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Perfil</th>
+    <th>Frequência</th>
+    <th>Tamanho</th>
+    <th>Restrição</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Pequenino (4–6)</td>
+    <td>Central, frequente</td>
+    <td>110px home / 76px drawer</td>
+    <td>Nenhuma — é o condutor visual principal</td>
+    </tr>
+    <tr>
+    <td>Explorador (7–9)</td>
+    <td>Presente, não domina</td>
+    <td>76px</td>
+    <td>Apenas nas poses aprovadas</td>
+    </tr>
+    <tr>
+    <td>Aventureiro (10–12)</td>
+    <td>Apenas em metas grandes</td>
+    <td>56px (badge de notificação)</td>
+    <td>Não usar em micro-interações do dia a dia</td>
+    </tr>
+    <tr>
+    <td>Pro (13+)</td>
+    <td>Não aparece no fluxo principal</td>
+    <td>—</td>
+    <td>Proibido em micro-interações. Apenas em telas de celebração de
+    marco (meta mensal, por exemplo)</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="regra-fundamental-do-mascote">Regra fundamental do
+    mascote</h3>
+    <p>O mascote Blip não representa autoridade. Não corrige. Não cobra.
+    Não aparece em estados de falha ou reprovação. Sua função é uma só:
+    sinalizar que algo positivo está acontecendo ou que algo está
+    esperando pela criança. Toda vez que o mascote aparece, a criança
+    precisa saber que é seguro clicar.</p>
+    <hr />
+    <h2 id="tom-de-voz">4. Tom de voz</h2>
+    <p>O tom de voz Blip segue uma regra simples: <strong>o app está
+    sempre do mesmo lado que a criança e do mesmo lado que o
+    pai</strong>. Nunca é árbitro, nunca cobra, nunca envergonha.</p>
+    <h3 id="exemplos-aprovados">5 exemplos aprovados</h3>
+    <table>
+    <colgroup>
+    <col style="width: 23%" />
+    <col style="width: 35%" />
+    <col style="width: 40%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Contexto</th>
+    <th>Texto aprovado</th>
+    <th>Por que funciona</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Badge de tarefa aguardando revisão (Pequenino/Explorador)</td>
+    <td>“O Blip guardou sua resposta!”</td>
+    <td>A criança sente que foi ouvida, não que está esperando
+    julgamento</td>
+    </tr>
+    <tr>
+    <td>Badge de tarefa aguardando revisão (Aventureiro)</td>
+    <td>“Missão enviada!”</td>
+    <td>Linguagem de expedição — ação concluída, não processo
+    burocrático</td>
+    </tr>
+    <tr>
+    <td>Badge de tarefa aguardando revisão (Pro)</td>
+    <td>“Concluido”</td>
+    <td>Neutro, funcional, respeita a maturidade do perfil</td>
+    </tr>
+    <tr>
+    <td>Gatilho B — convite à reflexão (Explorador)</td>
+    <td>“Vamos conversar sobre o que aconteceu nessa missão?”</td>
+    <td>“Vamos” posiciona pai e filho do mesmo lado. Não acusa.</td>
+    </tr>
+    <tr>
+    <td>Estado vazio no ChildHome (Explorador)</td>
+    <td>“A floresta está quieta hoje. Nenhuma missão por enquanto —
+    aproveite para descansar!”</td>
+    <td>Ausência de tarefa não é falha — é momento de descanso
+    legítimo</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="exemplos-proibidos">5 exemplos proibidos</h3>
+    <table>
+    <colgroup>
+    <col style="width: 27%" />
+    <col style="width: 34%" />
+    <col style="width: 38%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Texto proibido</th>
+    <th>Por que é proibido</th>
+    <th>Alternativa aprovada</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>“Faltam 2 horas para a missão expirar!”</td>
+    <td>Ansiedade induzida por prazo — dark pattern de gamificação</td>
+    <td>Nenhum lembrete de expiração em linguagem de urgência</td>
+    </tr>
+    <tr>
+    <td>“Você perdeu X pontos”</td>
+    <td>Framing de perda ativa a amígdala; o contrário de reflexão
+    genuína</td>
+    <td>“Pontos registrados: Y” (apenas o valor final, sem comparação
+    dramática)</td>
+    </tr>
+    <tr>
+    <td>“Seu pai ajustou seus pontos”</td>
+    <td>Posiciona o pai como adversário; carrega conotação de
+    punição</td>
+    <td>“Vamos conversar sobre o que aconteceu nessa missão?”</td>
+    </tr>
+    <tr>
+    <td>“Parabéns! Muito bem! Você é incrível!”</td>
+    <td>Elogio genérico sem referência à ação — Dweck aponta isso como
+    prejudicial ao growth mindset</td>
+    <td>“Arrasou!” (específico à tarefa), “Missão concluída! +X XP”</td>
+    </tr>
+    <tr>
+    <td>“Nenhuma tarefa cadastrada”</td>
+    <td>Linguagem técnica exposta ao usuário final; trata a criança como
+    dado</td>
+    <td>“O Blip está esperando… Sua missão de hoje ainda vai
+    chegar!”</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="regras-derivadas">Regras derivadas</h3>
+    <ul>
+    <li>Nunca usar duas exclamações seguidas (!!). A energia vem da
+    fonte e da cor, não da pontuação.</li>
+    <li>Nunca usar palavras de falha com crianças: “errado”,
+    “incorreto”, “reprovado”, “perdeu”. Reformular sempre como
+    oportunidade.</li>
+    <li>Para o Pro (13+): sem emoji obrigatório nas mensagens do
+    sistema. O Pro lê texto. A ausência de emoji é respeito à maturidade
+    do perfil.</li>
+    <li>Para o pai: tom direto, sem condescendência. O pai é adulto e
+    profissional — o app não precisa celebrar cada clique dele.</li>
+    </ul>
+    <hr />
+    <h2 id="comportamento-por-perfil-etário">5. Comportamento por perfil
+    etário</h2>
+    <p>A identidade Blip não é uniforme. Ela se adapta de forma coerente
+    a cada faixa etária — sem perder a consistência da marca.</p>
+    <h3 id="eixo-de-adaptação-energia-vs.-calma">Eixo de adaptação:
+    energia vs. calma</h3>
+    <pre><code>Pequenino ←──── [Energizante] ──── Explorador ──── Aventureiro ──── [Tranquilo] ────→ Pro + Pai</code></pre>
+    <table>
+    <colgroup>
+    <col style="width: 12%" />
+    <col style="width: 20%" />
+    <col style="width: 20%" />
+    <col style="width: 25%" />
+    <col style="width: 13%" />
+    <col style="width: 6%" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th>Dimensão</th>
+    <th>Pequenino (4–6)</th>
+    <th>Explorador (7–9)</th>
+    <th>Aventureiro (10–12)</th>
+    <th>Pro (13+)</th>
+    <th>Pai</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Paleta</td>
+    <td>Laranja + Ouro</td>
+    <td>Verde + Ouro</td>
+    <td>Violeta + Deep Night</td>
+    <td>Deep Night + Verde</td>
+    <td>Laranja + Off White</td>
+    </tr>
+    <tr>
+    <td>Mascote</td>
+    <td>Central, 110px</td>
+    <td>Presente, 76px</td>
+    <td>Esporádico, 56px</td>
+    <td>Ausente (micro)</td>
+    <td>Presente em onboarding</td>
+    </tr>
+    <tr>
+    <td>Animação</td>
+    <td>Exagerada (80 partículas)</td>
+    <td>Contida (35 partículas)</td>
+    <td>Snappy (RPG)</td>
+    <td>Minimalista (check)</td>
+    <td>Nenhuma (painel funcional)</td>
+    </tr>
+    <tr>
+    <td>Tom de voz</td>
+    <td>Visual, sem texto obrigatório</td>
+    <td>Caloroso, curto</td>
+    <td>Direto, RPG</td>
+    <td>Quase adulto</td>
+    <td>Prático, sem patronizing</td>
+    </tr>
+    <tr>
+    <td>Celebração</td>
+    <td>Confete + mascote missão-completa</td>
+    <td>Confete leve + mascote canto</td>
+    <td>XP pop + glow</td>
+    <td>Check animado</td>
+    <td>Modal de resumo semanal</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="por-que-andy-puddicombe-importa-aqui">Por que Andy
+    Puddicombe importa aqui</h3>
+    <p>O princípio de Andy Puddicombe para o Blip é: o app é um
+    <strong>canal de comunicação</strong> entre pai e filho, não um
+    mecanismo de retenção. A identidade visual respeita isso:</p>
+    <ul>
+    <li>Para o pai: a interface é tranquilizadora. Não há badges de
+    ansiedade, não há contadores de dias sem aprovação, não há urgência
+    visual. O pai sente que tem controle, não que está sendo
+    cobrado.</li>
+    <li>Para a criança: a celebração existe e é genuína, mas não é
+    interminável. O mascote aparece por 1,5–2,5 segundos e some. Não há
+    loop de recompensa variável, não há animação que convida ao tap
+    compulsivo.</li>
+    <li>Para ambos: a ausência de celebração quando a meta não é
+    atingida é o sinal. Sem cor vermelha, sem mensagem negativa — apenas
+    silêncio visual. Isso é a versão mais coerente do princípio de Andy:
+    calma não é ausência de emoção, é emoção no lugar certo.</li>
+    </ul>
+    <hr />
+    <h2 id="status-jurídico-declaração-para-o-comitê">6. Status jurídico
+    — declaração para o comitê</h2>
+    <p>Esta seção é declarada abertamente porque o comitê deve conhecer
+    os riscos antes de ser questionado por eles.</p>
+    <h3 id="due-diligence-em-andamento">Due diligence em andamento</h3>
+    <p>O processo de consultoria jurídica foi iniciado com advogados
+    especializados em propriedade intelectual e marcas. Duas questões
+    estão sendo avaliadas simultaneamente:</p>
+    <p><strong>Questão 1 — Blip vs. Blippi (Moonbug/Disney)</strong></p>
+    <p>Blippi é uma marca registrada da Moonbug Entertainment
+    (controlada pela Disney) no segmento de entretenimento infantil
+    educativo. O Blip opera no segmento de apps de gestão familiar. A
+    consultoria jurídica está avaliando se há risco de confusão de marca
+    dado (a) a semelhança fonética parcial e (b) o público-alvo
+    compartilhado (crianças em idade escolar).</p>
+    <p><strong>Questão 2 — Pernas do mascote Blip vs. Stitch
+    (Disney)</strong></p>
+    <p>O mascote Blip, em sua forma atual, tem proporções de corpo e
+    membros que a consultoria está avaliando em relação ao personagem
+    Stitch da Disney. A questão não é de cópia direta, mas de potencial
+    alegação de “trade dress” (aparência comercial distintiva).</p>
+    <h3 id="posição-do-produto">Posição do produto</h3>
+    <ul>
+    <li>O desenvolvimento continua em paralelo à due diligence. Esta foi
+    uma decisão deliberada de Bruno (registrada em
+    <code>decisoes_produto.md</code>, 2026-04-01).</li>
+    <li>O mascote está liberado para uso em protótipos e materiais
+    internos enquanto a due diligence corre.</li>
+    <li>O lançamento público do produto depende do parecer jurídico
+    favorável nas duas questões acima.</li>
+    <li>Se o parecer indicar necessidade de mudança: o nome e o mascote
+    são os ativos mais ajustáveis do produto. O sistema de gamificação
+    pedagógica, os dados do Supabase, a lógica de pontuação e o fluxo
+    pai-filho são completamente independentes da identidade visual.</li>
+    </ul>
+    <h3 id="o-que-o-comitê-deve-saber">O que o comitê deve saber</h3>
+    <p>A due diligence não bloqueia o desenvolvimento, não bloqueia a
+    avaliação do comitê e não compromete a lógica de produto. O que o
+    comitê avalia neste material — fluxos, micro-interações, métricas de
+    UX, princípios pedagógicos — é inteiramente independente do
+    resultado jurídico sobre nome e mascote.</p>
+    <p>O comitê não precisa tomar posição sobre o risco jurídico.
+    Precisa apenas estar informado de que ele existe e que está sendo
+    tratado com profissionalismo.</p>
+    <hr />
+    <p><em>Documento produzido por <span class="citation"
+    data-cites="agent-po-missao-da-semana">@agent-po-missao-da-semana</span>
+    — Sprint 3 do Comitê de Product Design. Para distribuição ao comitê
+    como material de leitura prévia.</em></p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#1A1040; padding:28px 24px; text-align:center;">
+  <p style="font-family:'Fredoka',sans-serif; font-size:13px;
+     color:rgba(255,255,255,0.35); font-weight:600; letter-spacing:0.3px;">
+    Blip · Material confidencial · Comitê de Product Design · Abril 2026
+  </p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const docEl = document.documentElement;
+    const scrolled = docEl.scrollTop / (docEl.scrollHeight - docEl.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>
