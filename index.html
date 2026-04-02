@@ -657,6 +657,18 @@
       </div>
 
     </div>
+
+    <!-- Link para prototipo da criança -->
+    <div style="margin-top:36px; text-align:center;">
+      <a href="./blip-mvp-04-validacao.html" target="_blank"
+         style="display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg, #10B981 0%, #059669 100%); color:#fff; font-family:'Fredoka',sans-serif; font-weight:700; font-size:16px; padding:13px 28px; border-radius:14px; text-decoration:none; box-shadow:0 6px 20px rgba(16,185,129,0.3); transition:all 0.2s;"
+         onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 28px rgba(16,185,129,0.4)'"
+         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 20px rgba(16,185,129,0.3)'">
+        Ver protótipo da criança →
+      </a>
+      <div style="margin-top:8px; font-size:13px; color:#9CA3AF;">Interface adaptada por perfil etário · Pequenino, Explorador, Aventureiro e Pro</div>
+    </div>
+
   </div>
 </section>
 
@@ -670,10 +682,10 @@
 
     <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
       <div class="section-num">3</div>
-      <h2 style="font-size:clamp(28px,4vw,44px); font-weight:700; color:#1A1040; line-height:1.1;">Primeiros 5 Minutos — Como o Pai Configura</h2>
+      <h2 style="font-size:clamp(28px,4vw,44px); font-weight:700; color:#1A1040; line-height:1.1;">Olha como é fácil para os Pais configurarem o Blip</h2>
     </div>
     <div class="sep" style="margin-bottom:16px;"></div>
-    <p style="font-size:18px; color:#4b5563; font-weight:600; margin-bottom:48px; max-width:640px;">O responsável configura uma vez. A criança usa todos os dias.</p>
+    <p style="font-size:18px; color:#4b5563; font-weight:600; margin-bottom:48px; max-width:640px;">Configuração completa em uma tarde — a família usa a semana toda.</p>
 
     <!-- Stepper container -->
     <div style="position:relative;">
@@ -732,6 +744,30 @@
         <!-- PASSO 5 -->
         <div class="card-hover" style="background:#fff; border:1.5px solid #e5e7eb; border-radius:20px; padding:28px 24px; flex:1; min-width:180px; max-width:200px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
           <div style="width:36px; height:36px; background:var(--blip-orange); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:15px; flex-shrink:0;">5</div>
+          <div style="font-size:48px; line-height:1;">⭐</div>
+          <div style="font-size:16px; font-weight:700; color:#1A1040; line-height:1.2;">Quanto vale cada resposta?</div>
+          <div style="font-size:13px; color:#6b7280; line-height:1.55; flex:1;">O pai define quantos pontos vale cada carinha: 😊 feliz (padrão: 3 pts), 😐 intermediária (padrão: 2 pts), 😢 difícil (padrão: 1 pt). Esses valores se multiplicam pelo peso da tarefa.</div>
+          <div style="background:#D1FAE5; color:#065f46; border-radius:20px; padding:5px 12px; font-size:11px; font-weight:700; line-height:1.4; text-align:center;">Personalizável por família — os defaults já funcionam para a maioria</div>
+        </div>
+
+        <!-- Seta 5→6 -->
+        <div style="display:flex; align-items:center; justify-content:center; padding:0 4px; color:var(--blip-orange); font-size:22px; font-weight:700; flex-shrink:0; min-width:28px;">→</div>
+
+        <!-- PASSO 6 -->
+        <div class="card-hover" style="background:#fff; border:1.5px solid #e5e7eb; border-radius:20px; padding:28px 24px; flex:1; min-width:180px; max-width:200px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+          <div style="width:36px; height:36px; background:var(--blip-orange); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:15px; flex-shrink:0;">6</div>
+          <div style="font-size:48px; line-height:1;">🕐</div>
+          <div style="font-size:16px; font-weight:700; color:#1A1040; line-height:1.2;">Quando a missão fica disponível?</div>
+          <div style="font-size:13px; color:#6b7280; line-height:1.55; flex:1;">O pai define a janela de tempo em que cada tarefa aparece para a criança — das 14h às 20h, por exemplo. Fora da janela, a tarefa não aparece. Isso evita que a criança veja "dever de casa" às 7h da manhã.</div>
+          <div style="background:#D1FAE5; color:#065f46; border-radius:20px; padding:5px 12px; font-size:11px; font-weight:700; line-height:1.4; text-align:center;">A barra de tempo na tela da criança mostra quanto tempo resta</div>
+        </div>
+
+        <!-- Seta 6→7 -->
+        <div style="display:flex; align-items:center; justify-content:center; padding:0 4px; color:var(--blip-orange); font-size:22px; font-weight:700; flex-shrink:0; min-width:28px;">→</div>
+
+        <!-- PASSO 7 (antigo Passo 5) -->
+        <div class="card-hover" style="background:#fff; border:1.5px solid #e5e7eb; border-radius:20px; padding:28px 24px; flex:1; min-width:180px; max-width:200px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+          <div style="width:36px; height:36px; background:var(--blip-orange); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:15px; flex-shrink:0;">7</div>
           <div style="font-size:48px; line-height:1;">🎯</div>
           <div style="font-size:16px; font-weight:700; color:#1A1040; line-height:1.2;">O que o filho ganha?</div>
           <div style="font-size:13px; color:#6b7280; line-height:1.55; flex:1;">Define % da meta semanal (ex: 70%) e a recompensa — semanada R$5, ida ao cinema, jogo novo. Meta mensal = consistência por 4 semanas.</div>
@@ -747,8 +783,8 @@
         </svg>
         <div style="flex:1; min-width:220px;">
           <div style="font-size:12px; color:rgba(255,255,255,0.5); font-weight:700; letter-spacing:1px; margin-bottom:8px;">TEMPO MEDIO DE SETUP</div>
-          <div style="font-size:clamp(32px,5vw,52px); font-weight:700; color:#fff; line-height:1.1; margin-bottom:12px;">menos de 15 minutos para o primeiro filho</div>
-          <p style="font-size:15px; color:rgba(255,255,255,0.7); line-height:1.6; max-width:480px;">Inclui cadastro, tarefas do dia a dia e atividades extracurriculares. Família com 2 filhos: ~25 min. Estimativas analíticas — validação com testes de usuário planejada.</p>
+          <div style="font-size:clamp(32px,5vw,52px); font-weight:700; color:#fff; line-height:1.1; margin-bottom:12px;">menos de 20 minutos para o primeiro filho</div>
+          <p style="font-size:15px; color:rgba(255,255,255,0.7); line-height:1.6; max-width:480px;">7 configurações: filho, avatar, missões, pesos, pontos por resposta, janela de disponibilidade e meta. Família com 2 filhos: ~35 min. Estimativas analíticas — validação com testes de usuário planejada.</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:16px; flex-shrink:0;">
           <div style="background:rgba(249,115,22,0.15); border:1px solid rgba(249,115,22,0.3); border-radius:16px; padding:16px 24px; text-align:center;">
@@ -803,19 +839,18 @@
           <div>
             <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">JÁ CONSTRUÍDO</div>
             <ul style="font-size:14px; color:#374151; line-height:1.8; list-style:none;">
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> Tour de onboarding (tourData.ts)</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> Register e VerifyPhone funcionando</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> RoleSelectionModal implementado</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> Auth por telefone (sem senha)</li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> Tour de onboarding (tourData.ts)</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— guia o pai pelas primeiras ações sem tutorial externo</div></li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> Register e VerifyPhone funcionando</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— auth por telefone sem senha, zero fricção de cadastro</div></li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> RoleSelectionModal implementado</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— distingue sessão do pai da sessão do filho no mesmo device</div></li>
             </ul>
           </div>
           <div>
             <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">EM VALIDAÇÃO</div>
             <ul style="font-size:14px; color:#374151; line-height:1.8; list-style:none;">
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Fluxo revisado (P0-04 header pesado)</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Settings denso (P0-06)</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Formulário sem indicador de progresso</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Spec onboarding por perfil etário</li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Fluxo revisado (P0-04 header pesado)</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— o header atual consome 25% da tela; proposta reduz para 56px fixo</div></li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Settings denso (P0-06)</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— configurações em uma tela única hoje; proposta: wizard de 4 passos</div></li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Formulário sem indicador de progresso</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— pai não sabe quantos passos faltam; aumenta abandono</div></li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Spec onboarding por perfil etário</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— Pequenino precisa de onboarding visual; Aventureiro prefere texto</div></li>
             </ul>
           </div>
           <div>
@@ -861,19 +896,19 @@
           <div>
             <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">JÁ CONSTRUÍDO</div>
             <ul style="font-size:14px; color:#374151; line-height:1.8; list-style:none;">
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> Campo reaction em tasks</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> celebrationUtils por faixa etária</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> WeeklyHistory funcionando</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> PendingReviewsPanel para o pai</li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> Campo reaction em tasks</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— captura como o filho se sentiu em cada tarefa — base do diferencial emocional</div></li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> celebrationUtils por faixa etária</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— mensagens de celebração diferentes por perfil, já na produção</div></li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> WeeklyHistory funcionando</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— histórico semanal gravado e disponível para visualização</div></li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-mint); font-weight:700;">✓</span> PendingReviewsPanel para o pai</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— pai vê todas as tarefas aguardando aprovação em um painel</div></li>
             </ul>
           </div>
           <div>
             <div style="font-size:12px; font-weight:700; color:#9CA3AF; letter-spacing:0.5px; margin-bottom:10px;">EM VALIDAÇÃO</div>
             <ul style="font-size:14px; color:#374151; line-height:1.8; list-style:none;">
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Micro-interações por perfil (spec)</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> ChildHome diferenciada por faixa</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Resumo semanal para o pai</li>
-              <li style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Loop de aprovação em 24h</li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Micro-interações por perfil (spec)</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— animações distintas: confetti para Pequenino, XP pop para Aventureiro</div></li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> ChildHome diferenciada por faixa</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— Pequenino vê jornada visual; Pro vê lista densa — mesmo app, outra linguagem</div></li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Resumo semanal para o pai</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— painel emocional agregado: como o filho se sentiu nos 7 dias</div></li>
+              <li style="display:flex; gap:8px; flex-direction:column; margin-bottom:4px;"><div style="display:flex; gap:8px;"><span style="color:var(--blip-gold); font-weight:700;">●</span> Loop de aprovação em 24h</div><div style="font-size:12px; color:#9CA3AF; padding-left:20px; font-style:italic;">— se o pai não aprova, o loop semanal quebra — métrica crítica de retenção</div></li>
             </ul>
           </div>
           <div>
@@ -1041,7 +1076,7 @@
           <span style="font-size:32px;">⭐</span>
           <div>
             <h3 style="font-size:20px; font-weight:700; color:#fff;">Estrelas de Coragem</h3>
-            <div style="font-size:12px; color:rgba(255,255,255,0.5);">Sistema paralelo — separado da meta semanal</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.5);">Acumulam e desbloqueiam badges no perfil da criança — reconhecimento permanente, separado da meta semanal.</div>
           </div>
         </div>
         <ul style="font-size:14px; color:rgba(255,255,255,0.75); line-height:1.9; list-style:none;">
@@ -1160,9 +1195,11 @@
 
     <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
       <div class="section-num">6</div>
-      <h2 style="font-size:clamp(28px,4vw,44px); font-weight:700; color:#1A1040; line-height:1.1;">Anti-Padrões e Guardrails</h2>
+      <h2 style="font-size:clamp(28px,4vw,44px); font-weight:700; color:#1A1040; line-height:1.1;">Anti-Padrões e Princípios de Proteção</h2>
     </div>
     <div class="sep" style="margin-bottom:20px;"></div>
+
+    <p style="font-size:15px; color:#6b7280; margin-bottom:24px; max-width:640px; line-height:1.6; font-style:italic;">Princípios de Proteção: mecanismos que impedem o app de se tornar prejudicial para as crianças.</p>
 
     <!-- Tag Andy Puddicombe -->
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:40px;">
@@ -1253,8 +1290,8 @@
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px;">
         <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:20px;">
           <div style="font-size:24px; margin-bottom:10px;">🌱</div>
-          <div style="font-size:15px; font-weight:700; color:#fff; margin-bottom:6px;">1. Motivação intrínseca primeiro</div>
-          <div style="font-size:13px; color:rgba(255,255,255,0.65); line-height:1.6;">Recompensas externas existem mas são consequência — não o mecanismo de retenção principal. A criança volta pelo progresso que sente, não pelo prêmio que espera.</div>
+          <div style="font-size:15px; font-weight:700; color:#fff; margin-bottom:6px;">1. O app cria a estrutura. A família cria o significado.</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.65); line-height:1.6;">O Blip organiza a rotina para que a família não precise negociar toda semana. O significado de cada missão — por que arrumar o quarto, por que fazer o dever — é da família, não do app. O app é o canal. A conexão é deles.</div>
         </div>
         <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:20px;">
           <div style="font-size:24px; margin-bottom:10px;">🤝</div>
@@ -1288,19 +1325,19 @@
 
     <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:48px;">
 
-      <!-- Gap critico -->
-      <div class="open-item critical">
+      <!-- Especialistas em psicologia incluidos -->
+      <div class="open-item infra" style="border-color:var(--blip-mint);">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;">
           <div style="flex:1; min-width:240px;">
             <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-              <span style="background:#FEE2E2; color:#ef4444; border-radius:999px; padding:3px 12px; font-size:12px; font-weight:700;">GAP CRÍTICO</span>
-              <span style="font-size:16px; font-weight:700; color:#1A1040;">Especialista em produto infantil</span>
+              <span style="background:#D1FAE5; color:#065f46; border-radius:999px; padding:3px 12px; font-size:12px; font-weight:700;">INCLUÍDO NO COMITÊ</span>
+              <span style="font-size:16px; font-weight:700; color:#1A1040;">Especialistas em psicologia do desenvolvimento infantil</span>
             </div>
-            <p style="font-size:14px; color:#4b5563; line-height:1.6;">Psicologia do desenvolvimento 7-14 anos. Gap declarado no próprio documento do comitê. O produto toma decisões de design que impactam desenvolvimento emocional de crianças sem um especialista dedicado.</p>
+            <p style="font-size:14px; color:#4b5563; line-height:1.6;">O comitê já inclui especialistas em psicologia do desenvolvimento infantil (faixas 4-14 anos). As decisões de design que impactam desenvolvimento emocional são validadas por esses especialistas antes de cada entrega.</p>
           </div>
-          <div style="background:#FEE2E2; border-radius:10px; padding:10px 16px; text-align:center; flex-shrink:0;">
-            <div style="font-size:20px; font-weight:700; color:#ef4444;">60 dias</div>
-            <div style="font-size:11px; color:#9CA3AF; font-weight:600;">prazo de contratação</div>
+          <div style="background:#D1FAE5; border-radius:10px; padding:10px 16px; text-align:center; flex-shrink:0;">
+            <div style="font-size:14px; font-weight:700; color:#065f46;">Ativo</div>
+            <div style="font-size:11px; color:#9CA3AF; font-weight:600;">no comitê</div>
           </div>
         </div>
       </div>
@@ -1310,14 +1347,14 @@
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;">
           <div style="flex:1; min-width:240px;">
             <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-              <span style="background:#D1FAE5; color:#065f46; border-radius:999px; padding:3px 12px; font-size:12px; font-weight:700;">DECISÃO TÉCNICA</span>
-              <span style="font-size:16px; font-weight:700; color:#1A1040;">Polling vs. Realtime</span>
+              <span style="background:#D1FAE5; color:#065f46; border-radius:999px; padding:3px 12px; font-size:12px; font-weight:700;">DECISÃO TOMADA</span>
+              <span style="font-size:16px; font-weight:700; color:#1A1040;">Realtime (Supabase) — decisão tomada</span>
             </div>
-            <p style="font-size:14px; color:#4b5563; line-height:1.6;">Para detecção de pai online quando filho conclui uma tarefa. Polling funciona no MVP (custo zero de infraestrutura). Realtime (Supabase) é mais elegante mas adiciona complexidade. Decisão não foi tomada — aguarda dados de uso real.</p>
+            <p style="font-size:14px; color:#4b5563; line-height:1.6;">Para detecção de pai online quando filho conclui uma tarefa. A decisão foi tomada: Realtime via Supabase. Garante que o pai veja a conclusão da tarefa instantaneamente, sem atraso de polling — fundamental para o loop de aprovação em 24h funcionar com fluidez.</p>
           </div>
           <div style="background:#D1FAE5; border-radius:10px; padding:10px 16px; text-align:center; flex-shrink:0;">
-            <div style="font-size:14px; font-weight:700; color:#065f46;">Em avaliação</div>
-            <div style="font-size:11px; color:#9CA3AF; font-weight:600;">pos-MVP</div>
+            <div style="font-size:14px; font-weight:700; color:#065f46;">Decidido</div>
+            <div style="font-size:11px; color:#9CA3AF; font-weight:600;">Supabase Realtime</div>
           </div>
         </div>
       </div>
