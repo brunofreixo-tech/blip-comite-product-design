@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Blip — Onboarding Revisado (Comitê Sprint 1)</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='18' rx='10' ry='11' fill='%23F97316'/%3E%3Cellipse cx='12' cy='19' rx='3.5' ry='4' fill='%23FED7AA'/%3E%3Cellipse cx='20' cy='19' rx='3.5' ry='4' fill='%23FED7AA'/%3E%3Cellipse cx='16' cy='22' rx='6' ry='4.5' fill='%23FED7AA'/%3E%3Cellipse cx='10' cy='8' rx='3.5' ry='4.5' fill='%23F97316'/%3E%3Cellipse cx='22' cy='8' rx='3.5' ry='4.5' fill='%23F97316'/%3E%3Cellipse cx='16' cy='13' rx='9' ry='9.5' fill='%23F97316'/%3E%3Cellipse cx='12.5' cy='12' rx='2.8' ry='3.2' fill='white'/%3E%3Cellipse cx='19.5' cy='12' rx='2.8' ry='3.2' fill='white'/%3E%3Ccircle cx='13.2' cy='12.5' r='1.6' fill='%231A1040'/%3E%3Ccircle cx='20.2' cy='12.5' r='1.6' fill='%231A1040'/%3E%3Ccircle cx='13.8' cy='11.9' r='.6' fill='white'/%3E%3Ccircle cx='20.8' cy='11.9' r='.6' fill='white'/%3E%3Cellipse cx='11.5' cy='14.5' rx='2' ry='1.2' fill='%23f97316' opacity='.5'/%3E%3Cellipse cx='20.5' cy='14.5' rx='2' ry='1.2' fill='%23f97316' opacity='.5'/%3E%3Cpath d='M13.5 17 Q16 19 18.5 17' stroke='%231A1040' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { fredoka: ['Fredoka', 'sans-serif'] },
+          colors: {
+            blip: {
+              orange:  '#F97316',
+              night:   '#1A1040',
+              peach:   '#FED7AA',
+              gold:    '#FBBF24',
+              mint:    '#10B981',
+              violet:  '#A78BFA',
+              offwhite:'#F8F7FF',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* ── Variáveis CSS Blip Brandbook v3 ──────────────────── */
+    :root {
+      --blip-orange:  #F97316;
+      --blip-green:   #10B981;
+      --blip-yellow:  #FBBF24;
+      --blip-purple:  #A78BFA;
+      --blip-deep:    #1A1040;
+      --blip-white:   #F8F7FF;
+      --blip-peach:   #FED7AA;
+      --blip-night:   #1A1040;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Fredoka', sans-serif;
+      background: var(--blip-deep);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 16px 48px;
+    }
+
+    /* ── Banner do comitê ──────────────────────────────────── */
+    .committee-banner {
+      width: 100%;
+      max-width: 540px;
+      background: linear-gradient(135deg, #312e81 0%, #1e1b4b 100%);
+      border: 1px solid rgba(167,139,250,.4);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      color: #e0e7ff;
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .committee-banner strong { color: #fbbf24; }
+
+    /* ── Shell do dispositivo ──────────────────────────────── */
+    .device-shell {
+      width: 390px;
+      min-height: 844px;
+      background: var(--blip-white);
+      border-radius: 48px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5), inset 0 0 0 2px rgba(255,255,255,0.15);
+      position: relative;
+    }
+
+    /* ── Telas ─────────────────────────────────────────────── */
+    .screen {
+      display: none;
+      width: 100%;
+      min-height: 844px;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .screen.active { display: flex; }
+
+    /* ── Transição fade ────────────────────────────────────── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(18px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .screen.active { animation: fadeIn .25s ease; }
+
+    /* ── Nav externo ───────────────────────────────────────── */
+    .screen-nav {
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 14px; max-width: 500px;
+    }
+    .screen-nav button {
+      background: rgba(255,255,255,0.12); color: #fff;
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
+      padding: 6px 16px; font-family: 'Fredoka', sans-serif;
+      font-size: 13px; cursor: pointer; transition: all .2s;
+    }
+    .screen-nav button:hover, .screen-nav button.active {
+      background: var(--blip-orange); border-color: var(--blip-orange);
+    }
+    .label-proto {
+      color: rgba(255,255,255,.45); font-size: 11px;
+      text-align: center; margin-bottom: 10px;
+      font-family: 'Fredoka', sans-serif; letter-spacing: .5px;
+    }
+
+    /* ── Header de onboarding com back button ──────────────── */
+    .onboarding-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px 10px;
+      flex-shrink: 0;
+    }
+    .back-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.15); border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #fff; font-size: 18px;
+      transition: background .2s; font-family: 'Fredoka', sans-serif;
+    }
+    .back-btn:hover { background: rgba(255,255,255,.3); }
+    .back-btn.dark {
+      background: rgba(26,16,64,.08); color: #1A1040;
+    }
+    .back-btn.dark:hover { background: rgba(26,16,64,.15); }
+    .back-btn.invisible { visibility: hidden; }
+
+    /* ── Progress dots ─────────────────────────────────────── */
+    .progress-dots {
+      display: flex; gap: 6px; align-items: center;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,.3); transition: all .3s;
+    }
+    .dot.active { background: #fff; width: 20px; border-radius: 4px; }
+    .dot.done { background: rgba(255,255,255,.6); }
+
+    .progress-dots.dark .dot { background: rgba(26,16,64,.2); }
+    .progress-dots.dark .dot.active { background: var(--blip-orange); }
+    .progress-dots.dark .dot.done { background: var(--blip-mint); }
+
+    /* ── Mascote animations ────────────────────────────────── */
+    @keyframes mascotBounce {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50%       { transform: translateY(-12px) rotate(3deg); }
+    }
+    @keyframes mascotCelebrate {
+      0%, 100% { transform: translateY(0) scale(1) rotate(-5deg); }
+      30%       { transform: translateY(-16px) scale(1.1) rotate(5deg); }
+      60%       { transform: translateY(-6px) scale(1.04) rotate(-3deg); }
+    }
+    .mascot-idle      { animation: mascotBounce 3s ease infinite; }
+    .mascot-celebrate { animation: mascotCelebrate 1.2s ease infinite; }
+
+    /* ── Inputs ────────────────────────────────────────────── */
+    .blip-input {
+      width: 100%; padding: 14px 16px;
+      border: 2px solid #e5e7eb; border-radius: 14px;
+      font-family: 'Fredoka', sans-serif; font-size: 16px; color: #1A1040;
+      background: #fff; outline: none; transition: border-color .2s;
+    }
+    .blip-input:focus { border-color: var(--blip-orange); }
+    .blip-input::placeholder { color: #9ca3af; }
+
+    .input-label {
+      font-size: 13px; font-weight: 600; color: #6b7280;
+      margin-bottom: 6px; display: block; letter-spacing: .3px;
+    }
+
+    /* ── Botões ────────────────────────────────────────────── */
+    .btn-primary {
+      width: 100%; padding: 16px;
+      background: var(--blip-orange); color: #fff;
+      border: none; border-radius: 16px;
+      font-family: 'Fredoka', sans-serif; font-size: 18px; font-weight: 700;
+      cursor: pointer; transition: all .2s; letter-spacing: .3px;
+    }
+    .btn-primary:hover { background: #ea580c; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(249,115,22,.4); }
+    .btn-primary:disabled { background: #d1d5db; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .btn-outline {
+      width: 100%; padding: 15px;
+      background: transparent; color: var(--blip-orange);
+      border: 2px solid var(--blip-orange); border-radius: 16px;
+      font-family: 'Fredoka', sans-serif; font-size: 17px; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+    }
+    .btn-outline:hover { background: #fff7ed; }
+
+    .btn-ghost-link {
+      background: none; border: none; color: rgba(255,255,255,.7);
+      font-family: 'Fredoka', sans-serif; font-size: 14px;
+      cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+    }
+    .btn-ghost-link:hover { color: #fff; }
+    .btn-ghost-link.dark { color: #9ca3af; }
+    .btn-ghost-link.dark:hover { color: #6b7280; }
+
+    /* ── Avatar grid ───────────────────────────────────────── */
+    .avatar-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+      margin: 8px 0;
+    }
+    .avatar-item {
+      aspect-ratio: 1; border-radius: 16px;
+      background: #f3f4f6; border: 2.5px solid transparent;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; cursor: pointer; transition: all .2s;
+    }
+    .avatar-item:hover { background: #fff7ed; border-color: var(--blip-peach); transform: scale(1.05); }
+    .avatar-item.selected { border-color: var(--blip-orange); background: #fff7ed; box-shadow: 0 0 0 3px rgba(249,115,22,.2); transform: scale(1.08); }
+
+    /* ── Date pickers ──────────────────────────────────────── */
+    .date-row { display: flex; gap: 8px; }
+    .date-select {
+      flex: 1; padding: 12px 8px;
+      border: 2px solid #e5e7eb; border-radius: 12px;
+      font-family: 'Fredoka', sans-serif; font-size: 15px; color: #1A1040;
+      background: #fff; outline: none; cursor: pointer;
+      transition: border-color .2s; text-align: center;
+      appearance: none; -webkit-appearance: none;
+    }
+    .date-select:focus { border-color: var(--blip-orange); }
+
+    /* ── Profile badge ─────────────────────────────────────── */
+    .profile-badge {
+      display: none; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #FFF7ED 0%, #FEF3C7 100%);
+      border: 2px solid var(--blip-gold); border-radius: 12px;
+      padding: 10px 14px; margin-top: 12px;
+    }
+    .profile-badge.visible { display: flex; animation: badgeAppear .35s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes badgeAppear {
+      from { opacity: 0; transform: scale(.8) translateY(6px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .profile-badge-emoji { font-size: 24px; }
+    .profile-badge-text strong { display: block; font-size: 14px; font-weight: 700; color: #92400e; }
+    .profile-badge-text span { font-size: 12px; color: #b45309; }
+
+    /* ── Template cards ────────────────────────────────────── */
+    .template-card {
+      background: #fff; border: 2.5px solid #e5e7eb; border-radius: 16px;
+      padding: 16px; cursor: pointer; transition: all .2s;
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 10px;
+    }
+    .template-card:hover { border-color: var(--blip-orange); background: #fff7ed; transform: translateX(3px); }
+    .template-card.selected { border-color: var(--blip-mint); background: #f0fdf4; box-shadow: 0 0 0 3px rgba(16,185,129,.15); }
+    .template-emoji { font-size: 36px; flex-shrink: 0; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: #f3f4f6; border-radius: 12px; }
+    .template-card.selected .template-emoji { background: #dcfce7; }
+    .template-info { flex: 1; }
+    .template-title { font-size: 16px; font-weight: 700; color: #1A1040; }
+    .template-meta { font-size: 12px; color: #6b7280; margin-top: 2px; }
+    .template-stars { font-size: 13px; color: var(--blip-gold); margin-top: 3px; }
+
+    /* ── Confetti ──────────────────────────────────────────── */
+    .confetti-container {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; overflow: hidden; z-index: 10;
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 9px; height: 9px;
+      border-radius: 2px;
+      top: -12px;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0%   { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+      80%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(900px) rotate(720deg) scale(.6); }
+    }
+
+    /* ── SMS hint ──────────────────────────────────────────── */
+    .sms-hint {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.1); border-radius: 10px;
+      padding: 8px 12px; margin-top: 10px;
+    }
+    .sms-hint span { font-size: 12px; color: rgba(255,255,255,.7); }
+
+    /* ── Celebration section ───────────────────────────────── */
+    .check-circle {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blip-mint) 0%, #059669 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; margin: 0 auto 16px;
+      box-shadow: 0 8px 24px rgba(16,185,129,.35);
+      animation: checkBounce .5s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes checkBounce {
+      from { opacity: 0; transform: scale(0); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ── Logo blip ─────────────────────────────────────────── */
+    .blip-logo {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .blip-wordmark {
+      color: #fff; font-weight: 700; font-size: 22px; letter-spacing: -.5px;
+      position: relative;
+    }
+    .blip-wordmark::after {
+      content: '';
+      display: inline-block; width: 5px; height: 5px;
+      background: #fff; border-radius: 50%;
+      margin-left: 2px; vertical-align: super; opacity: .9;
+    }
+
+    /* ── Scrollable body ───────────────────────────────────── */
+    .screen-scroll {
+      flex: 1; overflow-y: auto; padding: 0 20px 24px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========================================================
+     PROTOTIPO — Blip Onboarding Revisado — Sprint 1 Comitê
+     Gerado por @agent-ux-missao-da-semana em 2026-04-02
+     Mascote SVG: BrandBook v3 (substituir pelo asset oficial
+     após due diligence jurídica com advogado de PI)
+     ======================================================== -->
+
+<!-- ── Mascote SVG defs (3 estados) ──────────────────────── -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+    <!-- Estado 1: Neutro/Feliz -->
+    <symbol id="mascote-feliz" viewBox="0 0 120 160">
+      <ellipse cx="43" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="77" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="43" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="77" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="60" cy="122" rx="36" ry="38" fill="#F97316"/>
+      <ellipse cx="60" cy="128" rx="22" ry="24" fill="#FED7AA"/>
+      <ellipse cx="20" cy="110" rx="11" ry="8" fill="#F97316" transform="rotate(-30 20 110)"/>
+      <ellipse cx="100" cy="110" rx="11" ry="8" fill="#F97316" transform="rotate(30 100 110)"/>
+      <ellipse cx="22" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="98" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="60" cy="74" rx="44" ry="46" fill="#F97316"/>
+      <ellipse cx="43" cy="68" rx="14" ry="16" fill="white"/>
+      <ellipse cx="77" cy="68" rx="14" ry="16" fill="white"/>
+      <circle cx="45" cy="70" r="8" fill="#1A1040"/>
+      <circle cx="79" cy="70" r="8" fill="#1A1040"/>
+      <circle cx="48" cy="66" r="3" fill="white"/>
+      <circle cx="82" cy="66" r="3" fill="white"/>
+      <ellipse cx="30" cy="82" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+      <ellipse cx="90" cy="82" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+      <path d="M48 90 Q60 100 72 90" stroke="#1A1040" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Estado 2: Celebrando -->
+    <symbol id="mascote-celebrando" viewBox="0 0 120 160">
+      <ellipse cx="43" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="77" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="43" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="77" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="60" cy="120" rx="36" ry="38" fill="#F97316"/>
+      <ellipse cx="60" cy="126" rx="22" ry="24" fill="#FED7AA"/>
+      <ellipse cx="16" cy="88" rx="11" ry="8" fill="#F97316" transform="rotate(-70 16 88)"/>
+      <ellipse cx="104" cy="88" rx="11" ry="8" fill="#F97316" transform="rotate(70 104 88)"/>
+      <ellipse cx="22" cy="60" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="98" cy="60" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="60" cy="70" rx="44" ry="46" fill="#F97316"/>
+      <path d="M30 66 Q43 56 56 66" stroke="#1A1040" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M64 66 Q77 56 90 66" stroke="#1A1040" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="28" cy="78" rx="12" ry="8" fill="#FED7AA" opacity="0.9"/>
+      <ellipse cx="92" cy="78" rx="12" ry="8" fill="#FED7AA" opacity="0.9"/>
+      <path d="M42 88 Q60 104 78 88" stroke="#1A1040" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <text x="8" y="30" font-size="14" fill="#FBBF24">&#x2736;</text>
+      <text x="98" y="28" font-size="14" fill="#FBBF24">&#x2736;</text>
+      <text x="4" y="60" font-size="10" fill="#10B981">&#x2736;</text>
+      <text x="106" y="58" font-size="10" fill="#10B981">&#x2736;</text>
+    </symbol>
+
+    <!-- Estado 3: Curioso -->
+    <symbol id="mascote-curioso" viewBox="0 0 120 160">
+      <ellipse cx="43" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="77" cy="152" rx="13" ry="10" fill="#F97316"/>
+      <ellipse cx="43" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="77" cy="154" rx="9" ry="6" fill="#FED7AA"/>
+      <ellipse cx="60" cy="122" rx="36" ry="38" fill="#F97316" transform="rotate(3 60 122)"/>
+      <ellipse cx="60" cy="128" rx="22" ry="24" fill="#FED7AA"/>
+      <ellipse cx="22" cy="102" rx="11" ry="8" fill="#F97316" transform="rotate(-20 22 102)"/>
+      <ellipse cx="102" cy="92" rx="11" ry="8" fill="#F97316" transform="rotate(-50 102 92)"/>
+      <ellipse cx="22" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="98" cy="64" rx="13" ry="16" fill="#F97316"/>
+      <ellipse cx="60" cy="74" rx="44" ry="46" fill="#F97316" transform="rotate(5 60 74)"/>
+      <ellipse cx="42" cy="68" rx="16" ry="17" fill="white"/>
+      <ellipse cx="77" cy="70" rx="13" ry="14" fill="white"/>
+      <circle cx="44" cy="70" r="9" fill="#1A1040"/>
+      <circle cx="79" cy="72" r="7.5" fill="#1A1040"/>
+      <circle cx="48" cy="65" r="3.5" fill="white"/>
+      <circle cx="83" cy="68" r="2.8" fill="white"/>
+      <path d="M28 52 Q42 46 54 52" stroke="#1A1040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="30" cy="82" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+      <ellipse cx="90" cy="83" rx="10" ry="7" fill="#FED7AA" opacity="0.75"/>
+      <path d="M48 90 Q60 97 72 91" stroke="#1A1040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <text x="95" y="45" font-size="20" fill="#FBBF24" font-weight="bold">?</text>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ── Banner do comitê ─────────────────────────────────── -->
+<div class="committee-banner">
+  Prototipo de validacao — fluxo revisado proposto.
+  <strong>43 toques</strong> &rarr; <strong>18 toques</strong>.
+  Feedback do comite bem-vindo.
+</div>
+
+<p class="label-proto">PROTOTIPO — Sprint 1 Comite Product Design — 2026-04-02 · Nao usar em producao</p>
+
+<!-- Nav externo -->
+<div class="screen-nav">
+  <button onclick="goTo('t1')" id="nav-t1" class="active">T1 · Boas-vindas</button>
+  <button onclick="goTo('t2')" id="nav-t2">T2 · Cadastro pai</button>
+  <button onclick="goTo('t3')" id="nav-t3">T3 · Filho</button>
+  <button onclick="goTo('t4')" id="nav-t4">T4 · Missao</button>
+  <button onclick="goTo('t5')" id="nav-t5">T5 · Celebracao</button>
+</div>
+
+<!-- Device shell -->
+<div class="device-shell" id="device">
+
+  <!-- ══════════════════════════════════════════════════════
+       T1 — Boas-vindas (zero fricção)
+       ══════════════════════════════════════════════════════ -->
+  <div class="screen active" id="t1"
+       style="background: linear-gradient(180deg, #1A1040 0%, #2D1B6B 55%, #3D1F8B 100%); flex-direction: column;">
+
+    <!-- Top spacer / logo area -->
+    <div style="padding: 48px 24px 0; display:flex; justify-content:center;">
+      <div class="blip-logo">
+        <svg width="36" height="36" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+          <use href="#mascote-feliz"/>
+        </svg>
+        <span class="blip-wordmark">blip</span>
+      </div>
+    </div>
+
+    <!-- Mascote grande centralizado -->
+    <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 0 24px;">
+      <svg width="140" height="186" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg"
+           class="mascot-celebrate" style="display:block; margin-bottom:32px; filter: drop-shadow(0 16px 32px rgba(249,115,22,.4));">
+        <use href="#mascote-celebrando"/>
+      </svg>
+
+      <h1 style="color:#fff; font-size:26px; font-weight:700; text-align:center; line-height:1.3; margin-bottom:12px; letter-spacing:-.3px;">
+        Organize as missoes<br>da semana da sua familia
+      </h1>
+      <p style="color:rgba(255,255,255,.65); font-size:15px; text-align:center; line-height:1.5; max-width:280px;">
+        Crie missoes para seus filhos, acompanhe o progresso e comemore juntos cada conquista.
+      </p>
+    </div>
+
+    <!-- CTAs -->
+    <div style="padding: 0 24px 48px; display:flex; flex-direction:column; gap:12px;">
+      <button class="btn-primary" onclick="goTo('t2')" style="font-size:19px; padding:18px;">
+        Comecar
+      </button>
+      <div style="text-align:center;">
+        <button class="btn-ghost-link" onclick="goTo('t2')" style="font-size:14px; letter-spacing:.2px;">
+          Ja tenho conta
+        </button>
+      </div>
+    </div>
+  </div><!-- /t1 -->
+
+
+  <!-- ══════════════════════════════════════════════════════
+       T2 — Cadastro do pai (simplificado: 2 campos)
+       ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="t2"
+       style="background: linear-gradient(180deg, #1A1040 0%, #2D1B6B 40%, #F8F7FF 40%); flex-direction:column;">
+
+    <!-- Header com back e progress dots -->
+    <div class="onboarding-header">
+      <button class="back-btn" onclick="goTo('t1')">&#8592;</button>
+      <div class="progress-dots">
+        <div class="dot done"></div>
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div style="width:36px"></div><!-- spacer -->
+    </div>
+
+    <!-- Title in dark section -->
+    <div style="padding: 0 24px 32px; text-align:center;">
+      <p style="color:rgba(255,255,255,.6); font-size:13px; margin-bottom:6px; letter-spacing:.5px; text-transform:uppercase;">Passo 1 de 4</p>
+      <h2 style="color:#fff; font-size:24px; font-weight:700; letter-spacing:-.3px;">Seus dados</h2>
+      <p style="color:rgba(255,255,255,.6); font-size:14px; margin-top:6px;">Rapido — so 2 campos</p>
+    </div>
+
+    <!-- Form card -->
+    <div class="screen-scroll" style="background:#F8F7FF; flex:1; padding:24px 20px 32px;">
+      <div style="background:#fff; border-radius:20px; padding:20px; box-shadow:0 4px 20px rgba(0,0,0,.08); margin-bottom:20px;">
+
+        <div style="margin-bottom:16px;">
+          <label class="input-label">Celular (com DDD)</label>
+          <input class="blip-input" type="tel" placeholder="(11) 9 0000-0000"
+                 id="t2-phone" oninput="formatPhone(this)" maxlength="16">
+        </div>
+
+        <div>
+          <label class="input-label">Seu nome completo</label>
+          <input class="blip-input" type="text" placeholder="Como voce se chama?" id="t2-name"
+                 oninput="checkT2()">
+        </div>
+      </div>
+
+      <!-- SMS hint -->
+      <div style="background:linear-gradient(135deg,#FFF7ED,#fff); border:1.5px solid var(--blip-peach); border-radius:12px; padding:12px 16px; display:flex; align-items:center; gap:10px; margin-bottom:24px;">
+        <span style="font-size:20px;">&#128242;</span>
+        <p style="font-size:13px; color:#92400e; line-height:1.4;">
+          Voce vai receber um <strong>codigo por SMS</strong> para confirmar o numero. Sem senha para memorizar.
+        </p>
+      </div>
+
+      <button class="btn-primary" id="t2-btn" onclick="goTo('t3')" disabled>
+        Continuar
+      </button>
+
+      <p style="text-align:center; font-size:12px; color:#9ca3af; margin-top:14px; line-height:1.5;">
+        Ao continuar, voce concorda com os
+        <a href="#" style="color:var(--blip-orange); text-decoration:underline;">Termos de Uso</a>
+        e
+        <a href="#" style="color:var(--blip-orange); text-decoration:underline;">Politica de Privacidade</a>.
+      </p>
+    </div>
+  </div><!-- /t2 -->
+
+
+  <!-- ══════════════════════════════════════════════════════
+       T3 — Cadastro do filho
+       ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="t3"
+       style="background:#F8F7FF; flex-direction:column;">
+
+    <!-- Header dark -->
+    <div style="background:linear-gradient(135deg, #1A1040 0%, #2D1B6B 100%); padding: 14px 20px 24px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+        <button class="back-btn" onclick="goTo('t2')">&#8592;</button>
+        <div class="progress-dots">
+          <div class="dot done"></div>
+          <div class="dot done"></div>
+          <div class="dot active"></div>
+          <div class="dot"></div>
+        </div>
+        <div style="width:36px"></div>
+      </div>
+      <p style="color:rgba(255,255,255,.6); font-size:13px; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px;">Passo 2 de 4</p>
+      <h2 style="color:#fff; font-size:24px; font-weight:700; letter-spacing:-.3px;">Seu filho</h2>
+      <p style="color:rgba(255,255,255,.6); font-size:14px; margin-top:4px;">O Blip vai se adaptar para a idade dele</p>
+    </div>
+
+    <!-- Scroll body -->
+    <div class="screen-scroll" style="padding:20px 20px 32px;">
+
+      <!-- Nome e apelido -->
+      <div style="background:#fff; border-radius:18px; padding:18px; box-shadow:0 2px 12px rgba(0,0,0,.07); margin-bottom:14px;">
+        <div style="margin-bottom:14px;">
+          <label class="input-label">Nome completo</label>
+          <input class="blip-input" type="text" placeholder="Nome do seu filho" id="t3-name"
+                 oninput="syncChildName()">
+        </div>
+        <div>
+          <label class="input-label">Apelido <span style="color:#9ca3af; font-weight:400;">(opcional)</span></label>
+          <input class="blip-input" type="text" placeholder="Como ele prefere ser chamado?" id="t3-nick">
+        </div>
+      </div>
+
+      <!-- Data de nascimento -->
+      <div style="background:#fff; border-radius:18px; padding:18px; box-shadow:0 2px 12px rgba(0,0,0,.07); margin-bottom:14px;">
+        <label class="input-label" style="margin-bottom:10px;">Data de nascimento</label>
+        <div class="date-row">
+          <select class="date-select" id="t3-day" onchange="detectProfile()">
+            <option value="">Dia</option>
+            <!-- days 1-31 -->
+            <option value="1">01</option><option value="2">02</option><option value="3">03</option>
+            <option value="4">04</option><option value="5">05</option><option value="6">06</option>
+            <option value="7">07</option><option value="8">08</option><option value="9">09</option>
+            <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+            <option value="13">13</option><option value="14">14</option><option value="15">15</option>
+            <option value="16">16</option><option value="17">17</option><option value="18">18</option>
+            <option value="19">19</option><option value="20">20</option><option value="21">21</option>
+            <option value="22">22</option><option value="23">23</option><option value="24">24</option>
+            <option value="25">25</option><option value="26">26</option><option value="27">27</option>
+            <option value="28">28</option><option value="29">29</option><option value="30">30</option>
+            <option value="31">31</option>
+          </select>
+          <select class="date-select" id="t3-month" onchange="detectProfile()">
+            <option value="">Mes</option>
+            <option value="1">Jan</option><option value="2">Fev</option><option value="3">Mar</option>
+            <option value="4">Abr</option><option value="5">Mai</option><option value="6">Jun</option>
+            <option value="7">Jul</option><option value="8">Ago</option><option value="9">Set</option>
+            <option value="10">Out</option><option value="11">Nov</option><option value="12">Dez</option>
+          </select>
+          <select class="date-select" id="t3-year" onchange="detectProfile()">
+            <option value="">Ano</option>
+            <!-- years 2010-2022 -->
+            <option value="2022">2022</option><option value="2021">2021</option>
+            <option value="2020">2020</option><option value="2019">2019</option>
+            <option value="2018">2018</option><option value="2017">2017</option>
+            <option value="2016">2016</option><option value="2015">2015</option>
+            <option value="2014">2014</option><option value="2013">2013</option>
+            <option value="2012">2012</option><option value="2011">2011</option>
+            <option value="2010">2010</option>
+          </select>
+        </div>
+
+        <!-- Profile badge (aparece após detectar) -->
+        <div class="profile-badge" id="profile-badge">
+          <span class="profile-badge-emoji" id="badge-emoji">&#127807;</span>
+          <div class="profile-badge-text">
+            <strong id="badge-title">Pequenino</strong>
+            <span id="badge-sub">4 a 6 anos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Avatar -->
+      <div style="background:#fff; border-radius:18px; padding:18px; box-shadow:0 2px 12px rgba(0,0,0,.07); margin-bottom:20px;">
+        <label class="input-label" style="margin-bottom:10px;">Escolha um avatar</label>
+        <div class="avatar-grid" id="avatar-grid">
+          <div class="avatar-item" onclick="selectAvatar(this, '&#x1F430;')">&#x1F430;</div>
+          <div class="avatar-item" onclick="selectAvatar(this, '&#x1F981;')">&#x1F981;</div>
+          <div class="avatar-item" onclick="selectAvatar(this, '&#x1F43C;')">&#x1F43C;</div>
+          <div class="avatar-item" onclick="selectAvatar(this, '&#x1F98A;')">&#x1F98A;</div>
+          <div class="avatar-item" onclick="selectAvatar(this, '&#x1F438;')">&#x1F438;</div>
+          <div class="avatar-item" onclick="selectAvatar(this, '&#x1F42F;')">&#x1F42F;</div>
+          <div class="avatar-item" onclick="selectAvatar(this, '&#x1F98B;')">&#x1F98B;</div>
+          <div class="avatar-item" onclick="selectAvatar(this, '&#x1F427;')">&#x1F427;</div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="t3-btn" onclick="goToT4()" disabled>
+        Continuar
+      </button>
+    </div>
+  </div><!-- /t3 -->
+
+
+  <!-- ══════════════════════════════════════════════════════
+       T4 — Primeira missão (templates)
+       ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="t4"
+       style="background:#F8F7FF; flex-direction:column;">
+
+    <!-- Header dark -->
+    <div style="background:linear-gradient(135deg, #1A1040 0%, #2D1B6B 100%); padding: 14px 20px 24px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+        <button class="back-btn" onclick="goTo('t3')">&#8592;</button>
+        <div class="progress-dots">
+          <div class="dot done"></div>
+          <div class="dot done"></div>
+          <div class="dot done"></div>
+          <div class="dot active"></div>
+        </div>
+        <div style="width:36px"></div>
+      </div>
+      <p style="color:rgba(255,255,255,.6); font-size:13px; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px;">Passo 3 de 4</p>
+      <h2 style="color:#fff; font-size:22px; font-weight:700; letter-spacing:-.3px;">
+        Qual e a primeira missao<br>de <span id="t4-child-name" style="color:var(--blip-gold);">seu filho</span>?
+      </h2>
+      <p style="color:rgba(255,255,255,.6); font-size:13px; margin-top:6px;">Escolha com 1 toque ou crie do zero</p>
+    </div>
+
+    <!-- Template list -->
+    <div class="screen-scroll" style="padding:20px 20px 32px;">
+
+      <div class="template-card" id="tmpl-quarto" onclick="selectTemplate('quarto')">
+        <div class="template-emoji">&#x1F6CF;&#xFE0F;</div>
+        <div class="template-info">
+          <div class="template-title">Arrumar o quarto</div>
+          <div class="template-meta">Todos os dias · sugestao: 08h00</div>
+          <div class="template-stars">&#11088;&#11088; Missao padrao</div>
+        </div>
+      </div>
+
+      <div class="template-card" id="tmpl-dever" onclick="selectTemplate('dever')">
+        <div class="template-emoji">&#x1F4DA;</div>
+        <div class="template-info">
+          <div class="template-title">Dever de casa</div>
+          <div class="template-meta">Dias de aula · sugestao: 17h00</div>
+          <div class="template-stars">&#11088;&#11088;&#11088; Missao importante</div>
+        </div>
+      </div>
+
+      <div class="template-card" id="tmpl-banho" onclick="selectTemplate('banho')">
+        <div class="template-emoji">&#x1F6BF;</div>
+        <div class="template-info">
+          <div class="template-title">Tomar banho</div>
+          <div class="template-meta">Todos os dias · sugestao: 19h00</div>
+          <div class="template-stars">&#11088;&#11088; Missao padrao</div>
+        </div>
+      </div>
+
+      <div class="template-card" id="tmpl-custom" onclick="selectTemplate('custom')">
+        <div class="template-emoji" style="font-size:28px; background:linear-gradient(135deg,#FFF7ED,#FEF3C7);">&#x2795;</div>
+        <div class="template-info">
+          <div class="template-title" style="color:var(--blip-orange);">Criar do zero</div>
+          <div class="template-meta">Personalize titulo, horario e pontos</div>
+          <div class="template-stars" style="color:#9ca3af;">Missao customizada</div>
+        </div>
+      </div>
+
+      <div style="height:16px;"></div>
+
+      <button class="btn-primary" id="t4-btn" onclick="goTo('t5')" disabled>
+        Confirmar missao
+      </button>
+    </div>
+  </div><!-- /t4 -->
+
+
+  <!-- ══════════════════════════════════════════════════════
+       T5 — Ancoragem de hábito (celebração)
+       ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="t5"
+       style="background: linear-gradient(180deg, #1A1040 0%, #2D1B6B 45%, #F8F7FF 45%); flex-direction:column;">
+
+    <!-- Confetti layer -->
+    <div class="confetti-container" id="t5-confetti"></div>
+
+    <!-- Header com progress completo -->
+    <div style="padding: 14px 20px 0;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+        <div style="width:36px;"></div>
+        <div class="progress-dots">
+          <div class="dot done"></div>
+          <div class="dot done"></div>
+          <div class="dot done"></div>
+          <div class="dot done" style="background:var(--blip-mint);"></div>
+        </div>
+        <div style="width:36px; height:36px; border-radius:50%; background:var(--blip-mint); display:flex; align-items:center; justify-content:center; font-size:16px;">&#x2713;</div>
+      </div>
+
+      <!-- Mascote celebrando -->
+      <div style="text-align:center;">
+        <svg width="130" height="173" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg"
+             class="mascot-celebrate" style="display:inline-block; filter:drop-shadow(0 16px 32px rgba(249,115,22,.5));">
+          <use href="#mascote-celebrando"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Celebration card -->
+    <div class="screen-scroll" style="background:#F8F7FF; padding:24px 20px 48px;">
+
+      <div style="text-align:center; margin-bottom:20px;">
+        <h2 style="font-size:24px; font-weight:700; color:#1A1040; letter-spacing:-.3px; line-height:1.3; margin-bottom:10px;">
+          Pronto, <span id="t5-child-name" style="color:var(--blip-orange);">seu filho</span><br>ja tem a primeira missao!
+        </h2>
+        <p style="font-size:15px; color:#6b7280; line-height:1.5; max-width:280px; margin:0 auto;">
+          Amanha as <span id="t5-time" style="font-weight:700; color:#1A1040;">08h00</span>, o Blip vai lembrar <span id="t5-nick" style="font-weight:700; color:var(--blip-orange);">ele</span> de completar a missao.
+        </p>
+      </div>
+
+      <!-- Mission summary card -->
+      <div style="background:#fff; border:2px solid #dcfce7; border-radius:16px; padding:16px; margin-bottom:20px; display:flex; align-items:center; gap:14px;">
+        <div style="width:52px; height:52px; background:#f0fdf4; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0;" id="t5-mission-emoji">&#x1F6CF;&#xFE0F;</div>
+        <div style="flex:1;">
+          <div style="font-size:16px; font-weight:700; color:#1A1040;" id="t5-mission-name">Arrumar o quarto</div>
+          <div style="font-size:12px; color:#6b7280; margin-top:2px;">Para amanha cedo</div>
+        </div>
+        <div style="background:#dcfce7; color:#065f46; font-size:13px; font-weight:700; padding:4px 10px; border-radius:20px;">&#x2713; Salvo</div>
+      </div>
+
+      <!-- CTAs -->
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn-primary" onclick="goTo('t1')" style="font-size:17px; padding:17px;">
+          Ver painel
+        </button>
+        <button class="btn-outline" onclick="goTo('t3')" style="font-size:16px;">
+          Adicionar mais missoes
+        </button>
+      </div>
+
+      <p style="text-align:center; font-size:12px; color:#9ca3af; margin-top:20px; line-height:1.5;">
+        Dica: mostre o app para <span id="t5-nick2">seu filho</span> e peca para ele completar a primeira missao. &#128522;
+      </p>
+    </div>
+  </div><!-- /t5 -->
+
+</div><!-- /device-shell -->
+
+<script>
+  /* ── Estado global do protótipo ─────────────────────────── */
+  const state = {
+    childName: '',
+    childNick: '',
+    selectedAvatar: '',
+    selectedTemplate: '',
+    detectedProfile: null,
+  };
+
+  const templateData = {
+    quarto: { emoji: '&#x1F6CF;&#xFE0F;', name: 'Arrumar o quarto', time: '08h00' },
+    dever:  { emoji: '&#x1F4DA;',         name: 'Dever de casa',    time: '17h00' },
+    banho:  { emoji: '&#x1F6BF;',         name: 'Tomar banho',      time: '19h00' },
+    custom: { emoji: '&#x270F;&#xFE0F;',  name: 'Missao personalizada', time: '09h00' },
+  };
+
+  /* ── Navegação entre telas ───────────────────────────────── */
+  function goTo(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.screen-nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+    const navBtn = document.getElementById('nav-' + screenId);
+    if (navBtn) navBtn.classList.add('active');
+
+    // Side effects por tela
+    if (screenId === 't5') {
+      updateT5();
+      setTimeout(launchConfetti, 200);
+    }
+  }
+
+  function goToT4() {
+    updateT4ChildName();
+    goTo('t4');
+  }
+
+  /* ── T2: formatação de telefone ─────────────────────────── */
+  function formatPhone(input) {
+    let v = input.value.replace(/\D/g, '');
+    if (v.length > 11) v = v.slice(0, 11);
+    if (v.length >= 7) {
+      v = '(' + v.slice(0,2) + ') ' + v.slice(2,3) + ' ' + v.slice(3,7) + '-' + v.slice(7);
+    } else if (v.length >= 3) {
+      v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+    } else if (v.length > 0) {
+      v = '(' + v;
+    }
+    input.value = v;
+    checkT2();
+  }
+
+  function checkT2() {
+    const phone = document.getElementById('t2-phone').value.replace(/\D/g,'');
+    const name  = document.getElementById('t2-name').value.trim();
+    const btn   = document.getElementById('t2-btn');
+    btn.disabled = !(phone.length >= 10 && name.length >= 2);
+  }
+
+  /* ── T3: sincroniza nome do filho ───────────────────────── */
+  function syncChildName() {
+    state.childName = document.getElementById('t3-name').value.trim().split(' ')[0] || '';
+    checkT3();
+  }
+
+  function checkT3() {
+    const name = document.getElementById('t3-name').value.trim();
+    const btn  = document.getElementById('t3-btn');
+    btn.disabled = !(name.length >= 2 && state.selectedAvatar);
+  }
+
+  /* ── T3: seleção de avatar ──────────────────────────────── */
+  function selectAvatar(el, emoji) {
+    document.querySelectorAll('.avatar-item').forEach(a => a.classList.remove('selected'));
+    el.classList.add('selected');
+    state.selectedAvatar = emoji;
+    checkT3();
+  }
+
+  /* ── T3: detecção automática de perfil ───────────────────── */
+  function detectProfile() {
+    const day   = parseInt(document.getElementById('t3-day').value);
+    const month = parseInt(document.getElementById('t3-month').value);
+    const year  = parseInt(document.getElementById('t3-year').value);
+
+    if (!day || !month || !year) return;
+
+    const today = new Date(2026, 3, 2); // 2026-04-02 (fixed prototype date)
+    const birth = new Date(year, month - 1, day);
+    if (birth > today) return;
+
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+
+    const badge     = document.getElementById('profile-badge');
+    const badgeEmoji = document.getElementById('badge-emoji');
+    const badgeTitle = document.getElementById('badge-title');
+    const badgeSub   = document.getElementById('badge-sub');
+
+    badge.classList.remove('visible');
+
+    if (age >= 4 && age <= 6) {
+      state.detectedProfile = 'pequenino';
+      badgeEmoji.textContent = '\uD83C\uDF31'; // seedling
+      badgeTitle.textContent = 'Pequenino';
+      badgeSub.textContent   = '4 a 6 anos \u2014 interface com icones grandes';
+      setTimeout(() => badge.classList.add('visible'), 50);
+    } else if (age >= 7 && age <= 9) {
+      state.detectedProfile = 'explorador';
+      badgeEmoji.textContent = '\uD83E\uDDED'; // compass
+      badgeTitle.textContent = 'Explorador';
+      badgeSub.textContent   = '7 a 9 anos \u2014 equilibrio entre icones e texto';
+      setTimeout(() => badge.classList.add('visible'), 50);
+    } else if (age >= 10 && age <= 12) {
+      state.detectedProfile = 'aventureiro';
+      badgeEmoji.textContent = '\u2694\uFE0F'; // crossed swords
+      badgeTitle.textContent = 'Aventureiro';
+      badgeSub.textContent   = '10 a 12 anos \u2014 pontos, XP e missoes narrativas';
+      setTimeout(() => badge.classList.add('visible'), 50);
+    } else if (age >= 13) {
+      state.detectedProfile = 'pro';
+      badgeEmoji.textContent = '\uD83D\uDE0E'; // sunglasses
+      badgeTitle.textContent = 'Pro';
+      badgeSub.textContent   = '13+ anos \u2014 visual minimalista e personalizado';
+      setTimeout(() => badge.classList.add('visible'), 50);
+    }
+
+    checkT3();
+  }
+
+  /* ── T4: atualiza nome do filho no header ────────────────── */
+  function updateT4ChildName() {
+    state.childName = document.getElementById('t3-name').value.trim().split(' ')[0] || 'seu filho';
+    state.childNick = document.getElementById('t3-nick').value.trim() || state.childName;
+    const el = document.getElementById('t4-child-name');
+    if (el) el.textContent = state.childName || 'seu filho';
+  }
+
+  /* ── T4: seleção de template ─────────────────────────────── */
+  function selectTemplate(id) {
+    document.querySelectorAll('.template-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('tmpl-' + id).classList.add('selected');
+    state.selectedTemplate = id;
+    document.getElementById('t4-btn').disabled = false;
+  }
+
+  /* ── T5: popula dados ────────────────────────────────────── */
+  function updateT5() {
+    const name = state.childName || 'seu filho';
+    const nick = state.childNick || name;
+    const tmpl = templateData[state.selectedTemplate] || templateData.quarto;
+
+    document.getElementById('t5-child-name').textContent = name;
+    document.getElementById('t5-nick').textContent = nick;
+    document.getElementById('t5-nick2').textContent = nick;
+    document.getElementById('t5-time').textContent  = tmpl.time;
+
+    // mission emoji (innerHTML for HTML entities)
+    const emojiEl = document.getElementById('t5-mission-emoji');
+    emojiEl.innerHTML = tmpl.emoji;
+    document.getElementById('t5-mission-name').textContent = tmpl.name;
+  }
+
+  /* ── T5: confetti CSS ────────────────────────────────────── */
+  function launchConfetti() {
+    const container = document.getElementById('t5-confetti');
+    container.innerHTML = '';
+    const colors = ['#F97316','#FBBF24','#10B981','#A78BFA','#F8F7FF','#FED7AA'];
+    const shapes = ['2px', '50%'];
+
+    for (let i = 0; i < 60; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const shape = shapes[Math.floor(Math.random() * shapes.length)];
+      const size  = 6 + Math.random() * 8;
+      const left  = Math.random() * 390;
+      const delay = Math.random() * 1.2;
+      const dur   = 2 + Math.random() * 1.5;
+
+      piece.style.cssText = `
+        left: ${left}px;
+        width: ${size}px;
+        height: ${size}px;
+        background: ${color};
+        border-radius: ${shape};
+        animation-duration: ${dur}s;
+        animation-delay: ${delay}s;
+      `;
+      container.appendChild(piece);
+    }
+
+    // second burst
+    setTimeout(() => {
+      for (let i = 0; i < 40; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.cssText = `
+          left: ${Math.random() * 390}px;
+          width: ${5 + Math.random() * 7}px;
+          height: ${5 + Math.random() * 7}px;
+          background: ${color};
+          border-radius: ${Math.random() > .5 ? '2px' : '50%'};
+          animation-duration: ${2 + Math.random() * 1.5}s;
+          animation-delay: ${Math.random() * .5}s;
+        `;
+        container.appendChild(piece);
+      }
+    }, 600);
+  }
+</script>
+</body>
+</html>
