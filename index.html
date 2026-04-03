@@ -355,6 +355,7 @@
       <a href="#diferencial" class="nav-link">Diferencial</a>
       <a href="#antipadroes" class="nav-link">Anti-Padrões</a>
       <a href="#aberto" class="nav-link">Em Aberto</a>
+      <a href="#respostas" class="nav-link">Respostas</a>
       <a href="#documentos" class="nav-link">Docs</a>
     </div>
 
@@ -1425,6 +1426,224 @@
   </div>
 </section>
 
+
+<!-- ████████████████████████████████████████████████
+     RESPOSTAS AO COMITÊ
+████████████████████████████████████████████████ -->
+<!-- RESPOSTAS AO COMITÊ -->
+<section id="respostas" style="background:#F8F7FF; padding:72px 24px 80px; border-top:2px solid #FED7AA;">
+  <div style="max-width:1100px; margin:0 auto;">
+
+    <!-- Cabeçalho da seção -->
+    <div style="text-align:center; margin-bottom:56px;">
+      <div style="font-family:'Fredoka',sans-serif; font-size:12px; font-weight:700; color:#F97316; letter-spacing:1.5px; margin-bottom:10px; text-transform:uppercase;">Respostas Formais</div>
+      <h2 style="font-family:'Fredoka',sans-serif; font-size:2rem; font-weight:700; color:#1A1040; margin-bottom:12px;">Nossas respostas às 8 perguntas</h2>
+      <p style="font-family:'Fredoka',sans-serif; color:rgba(26,16,64,0.6); max-width:560px; margin:0 auto; font-size:1rem;">Respostas formais às questões levantadas pelo comitê, com posições de produto, arquitetura e UX consolidadas.</p>
+    </div>
+
+    <!-- Grid de perguntas e respostas -->
+    <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:64px;">
+
+      <!-- P1 -->
+      <div style="background:#fff; border:1px solid #FED7AA; border-left:4px solid #F97316; border-radius:0 12px 12px 0; padding:24px 28px;">
+        <div style="display:flex; align-items:flex-start; gap:20px;">
+          <div style="flex-shrink:0; font-family:'Fredoka',sans-serif; font-weight:700; font-size:1.4rem; color:#F97316; line-height:1;">01</div>
+          <div style="flex:1;">
+            <div style="font-family:'Fredoka',sans-serif; font-weight:700; color:#1A1040; font-size:1rem; margin-bottom:8px;">O protótipo interativo já implementa diferenciação visual Pequenino vs. Aventureiro?</div>
+            <div style="font-family:'Fredoka',sans-serif; font-size:0.95rem; color:rgba(26,16,64,0.75); line-height:1.6; margin-bottom:8px;">Sim — o protótipo <a href="./blip-mvp-04-validacao.html" style="color:#F97316; font-weight:600;">blip-mvp-04-validacao.html</a> implementa os 4 perfis via toggle funcional com barra de tempo, estrelas de peso e pontos corretos por perfil. O que ainda não está no protótipo: fluxo completo de onboarding do pai (T1-T4) e ritual de chegada do filho.</div>
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:20px; padding:4px 12px;">
+              <span style="font-family:'Fredoka',sans-serif; font-size:12px; font-weight:700; color:#10B981;">✓ Respondido</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div style="background:#fff; border:1px solid #FED7AA; border-left:4px solid #FBBF24; border-radius:0 12px 12px 0; padding:24px 28px;">
+        <div style="display:flex; align-items:flex-start; gap:20px;">
+          <div style="flex-shrink:0; font-family:'Fredoka',sans-serif; font-weight:700; font-size:1.4rem; color:#FBBF24; line-height:1;">02</div>
+          <div style="flex:1;">
+            <div style="font-family:'Fredoka',sans-serif; font-weight:700; color:#1A1040; font-size:1rem; margin-bottom:8px;">O campo <code style="background:#1A1040; color:#FED7AA; padding:2px 6px; border-radius:4px; font-size:0.85rem;">reaction</code> (pai) é arquiteturalmente diferente do <code style="background:#1A1040; color:#FED7AA; padding:2px 6px; border-radius:4px; font-size:0.85rem;">face</code> (filho)?</div>
+            <div style="font-family:'Fredoka',sans-serif; font-size:0.95rem; color:rgba(26,16,64,0.75); line-height:1.6; margin-bottom:8px;">Sim — são campos com autores, momentos e semânticas distintas. <strong>reaction</strong> captura a resposta emocional do pai; <strong>face</strong> captura a autoavaliação da criança. Para o Resumo Semanal, os dois sinais são apresentados em eixos separados — não como dado único. Cruzá-los gera o índice de "sintonia familiar", uma feature futura com regra de negócio explícita.</div>
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:20px; padding:4px 12px;">
+              <span style="font-family:'Fredoka',sans-serif; font-size:12px; font-weight:700; color:#10B981;">✓ Respondido</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div style="background:#fff; border:1px solid #FED7AA; border-left:4px solid #A78BFA; border-radius:0 12px 12px 0; padding:24px 28px;">
+        <div style="display:flex; align-items:flex-start; gap:20px;">
+          <div style="flex-shrink:0; font-family:'Fredoka',sans-serif; font-weight:700; font-size:1.4rem; color:#A78BFA; line-height:1;">03</div>
+          <div style="flex:1;">
+            <div style="font-family:'Fredoka',sans-serif; font-weight:700; color:#1A1040; font-size:1rem; margin-bottom:8px;">Due diligence jurídica sobre Blippi (Moonbug/Disney) e Stitch — prazo?</div>
+            <div style="font-family:'Fredoka',sans-serif; font-size:0.95rem; color:rgba(26,16,64,0.75); line-height:1.6; margin-bottom:8px;">A consulta jurídica está em andamento em paralelo ao desenvolvimento. Sem data confirmada. Critério claro: nenhum lançamento público sem parecer positivo sobre marca e mascote. O desenvolvimento não está bloqueado.</div>
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(251,191,36,0.15); border:1px solid rgba(251,191,36,0.4); border-radius:20px; padding:4px 12px;">
+              <span style="font-family:'Fredoka',sans-serif; font-size:12px; font-weight:700; color:#B45309;">⏳ Em andamento</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P4 -->
+      <div style="background:#fff; border:1px solid #FED7AA; border-left:4px solid #10B981; border-radius:0 12px 12px 0; padding:24px 28px;">
+        <div style="display:flex; align-items:flex-start; gap:20px;">
+          <div style="flex-shrink:0; font-family:'Fredoka',sans-serif; font-weight:700; font-size:1.4rem; color:#10B981; line-height:1;">04</div>
+          <div style="flex:1;">
+            <div style="font-family:'Fredoka',sans-serif; font-weight:700; color:#1A1040; font-size:1rem; margin-bottom:8px;">Estrelas de Coragem — se o pai nunca visualizar, a estrela desaparece?</div>
+            <div style="font-family:'Fredoka',sans-serif; font-size:0.95rem; color:rgba(26,16,64,0.75); line-height:1.6; margin-bottom:8px;"><strong>Não.</strong> A Estrela de Coragem é reconhecimento da expressão emocional da criança — independe da atenção parental para existir. Após 72h, converte automaticamente de <em>pendente</em> para <em>confirmada</em>, com ou sem visualização do pai. O que muda com a leitura do pai é a qualidade da experiência (retorno no Gatilho B), não a contagem de estrelas da criança.</div>
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:20px; padding:4px 12px;">
+              <span style="font-family:'Fredoka',sans-serif; font-size:12px; font-weight:700; color:#10B981;">✓ Decisão tomada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P5 -->
+      <div style="background:#fff; border:1px solid #FED7AA; border-left:4px solid #F97316; border-radius:0 12px 12px 0; padding:24px 28px;">
+        <div style="display:flex; align-items:flex-start; gap:20px;">
+          <div style="flex-shrink:0; font-family:'Fredoka',sans-serif; font-weight:700; font-size:1.4rem; color:#F97316; line-height:1;">05</div>
+          <div style="flex:1;">
+            <div style="font-family:'Fredoka',sans-serif; font-weight:700; color:#1A1040; font-size:1rem; margin-bottom:8px;">Micro-interações testadas em iOS Safari, Android Chrome e Snapdragon 680?</div>
+            <div style="font-family:'Fredoka',sans-serif; font-size:0.95rem; color:rgba(26,16,64,0.75); line-height:1.6; margin-bottom:8px;">Ainda não. Teste em dispositivo físico (iPhone SE 2022 + Android mid-range Snapdragon 680) é obrigatório antes de produção. Critério: micro-interação completa acima de 30fps. Detecção adaptativa de performance substituirá o número fixo de partículas — 80 em hardware capaz, redução automática em dispositivos de entrada. <code style="background:#1A1040; color:#FED7AA; padding:2px 6px; border-radius:4px; font-size:0.85rem;">disableForReducedMotion</code> é não-negociável.</div>
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(251,191,36,0.15); border:1px solid rgba(251,191,36,0.4); border-radius:20px; padding:4px 12px;">
+              <span style="font-family:'Fredoka',sans-serif; font-size:12px; font-weight:700; color:#B45309;">⏳ Pendente teste em hardware</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P6 -->
+      <div style="background:#fff; border:1px solid #FED7AA; border-left:4px solid #10B981; border-radius:0 12px 12px 0; padding:24px 28px;">
+        <div style="display:flex; align-items:flex-start; gap:20px;">
+          <div style="flex-shrink:0; font-family:'Fredoka',sans-serif; font-weight:700; font-size:1.4rem; color:#10B981; line-height:1;">06</div>
+          <div style="flex:1;">
+            <div style="font-family:'Fredoka',sans-serif; font-weight:700; color:#1A1040; font-size:1rem; margin-bottom:8px;">Onboarding do filho — quando acontece? O pai entrega o dispositivo?</div>
+            <div style="font-family:'Fredoka',sans-serif; font-size:0.95rem; color:rgba(26,16,64,0.75); line-height:1.6; margin-bottom:8px;"><strong>Modelo A para o MVP:</strong> o pai ativa a tela de "ritual de chegada" no seu dispositivo. A criança faz 2 toques — escolhe uma cor (3 opções) e um emoji de personagem. Zero texto no Pequenino. Este momento não é onboarding técnico — é um rito de posse. A criança sente que o espaço é dela antes de fazer a primeira missão.</div>
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:20px; padding:4px 12px;">
+              <span style="font-family:'Fredoka',sans-serif; font-size:12px; font-weight:700; color:#10B981;">✓ Decisão tomada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P7 -->
+      <div style="background:#fff; border:1px solid #FED7AA; border-left:4px solid #FBBF24; border-radius:0 12px 12px 0; padding:24px 28px;">
+        <div style="display:flex; align-items:flex-start; gap:20px;">
+          <div style="flex-shrink:0; font-family:'Fredoka',sans-serif; font-weight:700; font-size:1.4rem; color:#FBBF24; line-height:1;">07</div>
+          <div style="flex:1;">
+            <div style="font-family:'Fredoka',sans-serif; font-weight:700; color:#1A1040; font-size:1rem; margin-bottom:8px;">Fórmula XP→nível para o Aventureiro: linear ou logarítmica?</div>
+            <div style="font-family:'Fredoka',sans-serif; font-size:0.95rem; color:rgba(26,16,64,0.75); line-height:1.6; margin-bottom:8px;"><strong>Logarítmica.</strong> Primeiros níveis rápidos criam o efeito de "voo" na primeira semana e ancoram o hábito. O progresso desacelera depois — mas o hábito já foi formado. Um Aventureiro de 10 anos precisa sentir progressão real nos primeiros 7 dias para voltar no 8º. A spec numérica entra em sequência após a spec de Estrelas de Coragem.</div>
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:20px; padding:4px 12px;">
+              <span style="font-family:'Fredoka',sans-serif; font-size:12px; font-weight:700; color:#10B981;">✓ Decisão tomada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P8 -->
+      <div style="background:#fff; border:1px solid #FED7AA; border-left:4px solid #A78BFA; border-radius:0 12px 12px 0; padding:24px 28px;">
+        <div style="display:flex; align-items:flex-start; gap:20px;">
+          <div style="flex-shrink:0; font-family:'Fredoka',sans-serif; font-weight:700; font-size:1.4rem; color:#A78BFA; line-height:1;">08</div>
+          <div style="flex:1;">
+            <div style="font-family:'Fredoka',sans-serif; font-weight:700; color:#1A1040; font-size:1rem; margin-bottom:8px;">WeeklyHistory — se o pai não abrir o painel em uma semana, a semana é perdida?</div>
+            <div style="font-family:'Fredoka',sans-serif; font-size:0.95rem; color:rgba(26,16,64,0.75); line-height:1.6; margin-bottom:8px;">No estado atual, sim. A Edge Function <code style="background:#1A1040; color:#FED7AA; padding:2px 6px; border-radius:4px; font-size:0.85rem;">weekly-closer</code> existe mas o disparo automático via <em>pg_cron</em> não está ativo. Isso é P0 técnico — sendo ativado no MVP-05. Com o cron ativo toda segunda-feira às 06h BRT, o snapshot semanal persiste independentemente de qualquer ação do pai.</div>
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(251,191,36,0.15); border:1px solid rgba(251,191,36,0.4); border-radius:20px; padding:4px 12px;">
+              <span style="font-family:'Fredoka',sans-serif; font-size:12px; font-weight:700; color:#B45309;">⏳ Correção em andamento — MVP-05</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Prioridades Revisadas -->
+    <div style="margin-top:16px;">
+      <div style="text-align:center; margin-bottom:40px;">
+        <div style="font-family:'Fredoka',sans-serif; font-size:12px; font-weight:700; color:#F97316; letter-spacing:1.5px; margin-bottom:10px; text-transform:uppercase;">Backlog Revisado</div>
+        <h2 style="font-family:'Fredoka',sans-serif; font-size:2rem; font-weight:700; color:#1A1040; margin-bottom:12px;">Prioridades — sprint MVP-05</h2>
+        <p style="font-family:'Fredoka',sans-serif; color:rgba(26,16,64,0.6); max-width:560px; margin:0 auto; font-size:1rem;">Ordem revisada pelo time incorporando o feedback do comitê e as decisões de produto confirmadas.</p>
+      </div>
+
+      <!-- Tabela de prioridades -->
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-family:'Fredoka',sans-serif; font-size:0.9rem;">
+          <thead>
+            <tr style="background:#1A1040; color:#fff;">
+              <th style="padding:12px 16px; text-align:left; font-weight:700; border-radius:0;">Prioridade</th>
+              <th style="padding:12px 16px; text-align:left; font-weight:700;">O que fazer</th>
+              <th style="padding:12px 16px; text-align:left; font-weight:700;">Sprint</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #FED7AA;">
+              <td style="padding:14px 16px;"><span style="background:rgba(239,68,68,0.12); color:#DC2626; border:1px solid rgba(239,68,68,0.3); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">P0 técnico</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);">Ativar pg_cron para weekly-closer + remover fallback reaction/face no taskMapper + iniciar WABA Twilio</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">Pré-MVP-05</td>
+            </tr>
+            <tr style="border-bottom:1px solid #FED7AA; background:rgba(254,215,170,0.1);">
+              <td style="padding:14px 16px;"><span style="background:rgba(239,68,68,0.12); color:#DC2626; border:1px solid rgba(239,68,68,0.3); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">P0</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);"><strong>Spec do onboarding do filho</strong> — ritual de chegada de 2 toques (Modelo A confirmado)</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">MVP-05</td>
+            </tr>
+            <tr style="border-bottom:1px solid #FED7AA;">
+              <td style="padding:14px 16px;"><span style="background:rgba(239,68,68,0.12); color:#DC2626; border:1px solid rgba(239,68,68,0.3); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">P0</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);"><strong>Aprovação com fallback automático 48h</strong> — Edge Function task-auto-closer + mensagem correta para o filho</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">MVP-05</td>
+            </tr>
+            <tr style="border-bottom:1px solid #FED7AA; background:rgba(254,215,170,0.1);">
+              <td style="padding:14px 16px;"><span style="background:rgba(239,68,68,0.12); color:#DC2626; border:1px solid rgba(239,68,68,0.3); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">P0</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);"><strong>Instrumentar funil M1/M3</strong> — onboarding_started, account_verified, first_mission_created, session_started</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">MVP-05</td>
+            </tr>
+            <tr style="border-bottom:1px solid #FED7AA;">
+              <td style="padding:14px 16px;"><span style="background:rgba(239,68,68,0.12); color:#DC2626; border:1px solid rgba(239,68,68,0.3); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">P0</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);"><strong>WhatsApp + SMS fallback para verificação de cadastro</strong> — Twilio Verify, código chega no WhatsApp do pai em 2s</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">MVP-05</td>
+            </tr>
+            <tr style="border-bottom:1px solid #FED7AA; background:rgba(254,215,170,0.1);">
+              <td style="padding:14px 16px;"><span style="background:rgba(251,191,36,0.15); color:#92400E; border:1px solid rgba(251,191,36,0.4); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">P1</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);">Corrigir contraste Soft Violet / Deep Night — WCAG AA (3.1:1 → 4.5:1)</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">MVP-05</td>
+            </tr>
+            <tr style="border-bottom:1px solid #FED7AA;">
+              <td style="padding:14px 16px;"><span style="background:rgba(251,191,36,0.15); color:#92400E; border:1px solid rgba(251,191,36,0.4); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">P1</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);">Substituir WeekDaysAccordion por scroll lateral — Explorador (7-9 anos)</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">MVP-05</td>
+            </tr>
+            <tr style="border-bottom:1px solid #FED7AA; background:rgba(254,215,170,0.1);">
+              <td style="padding:14px 16px;"><span style="background:rgba(251,191,36,0.15); color:#92400E; border:1px solid rgba(251,191,36,0.4); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">P1</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);">Spec de streak quebrado — desaparece silenciosamente, retorno = "Sequência retomada!" (Aventureiro e Pro)</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">MVP-05</td>
+            </tr>
+            <tr style="border-bottom:1px solid #FED7AA;">
+              <td style="padding:14px 16px;"><span style="background:rgba(59,130,246,0.1); color:#1D4ED8; border:1px solid rgba(59,130,246,0.3); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">P2</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);">Card visual compartilhável no Resumo Semanal — meta atingida → share sem dados sensíveis</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">MVP-06</td>
+            </tr>
+            <tr style="border-bottom:1px solid #FED7AA; background:rgba(254,215,170,0.1);">
+              <td style="padding:14px 16px;"><span style="background:rgba(59,130,246,0.1); color:#1D4ED8; border:1px solid rgba(59,130,246,0.3); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">P2</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);">Identidade persistente do Aventureiro — cor do tema RPG customizável (3 opções) + badge desbloqueado pela criança</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">MVP-06</td>
+            </tr>
+            <tr style="border-bottom:1px solid #FED7AA;">
+              <td style="padding:14px 16px;"><span style="background:rgba(59,130,246,0.1); color:#1D4ED8; border:1px solid rgba(59,130,246,0.3); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">P2</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);">Spec completa de Estrelas de Coragem — quantidade, badges, onde aparecem para o pai</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">MVP-06</td>
+            </tr>
+            <tr style="background:rgba(254,215,170,0.1);">
+              <td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.1); color:#065F46; border:1px solid rgba(16,185,129,0.3); border-radius:20px; padding:3px 10px; font-weight:700; font-size:11px; white-space:nowrap;">Roadmap</span></td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.85);">Notificação de migração de perfil etário — "O Blip cresceu com o Pedro — ele agora é um Explorador!" + háptico por perfil</td>
+              <td style="padding:14px 16px; color:rgba(26,16,64,0.55); white-space:nowrap;">Q3</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <!-- ████████████████████████████████████████████████
      DOCUMENTOS DE REFERÊNCIA
