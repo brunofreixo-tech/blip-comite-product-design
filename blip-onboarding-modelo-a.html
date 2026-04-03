@@ -1,0 +1,2345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Blip — Onboarding Filho Modelo A (Ritual de Chegada)</title>
+
+  <!-- Favicon: mascote Blip -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='18' rx='10' ry='11' fill='%23F97316'/%3E%3Cellipse cx='12' cy='19' rx='3.5' ry='4' fill='%23FED7AA'/%3E%3Cellipse cx='20' cy='19' rx='3.5' ry='4' fill='%23FED7AA'/%3E%3Cellipse cx='16' cy='22' rx='6' ry='4.5' fill='%23FED7AA'/%3E%3Cellipse cx='10' cy='8' rx='3.5' ry='4.5' fill='%23F97316'/%3E%3Cellipse cx='22' cy='8' rx='3.5' ry='4.5' fill='%23F97316'/%3E%3Cellipse cx='16' cy='13' rx='9' ry='9.5' fill='%23F97316'/%3E%3Cellipse cx='12.5' cy='12' rx='2.8' ry='3.2' fill='white'/%3E%3Cellipse cx='19.5' cy='12' rx='2.8' ry='3.2' fill='white'/%3E%3Ccircle cx='13.2' cy='12.5' r='1.6' fill='%231A1040'/%3E%3Ccircle cx='20.2' cy='12.5' r='1.6' fill='%231A1040'/%3E%3Ccircle cx='13.8' cy='11.9' r='.6' fill='white'/%3E%3Ccircle cx='20.8' cy='11.9' r='.6' fill='white'/%3E%3Cellipse cx='11.5' cy='14.5' rx='2' ry='1.2' fill='%23f97316' opacity='.5'/%3E%3Cellipse cx='20.5' cy='14.5' rx='2' ry='1.2' fill='%23f97316' opacity='.5'/%3E%3Cpath d='M13.5 17 Q16 19 18.5 17' stroke='%231A1040' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── CSS Variables — Blip Brandbook v3 ──────────────── */
+    :root {
+      --blip-orange:  #F97316;
+      --blip-night:   #1A1040;
+      --blip-peach:   #FED7AA;
+      --blip-gold:    #FBBF24;
+      --blip-mint:    #10B981;
+      --blip-violet:  #A78BFA;
+      --blip-white:   #F8F7FF;
+      /* temas de cor dos filhos */
+      --theme-purple: #7C3AED;
+      --theme-purple-light: #EDE9FE;
+      --theme-purple-mid: #8B5CF6;
+      --theme-green:  #16A34A;
+      --theme-green-light: #DCFCE7;
+      --theme-green-mid: #22C55E;
+      --theme-blue:   #0EA5E9;
+      --theme-blue-light: #E0F2FE;
+      --theme-blue-mid: #38BDF8;
+      /* ativo — começa roxo */
+      --theme-active: var(--theme-purple);
+      --theme-active-light: var(--theme-purple-light);
+      --theme-active-mid: var(--theme-purple-mid);
+    }
+
+    /* ── Reset & base ────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--blip-night);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Controles externos ──────────────────────────────── */
+    .outer-controls {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .proto-label {
+      color: rgba(255,255,255,0.5);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .proto-title {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .profile-switcher {
+      display: flex;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 4px;
+    }
+    .profile-btn {
+      padding: 8px 18px;
+      border-radius: 9px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+      background: transparent;
+      color: rgba(255,255,255,0.55);
+    }
+    .profile-btn.active {
+      background: var(--blip-orange);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(249,115,22,0.4);
+    }
+
+    .screen-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .screen-nav button {
+      background: rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.65);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .screen-nav button:hover { background: rgba(255,255,255,0.18); color: #fff; }
+    .screen-nav button.active {
+      background: var(--blip-orange);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 2px 8px rgba(249,115,22,0.35);
+    }
+
+    /* ── Device Shell ────────────────────────────────────── */
+    .device-shell {
+      width: 390px;
+      min-height: 844px;
+      background: var(--blip-white);
+      border-radius: 48px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.12),
+        0 32px 80px rgba(0,0,0,0.6),
+        inset 0 0 0 2px rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .screen {
+      display: none;
+      width: 100%;
+      min-height: 844px;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .screen.active { display: flex; }
+
+    /* ── Transições de tela ──────────────────────────────── */
+    @keyframes slideInRight {
+      from { transform: translateX(40px); opacity: 0; }
+      to   { transform: translateX(0);    opacity: 1; }
+    }
+    @keyframes slideInLeft {
+      from { transform: translateX(-40px); opacity: 0; }
+      to   { transform: translateX(0);     opacity: 1; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .screen.entering { animation: slideInRight 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+    .screen.entering-left { animation: slideInLeft 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+    .screen.entering-fade { animation: fadeIn 0.32s ease both; }
+
+    /* ══════════════════════════════════════════════════════
+       TELA 0 — PAINEL DO PAI (ativação do ritual)
+    ══════════════════════════════════════════════════════ */
+    #screen-pai {
+      background: var(--blip-white);
+    }
+
+    .pai-header {
+      background: var(--blip-night);
+      padding: 52px 24px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .pai-header-mascote {
+      width: 40px;
+      height: 40px;
+    }
+    .pai-header-text h1 {
+      color: #fff;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .pai-header-text p {
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      margin-top: 1px;
+    }
+
+    .pai-body {
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .pai-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9CA3AF;
+      margin-bottom: 4px;
+    }
+
+    /* Card de filho no painel do pai */
+    .filho-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      border: 1.5px solid #F3F4F6;
+    }
+    .filho-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+    .filho-avatar.pequenino { background: #FFF7ED; }
+    .filho-avatar.aventureiro { background: var(--blip-night); }
+    .filho-info { flex: 1; }
+    .filho-nome {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--blip-night);
+    }
+    .filho-perfil {
+      font-size: 11px;
+      color: #9CA3AF;
+      margin-top: 2px;
+    }
+    .filho-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 20px;
+      margin-top: 4px;
+    }
+    .filho-status.pendente { background: #FFF7ED; color: var(--blip-orange); }
+    .filho-status.ativo { background: #DCFCE7; color: var(--blip-mint); }
+
+    /* Card de ativação do ritual — destaque laranja */
+    .ritual-card {
+      background: linear-gradient(135deg, #FFF7ED 0%, #FEF3C7 100%);
+      border: 2px solid #FED7AA;
+      border-radius: 20px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .ritual-card::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ritual-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(249,115,22,0.2);
+    }
+    .ritual-card:active { transform: translateY(0); }
+    .ritual-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--blip-orange);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+    .ritual-card h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--blip-night);
+      line-height: 1.3;
+    }
+    .ritual-card p {
+      font-size: 13px;
+      color: #6B7280;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+    .ritual-card-cta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      background: var(--blip-orange);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      transition: all 0.18s;
+    }
+    .ritual-card-cta:hover { background: #EA6B08; }
+    .ritual-card-cta:active { transform: scale(0.97); }
+
+    /* Modal de instrução "entregue o celular" */
+    .handoff-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(26,16,64,0.88);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .handoff-overlay.visible { display: flex; }
+    .handoff-sheet {
+      background: var(--blip-white);
+      border-radius: 32px 32px 0 0;
+      padding: 32px 28px 40px;
+      width: 100%;
+      text-align: center;
+      animation: slideUpSheet 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    @keyframes slideUpSheet {
+      from { transform: translateY(60px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .handoff-handle {
+      width: 36px;
+      height: 4px;
+      background: #E5E7EB;
+      border-radius: 2px;
+      margin: -16px auto 24px;
+    }
+    .handoff-mascote { font-size: 72px; margin-bottom: 8px; display: block; }
+    .handoff-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--blip-night);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .handoff-subtitle {
+      font-size: 15px;
+      color: #6B7280;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .handoff-btn {
+      width: 100%;
+      background: var(--blip-night);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .handoff-btn:hover { background: #2D1B69; }
+    .handoff-btn:active { transform: scale(0.98); }
+    .handoff-cancel {
+      background: none;
+      border: none;
+      color: #9CA3AF;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 12px;
+      padding: 8px;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       TELAS 1-4 — PEQUENINO (4-6 anos)
+       Fonte: Nunito, cores vibrantes, zero texto desnecessário
+    ══════════════════════════════════════════════════════ */
+    .pq-screen {
+      font-family: 'Nunito', sans-serif;
+    }
+
+    /* Tela 1 Pequenino — Boas-vindas */
+    #screen-pq-welcome {
+      background: radial-gradient(ellipse at 50% 30%, #FFF7ED 0%, #FEF3C7 50%, #FFF 100%);
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Estrelinhas de fundo animadas */
+    .bg-stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .bg-star {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle var(--dur) var(--delay) infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 0.9; transform: scale(1); }
+    }
+
+    .pq-welcome-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      position: relative;
+      z-index: 1;
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    /* Mascote Blip SVG — Grande, 130px */
+    .mascote-grande {
+      width: 130px;
+      height: 130px;
+      animation: mascoteBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      filter: drop-shadow(0 12px 24px rgba(249,115,22,0.3));
+    }
+    @keyframes mascoteBounceIn {
+      from { transform: scale(0.4) translateY(30px); opacity: 0; }
+      to   { transform: scale(1) translateY(0);      opacity: 1; }
+    }
+    .mascote-bounce {
+      animation: mascoteIdleBounce 2.5s ease-in-out infinite;
+    }
+    @keyframes mascoteIdleBounce {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    /* Arcos de boas-vindas */
+    .pq-arcos {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 420px;
+      height: 260px;
+      pointer-events: none;
+    }
+
+    .pq-nome {
+      font-size: 44px;
+      font-weight: 900;
+      color: var(--blip-orange);
+      line-height: 1;
+      margin-top: 12px;
+      animation: fadeSlideUp 0.5s 0.4s both;
+      letter-spacing: -0.02em;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .pq-welcome-emojis {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      animation: fadeSlideUp 0.5s 0.6s both;
+    }
+    .pq-welcome-emoji {
+      font-size: 40px;
+      animation: emojiFloat var(--dur, 3s) var(--delay, 0s) ease-in-out infinite;
+    }
+    @keyframes emojiFloat {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-8px) rotate(5deg); }
+    }
+
+    .pq-welcome-btn {
+      margin-top: 32px;
+      background: var(--blip-orange);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 18px 48px;
+      font-size: 22px;
+      font-weight: 900;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(249,115,22,0.4);
+      animation: fadeSlideUp 0.5s 0.8s both, pulseCTA 2s 1.5s ease-in-out infinite;
+      transition: transform 0.15s;
+    }
+    .pq-welcome-btn:active { transform: scale(0.93); }
+    @keyframes pulseCTA {
+      0%, 100% { box-shadow: 0 6px 20px rgba(249,115,22,0.4); }
+      50% { box-shadow: 0 10px 32px rgba(249,115,22,0.65); }
+    }
+
+    /* ─ Tela 2 Pequenino — Escolha de Cor ──── */
+    #screen-pq-color {
+      background: var(--blip-white);
+    }
+    .pq-color-header {
+      background: var(--blip-orange);
+      padding: 52px 28px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .pq-color-header::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: var(--blip-white);
+      border-radius: 50% 50% 0 0;
+    }
+    .pq-step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .pq-color-prompt {
+      font-size: 32px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .pq-color-body {
+      padding: 36px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .pq-color-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+    .pq-color-option {
+      border: 3px solid transparent;
+      border-radius: 24px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .pq-color-option:active { transform: scale(0.96); }
+    .pq-color-option.selected {
+      border-color: currentColor;
+      transform: scale(1.03);
+    }
+    .pq-color-option.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      width: 28px;
+      height: 28px;
+      background: currentColor;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 900;
+      animation: checkPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    @keyframes checkPop {
+      from { transform: scale(0); }
+      to   { transform: scale(1); }
+    }
+    .color-opt-purple {
+      background: #EDE9FE;
+      color: #7C3AED;
+    }
+    .color-opt-green {
+      background: #DCFCE7;
+      color: #16A34A;
+    }
+    .color-opt-blue {
+      background: #E0F2FE;
+      color: #0EA5E9;
+    }
+    .pq-color-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .pq-color-label {
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .pq-color-sublabel {
+      font-size: 14px;
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+
+    .pq-color-next {
+      width: 100%;
+      background: var(--blip-night);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 18px;
+      font-size: 20px;
+      font-weight: 900;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      opacity: 0.3;
+      pointer-events: none;
+      transition: all 0.25s;
+      margin-top: auto;
+    }
+    .pq-color-next.enabled {
+      opacity: 1;
+      pointer-events: auto;
+      background: var(--blip-orange);
+      box-shadow: 0 6px 20px rgba(249,115,22,0.35);
+    }
+    .pq-color-next:active { transform: scale(0.97); }
+
+    /* ─ Tela 3 Pequenino — Escolha de Personagem ── */
+    #screen-pq-char {
+      background: var(--blip-white);
+    }
+    .pq-char-header {
+      padding: 52px 28px 20px;
+      text-align: center;
+      background: var(--theme-active);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s;
+    }
+    .pq-char-header::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: var(--blip-white);
+      border-radius: 50% 50% 0 0;
+    }
+    .pq-char-prompt {
+      font-size: 28px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .pq-char-body {
+      padding: 36px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .pq-emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 100%;
+    }
+    .pq-emoji-btn {
+      aspect-ratio: 1;
+      background: #F9FAFB;
+      border: 3px solid transparent;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .pq-emoji-btn:active { transform: scale(0.85); }
+    .pq-emoji-btn.selected {
+      background: var(--theme-active-light);
+      border-color: var(--theme-active);
+      transform: scale(1.12);
+      animation: emojiSelectPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    @keyframes emojiSelectPop {
+      0% { transform: scale(0.9); }
+      60% { transform: scale(1.2); }
+      100% { transform: scale(1.12); }
+    }
+
+    .pq-char-next {
+      width: 100%;
+      background: var(--blip-orange);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 18px;
+      font-size: 20px;
+      font-weight: 900;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      opacity: 0.3;
+      pointer-events: none;
+      transition: all 0.25s;
+      margin-top: auto;
+    }
+    .pq-char-next.enabled {
+      opacity: 1;
+      pointer-events: auto;
+      box-shadow: 0 6px 20px rgba(249,115,22,0.35);
+    }
+    .pq-char-next:active { transform: scale(0.97); }
+
+    /* ─ Tela 4 Pequenino — Celebração ──── */
+    #screen-pq-done {
+      background: radial-gradient(ellipse at 50% 20%, #FFF7ED 0%, #FEF9EE 60%, #FFF 100%);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pq-done-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 32px;
+      text-align: center;
+      gap: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #pq-done-char {
+      font-size: 88px;
+      animation: chosenCharBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both, chosenCharIdle 2.5s 0.8s ease-in-out infinite;
+    }
+    @keyframes chosenCharBounce {
+      from { transform: scale(0.3) rotate(-20deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg);     opacity: 1; }
+    }
+    @keyframes chosenCharIdle {
+      0%, 100% { transform: translateY(0) rotate(-3deg) scale(1); }
+      50% { transform: translateY(-12px) rotate(3deg) scale(1.05); }
+    }
+
+    .pq-done-nome {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--blip-orange);
+      letter-spacing: -0.02em;
+      margin-top: 16px;
+      animation: fadeSlideUp 0.5s 0.4s both;
+    }
+    .pq-done-sub {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--blip-night);
+      opacity: 0.6;
+      animation: fadeSlideUp 0.5s 0.6s both;
+    }
+
+    .pq-done-emojis {
+      display: flex;
+      gap: 14px;
+      margin-top: 20px;
+      animation: fadeSlideUp 0.5s 0.8s both;
+    }
+    .pq-done-e1, .pq-done-e2, .pq-done-e3 {
+      font-size: 36px;
+    }
+    .pq-done-e1 { animation: emojiFloat 2.8s 0.1s ease-in-out infinite; }
+    .pq-done-e2 { animation: emojiFloat 2.3s 0.5s ease-in-out infinite; }
+    .pq-done-e3 { animation: emojiFloat 3.1s 0.9s ease-in-out infinite; }
+
+    .pq-done-btn {
+      margin-top: 36px;
+      background: var(--blip-night);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 20px 48px;
+      font-size: 22px;
+      font-weight: 900;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(26,16,64,0.3);
+      animation: fadeSlideUp 0.5s 1s both;
+      transition: transform 0.15s;
+    }
+    .pq-done-btn:hover { transform: translateY(-3px); }
+    .pq-done-btn:active { transform: scale(0.95); }
+
+    /* Canvas de confete */
+    #confeti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       TELAS 1-4 — AVENTUREIRO (10-13 anos)
+       Fonte: Inter, tema espacial, XP, dark
+    ══════════════════════════════════════════════════════ */
+
+    /* Tela 1 Aventureiro — Boas-vindas */
+    #screen-av-welcome {
+      background: linear-gradient(175deg, var(--blip-night) 0%, #0F172A 100%);
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Stars background para Aventureiro */
+    .space-stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .space-star {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0;
+      animation: spaceTwinkle var(--dur, 3s) var(--delay, 0s) infinite;
+    }
+    @keyframes spaceTwinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: var(--opacity, 0.8); }
+    }
+
+    /* Planeta decorativo */
+    .av-planet {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #4C1D95, #1E1B4B 60%, #0F172A);
+      top: -60px;
+      right: -60px;
+      box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5), 0 0 60px rgba(124,58,237,0.3);
+      opacity: 0.6;
+    }
+    .av-planet-ring {
+      position: absolute;
+      width: 260px;
+      height: 40px;
+      border: 8px solid rgba(124,58,237,0.25);
+      border-radius: 50%;
+      top: 60px;
+      right: -90px;
+      transform: rotate(-20deg);
+    }
+
+    .av-welcome-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      position: relative;
+      z-index: 1;
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    .av-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,58,237,0.3);
+      border: 1px solid rgba(124,58,237,0.6);
+      color: #C4B5FD;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .av-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #A78BFA;
+      animation: pulseViolet 1.5s ease-in-out infinite;
+    }
+    @keyframes pulseViolet {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .av-rocket {
+      font-size: 80px;
+      animation: rocketEntry 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both, rocketFloat 3s 1s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(249,115,22,0.5));
+    }
+    @keyframes rocketEntry {
+      from { transform: translateY(40px) scale(0.5); opacity: 0; }
+      to   { transform: translateY(0) scale(1);      opacity: 1; }
+    }
+    @keyframes rocketFloat {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-12px) rotate(5deg); }
+    }
+
+    .av-welcome-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.25;
+      margin-top: 20px;
+      animation: fadeSlideUp 0.5s 0.4s both;
+      letter-spacing: -0.02em;
+    }
+    .av-welcome-title span {
+      background: linear-gradient(90deg, #F97316, #FBBF24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .av-welcome-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 10px;
+      line-height: 1.5;
+      animation: fadeSlideUp 0.5s 0.6s both;
+    }
+
+    /* XP inicial */
+    .av-xp-bar-container {
+      width: 100%;
+      margin-top: 24px;
+      animation: fadeSlideUp 0.5s 0.8s both;
+    }
+    .av-xp-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 6px;
+    }
+    .av-xp-label span:last-child { color: #FBBF24; }
+    .av-xp-bar {
+      height: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .av-xp-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #F97316, #FBBF24);
+      border-radius: 4px;
+      animation: xpFillIn 1.2s 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+    @keyframes xpFillIn {
+      from { width: 0%; }
+      to   { width: 3%; }
+    }
+
+    .av-welcome-btn {
+      margin-top: 28px;
+      width: 100%;
+      background: linear-gradient(135deg, #7C3AED, #4C1D95);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(124,58,237,0.4);
+      animation: fadeSlideUp 0.5s 1s both;
+      transition: all 0.18s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .av-welcome-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(124,58,237,0.5); }
+    .av-welcome-btn:active { transform: scale(0.97); }
+
+    /* ─ Tela 2 Aventureiro — Escolha de Cor ── */
+    #screen-av-color {
+      background: linear-gradient(175deg, var(--blip-night) 0%, #0F172A 100%);
+    }
+
+    .av-color-header {
+      padding: 52px 28px 24px;
+      text-align: center;
+      position: relative;
+    }
+    .av-screen-step {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .av-step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+    }
+    .av-step-dot.active { background: var(--blip-orange); }
+
+    .av-color-prompt {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.35;
+    }
+    .av-color-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 6px;
+    }
+
+    .av-color-body {
+      padding: 8px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .av-color-option {
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.22s;
+      background: rgba(255,255,255,0.04);
+      position: relative;
+    }
+    .av-color-option:hover {
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.07);
+    }
+    .av-color-option.selected {
+      border-color: var(--opt-color);
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 0 1px var(--opt-color), inset 0 0 20px rgba(255,255,255,0.03);
+    }
+    .av-color-option.selected::after {
+      content: '✓';
+      position: absolute;
+      right: 16px;
+      width: 24px;
+      height: 24px;
+      background: var(--opt-color);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 900;
+      animation: checkPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    .av-color-swatch {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .av-color-info {}
+    .av-color-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .av-color-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 3px;
+    }
+
+    .av-color-next {
+      margin-top: auto;
+      width: 100%;
+      background: linear-gradient(135deg, #7C3AED, #4C1D95);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      opacity: 0.3;
+      pointer-events: none;
+      transition: all 0.25s;
+    }
+    .av-color-next.enabled {
+      opacity: 1;
+      pointer-events: auto;
+      box-shadow: 0 6px 20px rgba(124,58,237,0.4);
+    }
+    .av-color-next:active { transform: scale(0.97); }
+
+    /* ─ Tela 3 Aventureiro — Escolha de Personagem ── */
+    #screen-av-char {
+      background: linear-gradient(175deg, var(--blip-night) 0%, #0F172A 100%);
+    }
+
+    .av-char-header {
+      padding: 52px 28px 20px;
+      text-align: center;
+    }
+    .av-char-prompt {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .av-char-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 6px;
+    }
+
+    .av-char-body {
+      padding: 8px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .av-emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: 100%;
+    }
+    .av-emoji-btn {
+      aspect-ratio: 1;
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .av-emoji-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .av-emoji-btn:active { transform: scale(0.88); }
+    .av-emoji-btn.selected {
+      background: rgba(124,58,237,0.2);
+      border-color: #7C3AED;
+      transform: scale(1.08);
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.25), 0 8px 20px rgba(0,0,0,0.3);
+      animation: avEmojiPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    @keyframes avEmojiPop {
+      0% { transform: scale(0.9); }
+      60% { transform: scale(1.15); }
+      100% { transform: scale(1.08); }
+    }
+
+    .av-char-next {
+      margin-top: auto;
+      width: 100%;
+      background: linear-gradient(135deg, #7C3AED, #4C1D95);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      opacity: 0.3;
+      pointer-events: none;
+      transition: all 0.25s;
+    }
+    .av-char-next.enabled {
+      opacity: 1;
+      pointer-events: auto;
+      box-shadow: 0 6px 20px rgba(124,58,237,0.4);
+    }
+    .av-char-next:active { transform: scale(0.97); }
+
+    /* ─ Tela 4 Aventureiro — Celebração ── */
+    #screen-av-done {
+      background: linear-gradient(175deg, var(--blip-night) 0%, #0F172A 100%);
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Glow de fundo na celebração */
+    .av-done-glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,0.35) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      pointer-events: none;
+    }
+
+    .av-done-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 32px;
+      text-align: center;
+      gap: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    #av-done-char {
+      font-size: 80px;
+      animation: chosenCharBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      filter: drop-shadow(0 0 30px rgba(124,58,237,0.6));
+    }
+
+    .av-done-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 20px;
+      line-height: 1.3;
+      animation: fadeSlideUp 0.5s 0.4s both;
+    }
+    .av-done-title em {
+      font-style: normal;
+      background: linear-gradient(90deg, #F97316, #FBBF24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .av-done-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 8px;
+      animation: fadeSlideUp 0.5s 0.6s both;
+    }
+
+    /* XP inicial popup */
+    .av-done-xp-card {
+      margin-top: 24px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 16px 20px;
+      width: 100%;
+      animation: fadeSlideUp 0.5s 0.8s both;
+    }
+    .av-done-xp-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .av-done-xp-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .av-done-xp-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: #FBBF24;
+    }
+    .av-done-xp-bar {
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .av-done-xp-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #F97316, #FBBF24);
+      border-radius: 3px;
+      animation: xpFillIn 1.5s 1.2s ease both;
+    }
+    .av-done-xp-next {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 6px;
+      text-align: right;
+    }
+
+    /* Status cards */
+    .av-done-stats {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      margin-top: 12px;
+      animation: fadeSlideUp 0.5s 1s both;
+    }
+    .av-done-stat {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+    }
+    .av-done-stat-ico { font-size: 22px; }
+    .av-done-stat-val {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      display: block;
+      margin-top: 2px;
+    }
+    .av-done-stat-lbl {
+      font-size: 10px;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .av-done-btn {
+      margin-top: 24px;
+      width: 100%;
+      background: linear-gradient(135deg, #F97316, #DC7C23);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(249,115,22,0.4);
+      animation: fadeSlideUp 0.5s 1.2s both;
+      transition: all 0.18s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .av-done-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(249,115,22,0.5); }
+    .av-done-btn:active { transform: scale(0.97); }
+
+    /* ── Mascote SVG ──────────────────────────────────── */
+    /* definido inline via JS para reutilização */
+  </style>
+</head>
+<body>
+
+<canvas id="confeti-canvas"></canvas>
+
+<!-- ── Controles externos ──────────────────────────── -->
+<div class="outer-controls">
+  <p class="proto-label">Blip — Protótipo UX</p>
+  <p class="proto-title">Onboarding do Filho — Modelo A (Ritual de Chegada)</p>
+
+  <div class="profile-switcher">
+    <button class="profile-btn active" onclick="setProfile('pequenino')">Pequenino (4–6)</button>
+    <button class="profile-btn" onclick="setProfile('aventureiro')">Aventureiro (10–13)</button>
+  </div>
+
+  <div class="screen-nav" id="screen-nav"></div>
+</div>
+
+<!-- ── Device Shell ──────────────────────────────── -->
+<div class="device-shell">
+
+  <!-- ============================================================
+       TELA 0 — PAINEL DO PAI
+  ============================================================ -->
+  <div class="screen active" id="screen-pai">
+    <!-- Header do pai -->
+    <div class="pai-header">
+      <svg class="pai-header-mascote" viewBox="0 0 60 60" fill="none">
+        <!-- Mascote Blip — pose principal -->
+        <ellipse cx="30" cy="34" rx="18" ry="20" fill="#F97316"/>
+        <ellipse cx="21" cy="36" rx="7" ry="8" fill="#FED7AA"/>
+        <ellipse cx="39" cy="36" rx="7" ry="8" fill="#FED7AA"/>
+        <ellipse cx="30" cy="41" rx="12" ry="9" fill="#FED7AA"/>
+        <ellipse cx="18" cy="12" rx="7" ry="9" fill="#F97316"/>
+        <ellipse cx="42" cy="12" rx="7" ry="9" fill="#F97316"/>
+        <ellipse cx="30" cy="24" rx="17" ry="18" fill="#F97316"/>
+        <ellipse cx="23" cy="22" rx="5.5" ry="6.5" fill="white"/>
+        <ellipse cx="37" cy="22" rx="5.5" ry="6.5" fill="white"/>
+        <circle cx="24.5" cy="23" r="3.2" fill="#1A1040"/>
+        <circle cx="38.5" cy="23" r="3.2" fill="#1A1040"/>
+        <circle cx="25.5" cy="21.8" r="1.2" fill="white"/>
+        <circle cx="39.5" cy="21.8" r="1.2" fill="white"/>
+        <ellipse cx="21" cy="27" rx="4" ry="2.5" fill="#F97316" opacity="0.5"/>
+        <ellipse cx="39" cy="27" rx="4" ry="2.5" fill="#F97316" opacity="0.5"/>
+        <path d="M25.5 32 Q30 36 34.5 32" stroke="#1A1040" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="pai-header-text">
+        <h1>Painel — Bruno</h1>
+        <p>2 filhos · semana atual</p>
+      </div>
+    </div>
+
+    <div class="pai-body">
+
+      <!-- Filhos cadastrados -->
+      <div>
+        <p class="pai-section-label">Seus filhos</p>
+
+        <div class="filho-card" style="margin-top:8px">
+          <div class="filho-avatar pequenino">🌟</div>
+          <div class="filho-info">
+            <div class="filho-nome">Luna, 5 anos</div>
+            <div class="filho-perfil">Perfil Pequenino · 3 missões hoje</div>
+            <div class="filho-status ativo">● Ativo</div>
+          </div>
+        </div>
+
+        <div class="filho-card" style="margin-top:10px">
+          <div class="filho-avatar aventureiro" style="font-size:26px">🚀</div>
+          <div class="filho-info">
+            <div class="filho-nome">Pedro, 11 anos</div>
+            <div class="filho-perfil">Perfil Aventureiro · 4 missões hoje</div>
+            <div class="filho-status ativo">● Ativo</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card de ativação do ritual -->
+      <div>
+        <p class="pai-section-label">Personalização</p>
+
+        <div class="ritual-card" style="margin-top:8px">
+          <div class="ritual-card-badge">
+            <span>✦</span> NOVO
+          </div>
+          <h3 id="ritual-card-title">Ativar ritual de chegada para Luna</h3>
+          <p id="ritual-card-desc"><span id="ritual-card-childname">Luna</span> vai escolher a cor do tema e o personagem dela — apenas 2 toques. Entregue o celular depois.</p>
+          <button class="ritual-card-cta" onclick="showHandoff()">
+            🎉 Ativar ritual de chegada
+          </button>
+        </div>
+      </div>
+
+      <!-- Missões recentes (contexto do painel) -->
+      <div>
+        <p class="pai-section-label">Pendente de revisão</p>
+        <div style="background:#fff;border-radius:16px;padding:14px 16px;border:1.5px solid #F3F4F6;margin-top:8px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+          <span style="font-size:28px">🛁</span>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:700;color:#1A1040">Tomar banho</div>
+            <div style="font-size:12px;color:#9CA3AF;margin-top:2px">Pedro · há 20 min · 😐 Normal</div>
+          </div>
+          <button style="background:#F97316;color:#fff;border:none;border-radius:10px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer">Ver</button>
+        </div>
+      </div>
+
+    </div><!-- fim pai-body -->
+
+    <!-- Modal de instrução "entregue o celular" -->
+    <div class="handoff-overlay" id="handoff-overlay">
+      <div class="handoff-sheet">
+        <div class="handoff-handle"></div>
+        <span class="handoff-mascote">🐻</span>
+        <h2 class="handoff-title">Entregue o celular<br>para <span id="handoff-childname">Luna</span></h2>
+        <p class="handoff-subtitle">Ela vai escolher as cores e o<br>personagem dela em 2 toques.</p>
+        <button class="handoff-btn" onclick="startChildOnboarding()">
+          <span id="handoff-btn-text">Luna</span> está com o celular →
+        </button>
+        <button class="handoff-cancel" onclick="hideHandoff()">Cancelar</button>
+      </div>
+    </div>
+
+  </div><!-- fim screen-pai -->
+
+
+  <!-- ============================================================
+       TELA 1 — BOAS-VINDAS PEQUENINO
+  ============================================================ -->
+  <div class="screen pq-screen" id="screen-pq-welcome" data-profile="pequenino">
+
+    <!-- Estrelinhas de fundo -->
+    <div class="bg-stars" id="pq-bg-stars"></div>
+
+    <!-- Arco decorativo inferior -->
+    <svg class="pq-arcos" viewBox="0 0 420 260" fill="none">
+      <ellipse cx="210" cy="260" rx="260" ry="180" fill="#FFF7ED" opacity="0.6"/>
+      <ellipse cx="210" cy="300" rx="320" ry="220" fill="#FEF3C7" opacity="0.4"/>
+    </svg>
+
+    <div class="pq-welcome-content">
+      <!-- Mascote Blip grande, pose curiosidade (inclinado) -->
+      <svg class="mascote-grande mascote-bounce" viewBox="0 0 130 130" fill="none">
+        <!-- Orelhas -->
+        <ellipse cx="35" cy="28" rx="15" ry="18" fill="#F97316" transform="rotate(-15 35 28)"/>
+        <ellipse cx="95" cy="28" rx="15" ry="18" fill="#F97316" transform="rotate(15 95 28)"/>
+        <!-- Corpo-cabeça -->
+        <ellipse cx="65" cy="72" rx="40" ry="45" fill="#F97316"/>
+        <!-- Bochechas -->
+        <ellipse cx="42" cy="60" rx="16" ry="18" fill="#FED7AA"/>
+        <ellipse cx="88" cy="60" rx="16" ry="18" fill="#FED7AA"/>
+        <!-- Focinho -->
+        <ellipse cx="65" cy="82" rx="26" ry="20" fill="#FED7AA"/>
+        <!-- Olhos brancos -->
+        <ellipse cx="51" cy="55" rx="12" ry="14" fill="white"/>
+        <ellipse cx="79" cy="55" rx="12" ry="14" fill="white"/>
+        <!-- Pupilas -->
+        <circle cx="53" cy="57" r="7" fill="#1A1040"/>
+        <circle cx="81" cy="57" r="7" fill="#1A1040"/>
+        <!-- Brilhos -->
+        <circle cx="56" cy="54" r="2.5" fill="white"/>
+        <circle cx="84" cy="54" r="2.5" fill="white"/>
+        <!-- Bochechas cor-de-rosa -->
+        <ellipse cx="42" cy="68" rx="9" ry="5.5" fill="#F97316" opacity="0.45"/>
+        <ellipse cx="88" cy="68" rx="9" ry="5.5" fill="#F97316" opacity="0.45"/>
+        <!-- Sorriso aberto (curiosidade) -->
+        <path d="M52 82 Q65 94 78 82" stroke="#1A1040" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+        <!-- Língua -->
+        <ellipse cx="65" cy="90" rx="8" ry="5" fill="#FCA5A5"/>
+        <!-- Bracinho apontando direita -->
+        <ellipse cx="110" cy="85" rx="10" ry="6" fill="#F97316" transform="rotate(-30 110 85)"/>
+        <circle cx="117" cy="78" r="7" fill="#F97316"/>
+      </svg>
+
+      <div class="pq-nome" id="pq-welcome-nome">Luna!</div>
+
+      <div class="pq-welcome-emojis">
+        <span class="pq-welcome-emoji" style="--dur:3.2s;--delay:0s">⭐</span>
+        <span class="pq-welcome-emoji" style="--dur:2.8s;--delay:0.4s">🎉</span>
+        <span class="pq-welcome-emoji" style="--dur:3.5s;--delay:0.8s">✨</span>
+      </div>
+
+      <button class="pq-welcome-btn" onclick="goTo('screen-pq-color')">
+        Vamos lá! 🚀
+      </button>
+    </div>
+  </div><!-- fim screen-pq-welcome -->
+
+
+  <!-- ============================================================
+       TELA 2 — ESCOLHA DE COR PEQUENINO
+  ============================================================ -->
+  <div class="screen pq-screen" id="screen-pq-color" data-profile="pequenino">
+
+    <div class="pq-color-header">
+      <div class="pq-step-badge">
+        <span>1 de 2</span>
+      </div>
+      <div class="pq-color-prompt">Qual é a sua<br>cor favorita? 🎨</div>
+    </div>
+
+    <div class="pq-color-body">
+
+      <div class="pq-color-grid" id="pq-color-grid">
+
+        <div class="pq-color-option color-opt-purple" data-color="purple" onclick="selectColor(this,'purple')">
+          <div class="pq-color-circle" style="background:#7C3AED;">🔮</div>
+          <div>
+            <div class="pq-color-label">Roxo Mágico</div>
+            <div class="pq-color-sublabel">Floresta Encantada</div>
+          </div>
+        </div>
+
+        <div class="pq-color-option color-opt-green" data-color="green" onclick="selectColor(this,'green')">
+          <div class="pq-color-circle" style="background:#16A34A;">🌿</div>
+          <div>
+            <div class="pq-color-label">Verde Aventura</div>
+            <div class="pq-color-sublabel">Floresta Mágica</div>
+          </div>
+        </div>
+
+        <div class="pq-color-option color-opt-blue" data-color="blue" onclick="selectColor(this,'blue')">
+          <div class="pq-color-circle" style="background:#0EA5E9;">🌊</div>
+          <div>
+            <div class="pq-color-label">Azul Oceano</div>
+            <div class="pq-color-sublabel">Mundo das Águas</div>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="pq-color-next" id="pq-color-next" onclick="goTo('screen-pq-char')">
+        Próximo →
+      </button>
+    </div>
+  </div><!-- fim screen-pq-color -->
+
+
+  <!-- ============================================================
+       TELA 3 — ESCOLHA DO PERSONAGEM PEQUENINO
+  ============================================================ -->
+  <div class="screen pq-screen" id="screen-pq-char" data-profile="pequenino">
+
+    <div class="pq-char-header" id="pq-char-header">
+      <div class="pq-step-badge" style="background:rgba(255,255,255,0.25);color:#fff;">
+        2 de 2
+      </div>
+      <div class="pq-char-prompt">Escolha seu<br>personagem! 🎭</div>
+    </div>
+
+    <div class="pq-char-body">
+
+      <div class="pq-emoji-grid" id="pq-emoji-grid">
+        <button class="pq-emoji-btn" data-emoji="🚀" onclick="selectEmoji(this,'pq')">🚀</button>
+        <button class="pq-emoji-btn" data-emoji="🦊" onclick="selectEmoji(this,'pq')">🦊</button>
+        <button class="pq-emoji-btn" data-emoji="🐉" onclick="selectEmoji(this,'pq')">🐉</button>
+        <button class="pq-emoji-btn" data-emoji="🌟" onclick="selectEmoji(this,'pq')">🌟</button>
+        <button class="pq-emoji-btn" data-emoji="🎮" onclick="selectEmoji(this,'pq')">🎮</button>
+        <button class="pq-emoji-btn" data-emoji="🦁" onclick="selectEmoji(this,'pq')">🦁</button>
+        <button class="pq-emoji-btn" data-emoji="🐧" onclick="selectEmoji(this,'pq')">🐧</button>
+        <button class="pq-emoji-btn" data-emoji="🎯" onclick="selectEmoji(this,'pq')">🎯</button>
+        <button class="pq-emoji-btn" data-emoji="🔮" onclick="selectEmoji(this,'pq')">🔮</button>
+      </div>
+
+      <button class="pq-char-next" id="pq-char-next" onclick="goTo('screen-pq-done')">
+        Pronto! 🎉
+      </button>
+    </div>
+  </div><!-- fim screen-pq-char -->
+
+
+  <!-- ============================================================
+       TELA 4 — CELEBRAÇÃO PEQUENINO
+  ============================================================ -->
+  <div class="screen pq-screen" id="screen-pq-done" data-profile="pequenino">
+
+    <!-- Estrelinhas de fundo -->
+    <div class="bg-stars" id="pq-done-stars"></div>
+
+    <div class="pq-done-content">
+      <span id="pq-done-char">🚀</span>
+
+      <div class="pq-done-nome" id="pq-done-nome">Luna!</div>
+      <div class="pq-done-sub">Tudo pronto! ✨</div>
+
+      <div class="pq-done-emojis">
+        <span class="pq-done-e1">🎊</span>
+        <span class="pq-done-e2">⭐</span>
+        <span class="pq-done-e3">🎉</span>
+      </div>
+
+      <button class="pq-done-btn" onclick="goTo('screen-pai','left')">
+        Começar! →
+      </button>
+    </div>
+  </div><!-- fim screen-pq-done -->
+
+
+  <!-- ============================================================
+       TELA 1 — BOAS-VINDAS AVENTUREIRO
+  ============================================================ -->
+  <div class="screen" id="screen-av-welcome" data-profile="aventureiro">
+
+    <!-- Estrelas espaciais -->
+    <div class="space-stars" id="av-space-stars"></div>
+    <!-- Planeta decorativo -->
+    <div class="av-planet"></div>
+    <div class="av-planet-ring"></div>
+
+    <div class="av-welcome-content">
+      <div class="av-badge">
+        <div class="av-badge-dot"></div>
+        Espaço Infinito
+      </div>
+
+      <div class="av-rocket">🚀</div>
+
+      <h2 class="av-welcome-title">
+        Bem-vindo ao<br>
+        <span>Espaço Infinito</span>,<br>
+        <span id="av-welcome-nome">Pedro</span>!
+      </h2>
+      <p class="av-welcome-sub">
+        Personalize sua base de operações<br>antes de iniciar as missões.
+      </p>
+
+      <div class="av-xp-bar-container">
+        <div class="av-xp-label">
+          <span>XP · Nível 1</span>
+          <span>0 / 100 XP</span>
+        </div>
+        <div class="av-xp-bar">
+          <div class="av-xp-fill"></div>
+        </div>
+      </div>
+
+      <button class="av-welcome-btn" onclick="goTo('screen-av-color')">
+        ⚙️ Configurar minha base
+      </button>
+    </div>
+  </div><!-- fim screen-av-welcome -->
+
+
+  <!-- ============================================================
+       TELA 2 — ESCOLHA DE COR AVENTUREIRO
+  ============================================================ -->
+  <div class="screen" id="screen-av-color" data-profile="aventureiro">
+
+    <div class="av-color-header">
+      <div class="av-screen-step">
+        <div class="av-step-dot active"></div>
+        <div class="av-step-dot"></div>
+      </div>
+      <h2 class="av-color-prompt">Escolha o tema<br>da sua missão</h2>
+      <p class="av-color-sub">Define as cores do painel e dos cards de missão</p>
+    </div>
+
+    <div class="av-color-body">
+
+      <div class="av-color-option" data-color="purple" style="--opt-color:#7C3AED"
+           onclick="selectColorAv(this,'purple')">
+        <div class="av-color-swatch" style="background:linear-gradient(135deg,#7C3AED,#4C1D95)">🔮</div>
+        <div class="av-color-info">
+          <div class="av-color-name">Espaço Infinito</div>
+          <div class="av-color-desc">Roxo profundo · Missões galácticas</div>
+        </div>
+      </div>
+
+      <div class="av-color-option" data-color="green" style="--opt-color:#16A34A"
+           onclick="selectColorAv(this,'green')">
+        <div class="av-color-swatch" style="background:linear-gradient(135deg,#16A34A,#14532D)">🌿</div>
+        <div class="av-color-info">
+          <div class="av-color-name">Floresta Aventura</div>
+          <div class="av-color-desc">Verde intenso · Missões de sobrevivência</div>
+        </div>
+      </div>
+
+      <div class="av-color-option" data-color="blue" style="--opt-color:#0EA5E9"
+           onclick="selectColorAv(this,'blue')">
+        <div class="av-color-swatch" style="background:linear-gradient(135deg,#0EA5E9,#0C4A6E)">🌊</div>
+        <div class="av-color-info">
+          <div class="av-color-name">Oceano Descoberto</div>
+          <div class="av-color-desc">Azul profundo · Missões subaquáticas</div>
+        </div>
+      </div>
+
+      <button class="av-color-next" id="av-color-next" onclick="goTo('screen-av-char')">
+        Próximo →
+      </button>
+
+    </div>
+  </div><!-- fim screen-av-color -->
+
+
+  <!-- ============================================================
+       TELA 3 — ESCOLHA DO PERSONAGEM AVENTUREIRO
+  ============================================================ -->
+  <div class="screen" id="screen-av-char" data-profile="aventureiro">
+
+    <div class="av-char-header">
+      <div class="av-screen-step">
+        <div class="av-step-dot"></div>
+        <div class="av-step-dot active"></div>
+      </div>
+      <h2 class="av-char-prompt">Seu emblema de missão</h2>
+      <p class="av-char-sub">Aparece em todas as suas conquistas</p>
+    </div>
+
+    <div class="av-char-body">
+
+      <div class="av-emoji-grid">
+        <button class="av-emoji-btn" data-emoji="🚀" onclick="selectEmoji(this,'av')">🚀</button>
+        <button class="av-emoji-btn" data-emoji="🦊" onclick="selectEmoji(this,'av')">🦊</button>
+        <button class="av-emoji-btn" data-emoji="🐉" onclick="selectEmoji(this,'av')">🐉</button>
+        <button class="av-emoji-btn" data-emoji="🌟" onclick="selectEmoji(this,'av')">🌟</button>
+        <button class="av-emoji-btn" data-emoji="🎮" onclick="selectEmoji(this,'av')">🎮</button>
+        <button class="av-emoji-btn" data-emoji="🦁" onclick="selectEmoji(this,'av')">🦁</button>
+        <button class="av-emoji-btn" data-emoji="🐧" onclick="selectEmoji(this,'av')">🐧</button>
+        <button class="av-emoji-btn" data-emoji="🎯" onclick="selectEmoji(this,'av')">🎯</button>
+        <button class="av-emoji-btn" data-emoji="🔮" onclick="selectEmoji(this,'av')">🔮</button>
+      </div>
+
+      <button class="av-char-next" id="av-char-next" onclick="goTo('screen-av-done')">
+        Confirmar emblema
+      </button>
+
+    </div>
+  </div><!-- fim screen-av-char -->
+
+
+  <!-- ============================================================
+       TELA 4 — CELEBRAÇÃO AVENTUREIRO
+  ============================================================ -->
+  <div class="screen" id="screen-av-done" data-profile="aventureiro">
+
+    <div class="av-done-glow"></div>
+
+    <!-- Estrelas espaciais -->
+    <div class="space-stars" id="av-done-stars"></div>
+
+    <div class="av-done-content">
+
+      <span id="av-done-char">🚀</span>
+
+      <h2 class="av-done-title">
+        Missão iniciada!<br>
+        Bem-vindo ao <em>Espaço Infinito</em>.
+      </h2>
+      <p class="av-done-sub" id="av-done-sub">Agente Pedro está operacional.</p>
+
+      <div class="av-done-xp-card">
+        <div class="av-done-xp-row">
+          <span class="av-done-xp-label">XP total</span>
+          <span class="av-done-xp-val">0 XP</span>
+        </div>
+        <div class="av-done-xp-bar">
+          <div class="av-done-xp-fill"></div>
+        </div>
+        <div class="av-done-xp-next">100 XP para Nível 2</div>
+      </div>
+
+      <div class="av-done-stats">
+        <div class="av-done-stat">
+          <div class="av-done-stat-ico">🎯</div>
+          <span class="av-done-stat-val">0</span>
+          <div class="av-done-stat-lbl">Missões</div>
+        </div>
+        <div class="av-done-stat">
+          <div class="av-done-stat-ico">🏆</div>
+          <span class="av-done-stat-val">0</span>
+          <div class="av-done-stat-lbl">Conquistas</div>
+        </div>
+        <div class="av-done-stat">
+          <div class="av-done-stat-ico">🔥</div>
+          <span class="av-done-stat-val">0</span>
+          <div class="av-done-stat-lbl">Streak</div>
+        </div>
+      </div>
+
+      <button class="av-done-btn" onclick="goTo('screen-pai','left')">
+        🚀 Iniciar missões
+      </button>
+
+    </div>
+  </div><!-- fim screen-av-done -->
+
+</div><!-- fim device-shell -->
+
+<!-- ── Script ──────────────────────────────────────────── -->
+<script>
+'use strict';
+
+/* ══════════════════════════════════════════════════════
+   Estado global do protótipo
+══════════════════════════════════════════════════════ */
+let currentProfile = 'pequenino';
+let currentScreenId = 'screen-pai';
+
+let selectedColor  = null;   // 'purple' | 'green' | 'blue'
+let selectedEmoji  = null;   // emoji string
+let childName      = 'Luna'; // simulado
+
+/* ══════════════════════════════════════════════════════
+   Mapa de telas por perfil
+══════════════════════════════════════════════════════ */
+const SCREENS = {
+  pequenino:   ['screen-pai', 'screen-pq-welcome', 'screen-pq-color', 'screen-pq-char', 'screen-pq-done'],
+  aventureiro: ['screen-pai', 'screen-av-welcome', 'screen-av-color', 'screen-av-char', 'screen-av-done'],
+};
+
+const SCREEN_LABELS = {
+  'screen-pai':        '0 Pai (Ativação)',
+  'screen-pq-welcome': '1 Boas-vindas',
+  'screen-pq-color':   '2 Cor',
+  'screen-pq-char':    '3 Personagem',
+  'screen-pq-done':    '4 Celebração',
+  'screen-av-welcome': '1 Chegada',
+  'screen-av-color':   '2 Tema',
+  'screen-av-char':    '3 Emblema',
+  'screen-av-done':    '4 Missão Iniciada',
+};
+
+/* ══════════════════════════════════════════════════════
+   Navegação
+══════════════════════════════════════════════════════ */
+function goTo(screenId, direction = 'right') {
+  const current = document.getElementById(currentScreenId);
+  const next    = document.getElementById(screenId);
+  if (!next) return;
+
+  current.classList.remove('active', 'entering', 'entering-left', 'entering-fade');
+  next.classList.remove('entering', 'entering-left', 'entering-fade');
+
+  // Força reflow antes da animação
+  void next.offsetWidth;
+
+  next.style.display = '';
+  current.style.display = 'none';
+
+  const animClass = direction === 'right' ? 'entering' :
+                    direction === 'left'  ? 'entering-left' : 'entering-fade';
+
+  next.classList.add('active', animClass);
+  currentScreenId = screenId;
+
+  updateNav();
+
+  // Ações de entrada na tela
+  onScreenEnter(screenId);
+}
+
+function onScreenEnter(screenId) {
+  if (screenId === 'screen-pq-done') {
+    triggerConfetiPequenino();
+    // Preenche nome e emoji escolhido
+    const nameEl = document.getElementById('pq-done-nome');
+    const charEl = document.getElementById('pq-done-char');
+    if (nameEl) nameEl.textContent = childName + '!';
+    if (charEl) charEl.textContent = selectedEmoji || '🚀';
+  }
+  if (screenId === 'screen-av-done') {
+    triggerConfetiAventureiro();
+    const charEl = document.getElementById('av-done-char');
+    const subEl  = document.getElementById('av-done-sub');
+    if (charEl) charEl.textContent = selectedEmoji || '🚀';
+    if (subEl)  subEl.textContent  = 'Agente ' + childName + ' está operacional.';
+  }
+  if (screenId === 'screen-pai') {
+    // Exibe mensagem de confirmação após onboarding concluído
+    showConfirmationToast(childName);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   Nomes de exemplo por perfil
+══════════════════════════════════════════════════════ */
+const PROFILE_NAMES = {
+  pequenino:   'Luna',
+  aventureiro: 'Pedro',
+};
+
+function updateRitualCardNames(name) {
+  const els = [
+    document.getElementById('ritual-card-childname'),
+    document.getElementById('handoff-childname'),
+    document.getElementById('handoff-btn-text'),
+  ];
+  els.forEach(el => { if (el) el.textContent = name; });
+  const title = document.getElementById('ritual-card-title');
+  if (title) title.textContent = 'Ativar ritual de chegada para ' + name;
+}
+
+/* ══════════════════════════════════════════════════════
+   Toast de confirmação ao retornar para tela do pai
+══════════════════════════════════════════════════════ */
+function showConfirmationToast(name) {
+  // Remove toast anterior se existir
+  const existing = document.getElementById('confirm-toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.id = 'confirm-toast';
+  toast.textContent = '✅ ' + name + ' está pronto para começar!';
+  toast.style.cssText = [
+    'position:absolute',
+    'bottom:24px',
+    'left:50%',
+    'transform:translateX(-50%)',
+    'background:#10B981',
+    'color:#fff',
+    'font-family:Nunito,sans-serif',
+    'font-size:14px',
+    'font-weight:700',
+    'padding:12px 20px',
+    'border-radius:16px',
+    'box-shadow:0 4px 20px rgba(16,185,129,0.45)',
+    'white-space:nowrap',
+    'z-index:999',
+    'opacity:0',
+    'transition:opacity 0.3s ease',
+    'pointer-events:none',
+  ].join(';');
+
+  const pai = document.getElementById('screen-pai');
+  pai.appendChild(toast);
+
+  // Força reflow para animação
+  void toast.offsetWidth;
+  toast.style.opacity = '1';
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 350);
+  }, 3500);
+}
+
+/* ══════════════════════════════════════════════════════
+   Switcher de perfil
+══════════════════════════════════════════════════════ */
+function setProfile(profile) {
+  currentProfile = profile;
+  selectedColor  = null;
+  selectedEmoji  = null;
+
+  // Atualiza nome do filho simulado de acordo com o perfil
+  childName = PROFILE_NAMES[profile] || 'Luna';
+  updateRitualCardNames(childName);
+
+  // Botões ativos
+  document.querySelectorAll('.profile-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase().includes(profile.substring(0,6)));
+  });
+
+  // Volta para tela do pai
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active', 'entering', 'entering-left', 'entering-fade');
+    s.style.display = '';
+  });
+
+  // Reseta estado dos botões
+  resetColorButtons();
+  resetEmojiButtons();
+  document.getElementById('pq-color-next').classList.remove('enabled');
+  document.getElementById('pq-char-next').classList.remove('enabled');
+  document.getElementById('av-color-next').classList.remove('enabled');
+  document.getElementById('av-char-next').classList.remove('enabled');
+
+  currentScreenId = 'screen-pai';
+  document.getElementById('screen-pai').classList.add('active');
+  updateNav();
+}
+
+/* ══════════════════════════════════════════════════════
+   Navegação por tela (nav externa)
+══════════════════════════════════════════════════════ */
+function buildNav() {
+  const nav = document.getElementById('screen-nav');
+  nav.innerHTML = '';
+  const screens = SCREENS[currentProfile];
+  screens.forEach((sid, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = SCREEN_LABELS[sid] || sid;
+    btn.onclick = () => goTo(sid, i > screens.indexOf(currentScreenId) ? 'right' : 'left');
+    if (sid === currentScreenId) btn.classList.add('active');
+    nav.appendChild(btn);
+  });
+}
+
+function updateNav() {
+  const nav = document.getElementById('screen-nav');
+  const screens = SCREENS[currentProfile];
+  // Reconstrói se o perfil mudou
+  if (nav.children.length !== screens.length) {
+    buildNav();
+    return;
+  }
+  nav.querySelectorAll('button').forEach((btn, i) => {
+    btn.classList.toggle('active', screens[i] === currentScreenId);
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   Handoff overlay
+══════════════════════════════════════════════════════ */
+function showHandoff() {
+  document.getElementById('handoff-overlay').classList.add('visible');
+}
+function hideHandoff() {
+  document.getElementById('handoff-overlay').classList.remove('visible');
+}
+function startChildOnboarding() {
+  hideHandoff();
+  const firstScreen = currentProfile === 'pequenino' ? 'screen-pq-welcome' : 'screen-av-welcome';
+  goTo(firstScreen);
+}
+
+/* ══════════════════════════════════════════════════════
+   Seleção de cor — Pequenino
+══════════════════════════════════════════════════════ */
+const COLOR_VARS = {
+  purple: { active: '#7C3AED', light: '#EDE9FE', mid: '#8B5CF6' },
+  green:  { active: '#16A34A', light: '#DCFCE7', mid: '#22C55E' },
+  blue:   { active: '#0EA5E9', light: '#E0F2FE', mid: '#38BDF8' },
+};
+
+function selectColor(el, colorKey) {
+  resetColorButtons();
+  el.classList.add('selected');
+  selectedColor = colorKey;
+
+  // Atualiza variáveis CSS do tema
+  const c = COLOR_VARS[colorKey];
+  document.documentElement.style.setProperty('--theme-active',       c.active);
+  document.documentElement.style.setProperty('--theme-active-light', c.light);
+  document.documentElement.style.setProperty('--theme-active-mid',   c.mid);
+
+  // Habilita botão
+  document.getElementById('pq-color-next').classList.add('enabled');
+}
+
+function resetColorButtons() {
+  document.querySelectorAll('.pq-color-option').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('.av-color-option').forEach(o => o.classList.remove('selected'));
+}
+
+/* ══════════════════════════════════════════════════════
+   Seleção de cor — Aventureiro
+══════════════════════════════════════════════════════ */
+function selectColorAv(el, colorKey) {
+  resetColorButtons();
+  el.classList.add('selected');
+  selectedColor = colorKey;
+
+  const c = COLOR_VARS[colorKey];
+  document.documentElement.style.setProperty('--theme-active',       c.active);
+  document.documentElement.style.setProperty('--theme-active-light', c.light);
+  document.documentElement.style.setProperty('--theme-active-mid',   c.mid);
+
+  document.getElementById('av-color-next').classList.add('enabled');
+}
+
+/* ══════════════════════════════════════════════════════
+   Seleção de emoji
+══════════════════════════════════════════════════════ */
+function selectEmoji(el, profile) {
+  // Deseleciona todos do mesmo grid
+  const grid = el.closest('.pq-emoji-grid, .av-emoji-grid');
+  if (grid) grid.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+
+  el.classList.add('selected');
+  selectedEmoji = el.dataset.emoji;
+
+  // Habilita botão de avançar
+  if (profile === 'pq') {
+    document.getElementById('pq-char-next').classList.add('enabled');
+  } else {
+    document.getElementById('av-char-next').classList.add('enabled');
+  }
+}
+
+function resetEmojiButtons() {
+  document.querySelectorAll('.pq-emoji-btn, .av-emoji-btn').forEach(b => b.classList.remove('selected'));
+}
+
+/* ══════════════════════════════════════════════════════
+   Estrelinhas de fundo
+══════════════════════════════════════════════════════ */
+function generateBgStars(containerId, count, colors) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const star = document.createElement('div');
+    star.className = 'bg-star';
+    const size = Math.random() * 12 + 8;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    star.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      background:${color};
+      --dur:${(Math.random()*2+1.5).toFixed(1)}s;
+      --delay:${(Math.random()*3).toFixed(1)}s;
+    `;
+    container.appendChild(star);
+  }
+}
+
+function generateSpaceStars(containerId, count) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const star = document.createElement('div');
+    star.className = 'space-star';
+    const size = Math.random() * 3 + 1;
+    star.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      --dur:${(Math.random()*3+2).toFixed(1)}s;
+      --delay:${(Math.random()*4).toFixed(1)}s;
+      --opacity:${(Math.random()*0.6+0.3).toFixed(2)};
+    `;
+    container.appendChild(star);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   Confete — CSS puro + canvas manual
+══════════════════════════════════════════════════════ */
+const BLIP_COLORS = ['#F97316','#FBBF24','#10B981','#A78BFA','#FED7AA','#38BDF8','#F8F7FF'];
+
+let confetiParticles = [];
+let confetiAnimId    = null;
+
+function triggerConfetiPequenino() {
+  launchConfeti(120, 70);
+}
+function triggerConfetiAventureiro() {
+  launchConfeti(55, 55);
+}
+
+function launchConfeti(count, spread) {
+  const canvas = document.getElementById('confeti-canvas');
+  const ctx    = canvas.getContext('2d');
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  if (confetiAnimId) cancelAnimationFrame(confetiAnimId);
+  confetiParticles = [];
+
+  const originX = canvas.width  * 0.5;
+  const originY = canvas.height * 0.4;
+
+  for (let i = 0; i < count; i++) {
+    const angle  = ((Math.random() * spread * 2) - spread) * (Math.PI / 180);
+    const speed  = Math.random() * 8 + 4;
+    const color  = BLIP_COLORS[Math.floor(Math.random() * BLIP_COLORS.length)];
+    const isRect = Math.random() > 0.5;
+    confetiParticles.push({
+      x:      originX,
+      y:      originY,
+      vx:     Math.sin(angle) * speed,
+      vy:     -(Math.cos(angle) * speed + Math.random() * 4),
+      color,
+      alpha:  1,
+      rot:    Math.random() * 360,
+      rotV:   (Math.random() - 0.5) * 8,
+      size:   Math.random() * 8 + 5,
+      isRect,
+      gravity: 0.28,
+    });
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+    confetiParticles.forEach(p => {
+      if (p.alpha <= 0) return;
+      alive = true;
+      p.x  += p.vx;
+      p.y  += p.vy;
+      p.vy += p.gravity;
+      p.rot += p.rotV;
+      p.alpha -= 0.012;
+
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.alpha);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      if (p.isRect) {
+        ctx.fillRect(-p.size/2, -p.size/4, p.size, p.size/2);
+      } else {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.size/2, 0, Math.PI*2);
+        ctx.fill();
+      }
+      ctx.restore();
+    });
+    if (alive) {
+      confetiAnimId = requestAnimationFrame(animate);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+  confetiAnimId = requestAnimationFrame(animate);
+}
+
+/* ══════════════════════════════════════════════════════
+   Init
+══════════════════════════════════════════════════════ */
+(function init() {
+  // Estrelinhas de fundo
+  generateBgStars('pq-bg-stars', 18, ['#F97316','#FBBF24','#10B981','#A78BFA']);
+  generateBgStars('pq-done-stars', 22, ['#F97316','#FBBF24','#10B981','#A78BFA','#38BDF8']);
+  generateSpaceStars('av-space-stars', 80);
+  generateSpaceStars('av-done-stars', 60);
+
+  // Nav inicial
+  buildNav();
+
+  // Garante nomes corretos na carga inicial (perfil pequenino = Luna)
+  updateRitualCardNames(childName);
+})();
+</script>
+
+</body>
+</html>
